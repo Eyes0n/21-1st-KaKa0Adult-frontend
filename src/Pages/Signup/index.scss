@@ -49,6 +49,7 @@
             font-weight: normal;
             margin-top: 40px;
           }
+
           .emailBox {
             .emailLabel {
               width: 100%;
@@ -59,6 +60,7 @@
               display: block;
               font-size: 15px;
               cursor: pointer;
+
               .emailInput {
                 font-weight: 500;
                 width: 100%;
@@ -80,28 +82,18 @@
                   cursor: pointer;
                 }
               }
-
-              .emailTemp {
-                font-weight: 900;
-                display: block;
-                position: absolute;
-                top: 14px;
-                right: 0;
-                min-width: 55px;
-                text-align: right;
-                color: #7c7c7c;
-              }
-            }
-            .emailCautionLists {
-              margin-top: 22px;
-              color: #999;
-              font-size: 12px;
-
-              .emailCautionList {
-                margin-top: 4px;
-              }
             }
           }
+          .emailCautionLists {
+            margin-top: 22px;
+            color: #999;
+            font-size: 12px;
+
+            .emailCautionList {
+              margin-top: 4px;
+            }
+          }
+
           .pw {
             .pwTitle {
               display: block;
@@ -153,6 +145,7 @@
               font-weight: normal;
               margin-top: 40px;
             }
+
             .nicknameBox {
               .nicknameLabel {
                 width: 100%;
@@ -163,6 +156,7 @@
                 display: block;
                 font-size: 15px;
                 cursor: pointer;
+
                 .nicknameInput {
                   padding-right: 125px;
                   font-weight: 500;
@@ -179,6 +173,7 @@
                   caret-color: #f7e317;
                   text-decoration: none;
                   font-size: 18px;
+
                   &::placeholder {
                     line-height: 47px;
                     color: #8e8e8e;
@@ -197,6 +192,7 @@
               font-weight: normal;
               margin-top: 40px;
             }
+
             .phoneBox {
               .phoneLabel {
                 width: 100%;
@@ -207,6 +203,7 @@
                 display: block;
                 font-size: 15px;
                 cursor: pointer;
+
                 .phoneInput {
                   padding-right: 125px;
                   font-weight: 500;
@@ -223,6 +220,7 @@
                   caret-color: #f7e317;
                   text-decoration: none;
                   font-size: 18px;
+
                   &::placeholder {
                     line-height: 47px;
                     color: #8e8e8e;
@@ -241,6 +239,7 @@
               font-weight: normal;
               margin-top: 40px;
             }
+
             .birthdayBox {
               .birthdayLabel {
                 width: 100%;
@@ -251,6 +250,7 @@
                 display: block;
                 font-size: 15px;
                 cursor: pointer;
+
                 .dateBox {
                   display: flex;
                   padding-right: 125px;
@@ -267,9 +267,11 @@
                   box-sizing: border-box;
                   text-decoration: none;
                   font-size: 18px;
+
                   .yearSelect {
                     display: flex;
                     flex-grow: 1;
+
                     #birthYear {
                       background-color: #fff;
                       color: #252525;
@@ -279,9 +281,11 @@
                       margin-right: 4px;
                     }
                   }
+
                   .monthSelect {
                     display: flex;
                     flex-grow: 1;
+
                     #birthMonth {
                       background-color: #fff;
                       color: #252525;
@@ -291,9 +295,11 @@
                       margin-right: 4px;
                     }
                   }
+
                   .daySelect {
                     display: flex;
                     flex-grow: 1;
+
                     #birthDay {
                       background-color: #fff;
                       color: #252525;
@@ -314,6 +320,7 @@
               font-weight: normal;
               margin-top: 40px;
             }
+
             .genderBox {
               position: relative;
               display: flex;
@@ -355,6 +362,7 @@
           }
           .buttonBox {
             margin-top: 40px;
+
             .button {
               display: inline;
               width: 100%;
