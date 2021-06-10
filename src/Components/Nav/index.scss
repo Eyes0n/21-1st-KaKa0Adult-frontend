@@ -1,0 +1,285 @@
+.head {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 103;
+  background: #fff;
+
+  .innerHead {
+    .header {
+      max-width: 640px;
+      height: 47px;
+      position: relative;
+      margin: 0px auto;
+
+      .cartBtn {
+        width: 32px;
+        height: 32px;
+        margin: 8px 13px 7px 2px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        background-color: white;
+        outline: none;
+        line-height: 0;
+        border: 0 none;
+        vertical-align: middle;
+
+        .cartBtnLogo {
+          background-size: contain;
+          width: 100%;
+          height: 100%;
+          background-repeat: no-repeat;
+          background-position: center center;
+          display: block;
+          background: url('../../images/basketIcon.png') center center / 100%
+            no-repeat;
+          cursor: pointer;
+          line-height: 0;
+        }
+      }
+      .hamburgerBtn {
+        width: 32px;
+        height: 32px;
+        margin: 8px 3px 7px 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        outline: none;
+
+        .hamburgerBtnLogo {
+          background-size: 18px 18px;
+          width: 18px;
+          height: 18px;
+          background-image: url('../../images/hamburgerIcon.png');
+          background-repeat: no-repeat;
+          display: block;
+          color: transparent;
+        }
+
+        .hamburgerBtnBadge {
+          position: absolute;
+          top: 5.45px;
+          left: 66%;
+          width: 8px;
+          height: 8px;
+          margin-left: 0px;
+          border-radius: 100%;
+          display: block;
+          background-color: rgb(255, 85, 117);
+          color: rgb(255, 255, 255);
+          border: 1px solid rgb(255, 255, 255);
+        }
+      }
+      .searchModal {
+        z-index: 9999;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: rgb(255, 255, 255);
+        display: flex;
+        // display: none;
+        flex-direction: column;
+        align-items: center;
+
+        .searchForm {
+          width: 640px;
+          height: 70px;
+          display: flex;
+          flex: 0 0 auto;
+          max-width: 640px;
+
+          .searchInputWrap {
+            margin: 14px 0px 14px 20px;
+            flex: 1 1 0%;
+            position: relative;
+
+            .searchInput {
+              height: 42px;
+              border-radius: 21px;
+              padding: 13px 13px 13px 38px;
+              font-size: 16px;
+              background-position-x: 12px;
+              background-size: 18px 18px;
+              box-sizing: border-box;
+              width: 100%;
+              border: 0px;
+              background: url('../../images/search.png') 18px center / 18px
+                no-repeat rgb(239, 240, 244);
+              caret-color: rgb(200, 201, 204);
+            }
+            .resetBtn {
+              top: 12px;
+              right: 12px;
+              width: 18px;
+              height: 18px;
+              background-size: 18px;
+              position: absolute;
+              font-size: 1px;
+              background: url('../../images/icon_search_remove.png') 0% 0% /
+                18px no-repeat;
+            }
+          }
+          .searchCloseBtn {
+            width: 54px;
+            height: 70px;
+            font-size: 15px;
+            color: rgb(26, 26, 26);
+            font-weight: 500;
+            line-height: 1.47;
+          }
+        }
+        .searchBottomWrap {
+          width: 640px;
+          overflow: hidden auto;
+          border-top: 1px solid rgb(227, 229, 232);
+          max-width: 640px;
+
+          .searchResultWrap {
+            padding: 16.5px 0px 46px;
+            width: 640px;
+
+            .searchResult {
+              padding: 6.5px 20px;
+              font-size: 16px;
+              display: block;
+              color: rgb(26, 26, 26);
+            }
+          }
+          .charactersWrap {
+            padding: 15px 20px;
+
+            .charactersUI {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-around;
+
+              .charactersUIList {
+                margin: 8px 9px;
+                width: 70px;
+                height: 94px;
+
+                .charactersUILink {
+                  width: 71px;
+                  height: 71px;
+                  background-size: 71px;
+                  background: url('../../images/chracterIcon.png') center center /
+                    71px no-repeat;
+                  display: block;
+                  text-indent: -9999em;
+                  font-size: 1px;
+                }
+
+                .charactersName {
+                  width: 70px;
+                  height: 15px;
+                  padding-top: 8px;
+                  font-size: 12px;
+                  color: rgb(119, 119, 119);
+                  text-align: center;
+                }
+              }
+            }
+          }
+          .dividingLine {
+            margin: 0px 20px;
+            width: 600px;
+            border: none;
+            height: 1px;
+            color: rgb(242, 242, 242);
+            background-color: rgb(242, 242, 242);
+          }
+
+          .categoryTitle {
+            width: 79px;
+            height: 20px;
+            font-size: 15px;
+            letter-spacing: -0.23px;
+            margin-top: 22px;
+            margin-left: 20px;
+          }
+
+          .categoryHash {
+            padding: 8px 32px;
+            width: 640px;
+            display: flex;
+            overflow: auto hidden;
+            flex-wrap: wrap;
+
+            .categoryList {
+              padding: 8px 4px;
+              height: 29px;
+              flex: 0 0 auto;
+              box-sizing: unset;
+
+              .categoryLink {
+                line-height: 1;
+                padding: 6px 13px;
+                border-radius: 51.2px;
+                font-size: 14px;
+                display: inline-block;
+                border: 1px solid rgb(228, 228, 228);
+                background-color: #fff;
+                letter-spacing: -0.25px;
+                color: #000;
+              }
+            }
+          }
+        }
+      }
+      .searchBtn {
+        width: 32px;
+        height: 32px;
+        margin-top: 8px;
+        right: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: absolute;
+        left: auto;
+        top: 0;
+
+        .searchBtnLogo {
+          background-size: 18px 18px;
+          width: 18px;
+          height: 18px;
+          display: block;
+          background: url('../../images/search_main.png') center center / 18px
+            no-repeat;
+        }
+      }
+      .titleWrap {
+        width: 147px;
+        padding-top: 11px;
+        position: relative;
+        margin: 0px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .titleLink {
+          background-size: 147px 24px;
+          width: 147px;
+          height: 24px;
+          background-image: url('../../images/logo.png');
+          background-repeat: no-repeat;
+          display: block;
+          font-size: 1px;
+          line-height: 0;
+          color: transparent;
+        }
+      }
+    }
+  }
+}

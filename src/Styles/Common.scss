@@ -7,12 +7,57 @@ input,
 select,
 textarea,
 button {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   font-family: NotoSans-Regular, AppleSDGothicNeo-Regular, '맑은 고딕',
     Malgun Gothic, '돋움', dotum, sans-serif;
-  color: #7c7c7c;
+  color: #1e1e1e;
   letter-spacing: -0.03em;
   word-wrap: break-word;
   vertical-align: middle;
+}
+
+button {
+  outline: none;
+  line-height: 0;
+  border: 0 none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+th,
+td,
+input,
+select,
+textarea,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #1e1e1e;
+  text-decoration: none;
 }

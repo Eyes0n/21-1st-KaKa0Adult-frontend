@@ -1,7 +1,73 @@
 import React, { Component } from 'react';
 import './index.scss';
 
+const REGEXP = {
+  emailRegExp:
+    /[a-zA-Z0-9.-_+!]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,}(?:.[a-zA-Z0-9]{2,3})?/,
+  passwordRegExp: /[a-zA-Z0-9]{5,100}/,
+};
+
+const BIRTH_YEARS = Array(20)
+  .fill()
+  .map((v, i) => i + 1990);
+const BIRTH_MONTH = Array(12)
+  .fill()
+  .map((v, i) => i + 1);
+const BIRTH_DAY = Array(31)
+  .fill()
+  .map((v, i) => i + 1);
+
 export default class Singup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      nickname: '',
+      phone_number: '',
+      gender: '',
+      year: '',
+      month: '',
+      day: '',
+    };
+  }
+
+  validate = (value, regExp) => {
+    const reg = new RegExp(regExp);
+    return reg.test(value);
+  };
+
+  validateInputData = (id, pw) => {
+    return (
+      this.validate(id, REGEXP.emailRegExp) &&
+      this.validate(pw, REGEXP.passwordRegExp)
+    );
+  };
+
+  handleInput = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state);
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (!this.validateInputData(this.state.email, this.state.password)) return;
+    let response = fetch('http://10.58.3.32:8000/users/signup', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+        phone_number: this.state.phone_number,
+        nickname: this.state.nickname,
+        birth: `${this.state.year}.${this.state.month}.${this.state.day}`,
+        gender: this.state.gender,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => console.log('결과: ', result));
+    response.ok && this.props.history.push('/login');
+  };
+
   render() {
     return (
       <main className="signup">
@@ -12,19 +78,19 @@ export default class Singup extends Component {
           <section className="main">
             <div className="mainWrap">
               <h2 className="mainTitle">카카오계정 정보를 입력해 주세요.</h2>
-              <form className="mainForm">
+              <form className="mainForm" onSubmit={this.handleSubmit}>
                 <div className="email">
                   <strong className="emailTitle">카카오계정 이메일</strong>
                   <div className="emailBox">
-                    <label for="emailInput" className="emailLabel"></label>
-                    <input
-                      name="email"
-                      id="emailInput"
-                      type="text"
-                      placeholder="아이디 입력"
-                      maxLength="15"
-                    />
-                    <span className="emailTemp">@kakao.com</span>
+                    <label className="emailLabel">
+                      <input
+                        name="email"
+                        className="emailInput"
+                        type="text"
+                        placeholder="이메일 입력"
+                        onChange={this.handleInput}
+                      />
+                    </label>
                   </div>
                   <ul className="emailCautionLists">
                     <li className="emailCautionList">
@@ -35,6 +101,10 @@ export default class Singup extends Component {
                       신중히 확인해 주세요.
                     </li>
                     <li className="emailCautionList">
+                      ・ 이메일은 @포함, 비밀번호는 5글자 이상 작성 형식을
+                      지켜주세요.
+                    </li>
+                    <li className="emailCautionList">
                       ・ 생성한 카카오메일로 카카오계정과 관련한 알림을 받아볼
                       수 있습니다.
                     </li>
@@ -43,124 +113,88 @@ export default class Singup extends Component {
                 <div className="pw">
                   <strong className="pwTitle">비밀번호</strong>
                   <div className="pwBox">
-                    <label for="pwInput" className="pwLabel"></label>
-                    <input
-                      id="pwInput"
-                      type="password"
-                      name="password"
-                      placeholder="비밀번호(8~32자리)"
-                    />
+                    <label htmlFor="pwInput" className="pwLabel">
+                      <input
+                        className="pwInput"
+                        type="password"
+                        name="password"
+                        placeholder="비밀번호(8~32자리)"
+                        onChange={this.handleInput}
+                      />
+                    </label>
                   </div>
                 </div>
                 <div className="nickname">
                   <strong className="nicknameTitle">닉네임</strong>
                   <div className="nicknameBox">
-                    <label
-                      for="nicknameInput"
-                      className="nicknameLabel"
-                    ></label>
-                    <input
-                      id="nicknameInput"
-                      type="text"
-                      name="name"
-                      placeholder="닉네임을 입력해 주세요."
-                    />
+                    <label htmlFor="nicknameInput" className="nicknameLabel">
+                      <input
+                        className="nicknameInput"
+                        type="text"
+                        name="nickname"
+                        placeholder="닉네임을 입력해 주세요."
+                        onChange={this.handleInput}
+                      />
+                    </label>
                   </div>
                 </div>
                 <div className="phone">
                   <strong className="phoneTitle">전화번호</strong>
                   <div className="phoneBox">
-                    <label for="phoneInput" className="phoneLabel"></label>
-                    <input
-                      id="phoneInput"
-                      type="text"
-                      name="phone"
-                      placeholder="전화번호를 입력해 주세요."
-                    />
+                    <label htmlFor="phoneInput" className="phoneLabel">
+                      <input
+                        className="phoneInput"
+                        type="text"
+                        name="phone_number"
+                        placeholder="전화번호를 입력해 주세요."
+                        onChange={this.handleInput}
+                      />
+                    </label>
                   </div>
                 </div>
-
                 <div className="birthday">
                   <strong className="birthdayTitle">생일</strong>
                   <div className="birthdayBox">
-                    <label for="birthYear" className="birthLabel"></label>
-                    <div className="dateBox">
-                      <div className="yearSelect">
-                        <select name="year" id="birthYear">
-                          <option value="">연도</option>
-                          <option value="2007">2007</option>
-                          <option value="2006">2006</option>
-                          <option value="2005">2005</option>
-                          <option value="2004">2004</option>
-                          <option value="2003">2003</option>
-                          <option value="2002">2002</option>
-                          <option value="2001">2001</option>
-                          <option value="2000">2000</option>
-                          <option value="1999">1999</option>
-                          <option value="1998">1998</option>
-                          <option value="1997">1997</option>
-                          <option value="1996">1996</option>
-                          <option value="1995">1995</option>
-                          <option value="1994">1994</option>
-                          <option value="1993">1993</option>
-                          <option value="1992">1992</option>
-                          <option value="1991">1991</option>
-                        </select>
+                    <label className="birthdayLabel">
+                      <div className="dateBox">
+                        <div className="yearSelect">
+                          <select
+                            name="year"
+                            id="birthYear"
+                            onChange={this.handleInput}
+                          >
+                            <option value="">연도</option>
+                            {BIRTH_YEARS.map((el) => {
+                              return <option value={el}>{el}</option>;
+                            })}
+                          </select>
+                        </div>
+                        <div className="monthSelect">
+                          <select
+                            name="month"
+                            id="birthMonth"
+                            onChange={this.handleInput}
+                          >
+                            <option value="">월</option>
+                            {BIRTH_MONTH.map((el) => {
+                              return <option value={el}>{el}</option>;
+                            })}
+                          </select>
+                        </div>
+                        <div className="daySelect">
+                          <select
+                            name="day"
+                            id="birthDay"
+                            onChange={this.handleInput}
+                          >
+                            <option value="">일</option>
+                            {BIRTH_DAY.map((el) => {
+                              return <option value={el}>{el}</option>;
+                            })}
+                          </select>
+                        </div>
                       </div>
-                      <div className="monthSelect">
-                        <select name="month" id="birthMonth">
-                          <option value="">월</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                          <option value="11">11</option>
-                          <option value="12">12</option>
-                        </select>
-                      </div>
-                      <div className="daySelect">
-                        <select name="day" id="birthDay">
-                          <option value="">일</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                          <option value="11">11</option>
-                          <option value="12">12</option>
-                          <option value="13">13</option>
-                          <option value="14">14</option>
-                          <option value="15">15</option>
-                          <option value="16">16</option>
-                          <option value="17">17</option>
-                          <option value="18">18</option>
-                          <option value="19">19</option>
-                          <option value="20">20</option>
-                          <option value="21">21</option>
-                          <option value="22">22</option>
-                          <option value="23">23</option>
-                          <option value="24">24</option>
-                          <option value="25">25</option>
-                          <option value="26">26</option>
-                          <option value="27">27</option>
-                          <option value="28">28</option>
-                          <option value="29">29</option>
-                          <option value="30">30</option>
-                          <option value="31">31</option>
-                        </select>
-                      </div>
-                    </div>
+                    </label>
                   </div>
                 </div>
                 <div className="gender">
@@ -172,8 +206,9 @@ export default class Singup extends Component {
                         name="gender"
                         id="female"
                         value="female"
+                        onChange={this.handleInput}
                       />
-                      <label for="female" className="femaleLabel">
+                      <label htmlFor="female" className="femaleLabel">
                         여성
                       </label>
                     </div>
@@ -183,15 +218,26 @@ export default class Singup extends Component {
                         name="gender"
                         id="male"
                         value="male"
+                        onChange={this.handleInput}
                       />
-                      <label for="male" className="maleLabel">
+                      <label htmlFor="male" className="maleLabel">
                         남성
                       </label>
                     </div>
                   </div>
                 </div>
                 <div className="buttonBox">
-                  <button type="submit" className="button">
+                  <button
+                    className="button"
+                    type="submit"
+                    onClick={this.handleSubmit}
+                    disabled={
+                      !this.validateInputData(
+                        this.state.email,
+                        this.state.password,
+                      )
+                    }
+                  >
                     가입하기
                   </button>
                 </div>
