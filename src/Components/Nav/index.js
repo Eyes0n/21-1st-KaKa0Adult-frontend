@@ -44,7 +44,7 @@ export default class Nav extends Component {
               <span className="searchBtnLogo"></span>
             </button>
             <h1 className="titleWrap">
-              <Link className="titleLink" to="/"></Link>
+              <Link className="titleLink"></Link>
             </h1>
           </div>
         </div>

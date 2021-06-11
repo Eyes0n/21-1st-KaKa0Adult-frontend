@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import MainTab from '../../Components/MainTab';
+import MainTab from './Components/MainTab';
 import Nav from '../../Components/Nav';
 import './index.scss';
+import MyPage from './MyPage';
 
 export default class Main extends Component {
   render() {
@@ -13,6 +14,7 @@ export default class Main extends Component {
             <article className="article">
               <main className="indexBasketWrap">
                 <MainTab />
+                <MyPage />
               </main>
             </article>
           </div>

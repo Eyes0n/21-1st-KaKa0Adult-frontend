@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './index.scss';
 
 const REGEXP = {
@@ -17,7 +18,7 @@ const BIRTH_DAY = Array(31)
   .fill()
   .map((v, i) => i + 1);
 
-export default class Singup extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -249,3 +250,5 @@ export default class Singup extends Component {
     );
   }
 }
+
+export default withRouter(Signup);

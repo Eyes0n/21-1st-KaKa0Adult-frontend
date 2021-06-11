@@ -56,6 +56,20 @@
                   right: -10px;
                 }
               }
+              .active {
+                font-weight: 700;
+              }
+            }
+
+            .focusUnderline {
+              display: none;
+              width: 100%;
+              border-width: 4px 0px 0px;
+              margin-top: -4px;
+              border-top: 4px solid rgb(30, 30, 30);
+            }
+            .active {
+              display: block;
             }
           }
         }

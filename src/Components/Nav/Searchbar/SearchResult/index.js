@@ -6,9 +6,7 @@ export default class SearchResult extends Component {
     return (
       <ul className="searchResultWrap">
         <li>
-          <Link to="/" className="searchResult">
-            검색결과
-          </Link>
+          <Link className="searchResult">검색결과</Link>
         </li>
       </ul>
     );

@@ -10,7 +10,7 @@ export default class SearchCategory extends Component {
             {this.props.characters.map((character) => {
               return (
                 <li className="charactersUIList" key={character}>
-                  <Link to="/" className="charactersUILink"></Link>
+                  <Link className="charactersUILink"></Link>
                   <p className="charactersName">{character}</p>
                 </li>
               );

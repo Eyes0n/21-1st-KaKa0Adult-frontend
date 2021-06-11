@@ -37,8 +37,8 @@
           background-repeat: no-repeat;
           background-position: center center;
           display: block;
-          background: url('../../images/basketIcon.png') center center / 100%
-            no-repeat;
+          background: url('http://localhost:3000/images/basketIcon.png') center
+            center / 100% no-repeat;
           cursor: pointer;
           line-height: 0;
         }
@@ -59,7 +59,7 @@
           background-size: 18px 18px;
           width: 18px;
           height: 18px;
-          background-image: url('../../images/hamburgerIcon.png');
+          background-image: url('http://localhost:3000/images/hamburgerIcon.png');
           background-repeat: no-repeat;
           display: block;
           color: transparent;
@@ -114,8 +114,8 @@
               box-sizing: border-box;
               width: 100%;
               border: 0px;
-              background: url('../../images/search.png') 18px center / 18px
-                no-repeat rgb(239, 240, 244);
+              background: url('http://localhost:3000/images/search.png') 18px
+                center / 18px no-repeat rgb(239, 240, 244);
               caret-color: rgb(200, 201, 204);
             }
             .resetBtn {
@@ -126,8 +126,8 @@
               background-size: 18px;
               position: absolute;
               font-size: 1px;
-              background: url('../../images/icon_search_remove.png') 0% 0% /
-                18px no-repeat;
+              background: url('http://localhost:3000/images/icon_search_remove.png')
+                0% 0% / 18px no-repeat;
             }
           }
           .searchCloseBtn {
@@ -173,8 +173,8 @@
                   width: 71px;
                   height: 71px;
                   background-size: 71px;
-                  background: url('../../images/chracterIcon.png') center center /
-                    71px no-repeat;
+                  background: url('http://localhost:3000/images/chracterIcon.png')
+                    center center / 71px no-repeat;
                   display: block;
                   text-indent: -9999em;
                   font-size: 1px;
@@ -255,8 +255,8 @@
           width: 18px;
           height: 18px;
           display: block;
-          background: url('../../images/search_main.png') center center / 18px
-            no-repeat;
+          background: url('http://localhost:3000/images/search_main.png') center
+            center / 18px no-repeat;
         }
       }
       .titleWrap {
@@ -272,7 +272,7 @@
           background-size: 147px 24px;
           width: 147px;
           height: 24px;
-          background-image: url('../../images/logo.png');
+          background-image: url('http://localhost:3000/images/logo.png');
           background-repeat: no-repeat;
           display: block;
           font-size: 1px;
