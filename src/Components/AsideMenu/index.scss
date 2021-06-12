@@ -1,0 +1,32 @@
+.sideMenuWrap {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1000000;
+  transition: background 300ms ease-in-out 0s;
+
+  &.openBg {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.category {
+  padding: 16px 0px 36px 24px;
+
+  .categoryItem {
+    display: inline-block;
+    width: 175px;
+    border: none;
+    padding: 12px 0px;
+
+    .categoryLink {
+      height: 20px;
+      padding: 0;
+      font-size: 15px;
+      line-height: 1.33;
+      letter-spacing: -0.23px;
+      color: rgb(102, 102, 102);
+    }
+  }
+}

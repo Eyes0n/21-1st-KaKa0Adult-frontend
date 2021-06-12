@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
-import NewProducts from './Pages/NewProducts';
-import HotProducts from './Pages/HotProducts';
-import MyPage from './Pages/MyPage';
+import NewProducts from './Pages/Main/NewProducts';
+import HotProducts from './Pages/Main/HotProducts';
+import MyPage from './Pages/Main/MyPage';
 
 class Routes extends React.Component {
   render() {
