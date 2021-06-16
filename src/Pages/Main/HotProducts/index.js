@@ -65,14 +65,16 @@ export default class HotProducts extends Component {
       products: updatedProducts,
     });
 
-    if (products[updatedId - 1].cart) {
-      fetchPost(`${API}/users/cart/product`, { product_id: updatedId })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.status === 200) {
+    if (!products[updatedId - 1].cart) {
+      fetchPost(`${API}/orders/order-items`, {
+        product_id: updatedId,
+        count: 1,
+      })
+        .then((res) => {
+          if (res.status === 201) {
             alert('Add Cart Success');
           } else {
-            alert('Add Cart Fail');
+            alert('Add Cart Fail', res.message);
           }
         })
         .catch((error) => console.log(error.message));
@@ -81,7 +83,7 @@ export default class HotProducts extends Component {
 
   render() {
     const { products } = this.state;
-
+    console.log(products);
     return (
       <div className="hotGridWrap">
         <div className="hotGrid">
