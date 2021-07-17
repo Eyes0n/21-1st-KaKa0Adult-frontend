@@ -22,7 +22,7 @@
 
 ## 🐱‍👤 협업 Tool
 
-- Terello, Slack, Git-Hub
+- Trello, Slack, Git-Hub
 
 
 ## 👍🏻 구현 기능 상세
