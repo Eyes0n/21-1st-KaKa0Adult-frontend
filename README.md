@@ -2,6 +2,10 @@
 
 > ## 😎 Our Reference : https://www.kakaofriends.com/
 
+# 📎Project Video Link
+
+https://youtu.be/_XO0USXmh2Q
+
 ## 💬 프로젝트 개요
 밈 기반의 제품을 구매하고 심플한 UI를 경험할 수 있는 사이트 
 
