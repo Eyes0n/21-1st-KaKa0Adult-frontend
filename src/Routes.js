@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Character from './Pages/Character';
@@ -13,6 +18,7 @@ class Routes extends React.Component {
     return (
       <Router>
         <Switch>
+          <Redirect exact from="/" to="/products/newList" />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/products/newList" component={NewProducts} />
