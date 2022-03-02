@@ -11,7 +11,10 @@ export default class CategoryView extends Component {
             {characters.map((character) => {
               return (
                 <li className="charactersUIList" key={character.name}>
-                  <Link to="/" className="charactersUILink"></Link>
+                  <Link
+                    to={`/products/character/${character.name}`}
+                    className="charactersUILink"
+                  ></Link>
                   <p className="charactersName">{character.name}</p>
                 </li>
               );

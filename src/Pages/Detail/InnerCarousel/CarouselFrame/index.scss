@@ -8,7 +8,7 @@
     margin: auto;
     overflow-x: hidden;
 
-    .carouselList {
+    .innerCarouselList {
       position: relative;
       width: 2560px;
 
@@ -42,8 +42,8 @@
   }
   .btnPrev {
     display: none;
-    background: url('http://localhost:3000/images/arrow-left.png') center center /
-      16px no-repeat;
+    background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/arrow-left.png')
+      center center / 16px no-repeat;
     position: absolute;
     top: 50%;
     left: 20px;
@@ -53,8 +53,8 @@
   }
   .btnNext {
     display: none;
-    background: url('http://localhost:3000/images/arrow-right.png') center
-      center / 16px no-repeat;
+    background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/arrow-right.png')
+      center center / 16px no-repeat;
     position: absolute;
     top: 50%;
     right: 20px;

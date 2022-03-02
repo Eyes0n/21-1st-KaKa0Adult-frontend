@@ -31,8 +31,8 @@
     position: relative;
 
     .hamburgerBtnLogo {
-      background: url('http://localhost:3000/images/hamburgerIcon.png') center
-        center / 18px no-repeat;
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/hamburgerIcon.png')
+        center center / 18px no-repeat;
       @extend %BtnLogoSetting;
     }
 
@@ -60,7 +60,8 @@
       display: block;
       width: 147px;
       height: 24px;
-      background: url('http://localhost:3000/images/logo.png') no-repeat;
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/logo.png')
+        no-repeat;
       background-size: 147px 24px;
     }
   }
@@ -69,8 +70,8 @@
 
     .searchBtnLogo {
       @extend %BtnLogoSetting;
-      background: url('http://localhost:3000/images/search_main.png') center
-        center / 18px no-repeat;
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/search_main.png')
+        center center / 18px no-repeat;
     }
   }
 
@@ -82,8 +83,8 @@
       display: block;
       width: 100%;
       height: 100%;
-      background: url('http://localhost:3000/images/basketIcon.png') center
-        center / 32px no-repeat;
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/basketIcon.png')
+        center center / 32px no-repeat;
     }
   }
 }
@@ -113,8 +114,8 @@
       flex: 1 1 0%;
 
       .searchInput {
-        background: url('http://localhost:3000/images/search.png') 18px center /
-          18px no-repeat rgb(239, 240, 244);
+        background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/search.png')
+          18px center / 18px no-repeat rgb(239, 240, 244);
         background-position-x: 12px;
         width: 100%;
         height: 42px;
@@ -125,7 +126,7 @@
         caret-color: rgb(200, 201, 204);
       }
       .resetBtn {
-        background: url('http://localhost:3000/images/icon_search_remove.png')
+        background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/icon_search_remove.png')
           0% 0% / 18px no-repeat;
         position: absolute;
         top: 12px;
@@ -185,7 +186,7 @@
           height: 94px;
 
           .charactersUILink {
-            background: url('http://localhost:3000/images/chracterIcon.png')
+            background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/chracterIcon.png')
               center center / 71px no-repeat;
             display: block;
             width: 71px;

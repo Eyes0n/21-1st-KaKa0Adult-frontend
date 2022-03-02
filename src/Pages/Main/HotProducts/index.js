@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Nav from '../../../Components/Nav';
 import MainTab from '../Components/MainTab';
 import GridCard from './GridCard';
-import { API } from '../../../config';
+import { API, PRODUCT_API } from '../../../config';
 import { fetchDelete, fetchGet, fetchPost } from '../../../utils/fetches';
 import { hotData } from './hotData';
 import './index.scss';
@@ -17,9 +17,16 @@ export default class HotProducts extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      products: hotData.resultList,
-    });
+    fetchGet(`${PRODUCT_API}/products?order=hot&pageSize=16&page=1`)
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({
+          products: result.resultList,
+        });
+      });
+    // this.setState({
+    //   products: hotData.resultList,
+    // });
   }
 
   bringMenuId = (id) => {
@@ -60,7 +67,7 @@ export default class HotProducts extends Component {
     }
   };
 
-  onCart = (updatedId) => {
+  addToCart = (updatedId) => {
     const { products } = this.state;
     const updatedProducts = products.map((product) =>
       updatedId === product.id && product.cart === false
@@ -103,7 +110,7 @@ export default class HotProducts extends Component {
                 <GridCard
                   key={product.id}
                   product={product}
-                  onCart={this.onCart}
+                  addToCart={this.addToCart}
                   toggleProductLike={this.toggleProductLike}
                 />
               ))}
@@ -113,7 +120,7 @@ export default class HotProducts extends Component {
                 <GridCard
                   key={product.id}
                   product={product}
-                  onCart={this.onCart}
+                  addToCart={this.addToCart}
                   toggleProductLike={this.toggleProductLike}
                 />
               ))}
@@ -123,7 +130,7 @@ export default class HotProducts extends Component {
                 <GridCard
                   key={product.id}
                   product={product}
-                  onCart={this.onCart}
+                  addToCart={this.addToCart}
                   toggleProductLike={this.toggleProductLike}
                 />
               ))}

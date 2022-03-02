@@ -4,6 +4,7 @@ import ResultView from './ResultView';
 import { categoryData } from '../../../Data/categoryData';
 import { characterData } from '../../../Data/characterData';
 import { fetchGet } from '../../../utils/fetches';
+import { PRODUCT_API } from '../../../config';
 
 export default class Searchbar extends Component {
   constructor(props) {
@@ -15,9 +16,12 @@ export default class Searchbar extends Component {
   }
 
   setSearchKeyword = (e) => {
-    this.setState({
-      searchKeyword: e.target.value,
-    });
+    this.setState(
+      {
+        searchKeyword: e.target.value,
+      },
+      (e) => this.handleChangeInput(e),
+    );
   };
 
   handleReset = () => {
@@ -27,21 +31,25 @@ export default class Searchbar extends Component {
   };
 
   handleChangeInput(event) {
-    const searchKeyword = event.target.value;
+    // const searchKeyword = event.target.value;
 
-    if (!searchKeyword.length) {
-      this.handleReset();
-    }
-
-    fetchGet('', '').then((res) =>
-      this.setState({
-        searchResult: res.result,
-      }),
-    );
+    const { searchKeyword } = this.state;
+    !searchKeyword.length ? this.handleReset() : this.fetchSearchResult();
   }
 
+  fetchSearchResult = () => {
+    fetchGet(`${PRODUCT_API}/products?search=${this.state.searchKeyword}`)
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result.resultList);
+        this.setState({
+          searchResult: result.resultList,
+        });
+      });
+  };
+
   render() {
-    const { SearchKeyword, searchKeyword, searchResult } = this.state;
+    const { searchKeyword, searchResult } = this.state;
     const { searchbarOff } = this.props;
 
     return (
@@ -53,7 +61,7 @@ export default class Searchbar extends Component {
                 className="searchInput"
                 id="keyword"
                 name="keyword"
-                value={SearchKeyword}
+                value={searchKeyword}
                 onChange={this.setSearchKeyword}
                 autoComplete="off"
               />

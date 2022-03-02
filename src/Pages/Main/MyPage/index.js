@@ -4,7 +4,19 @@ import MainTab from '../Components/MainTab';
 import Cart from './Cart';
 import SubTab from './Components/SubTab';
 import Order from './Cart/Order';
+
 export default class Mypage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentId: '',
+    };
+  }
+
+  bringMenuId = (id) => {
+    this.setState({ currentId: id });
+  };
+
   render() {
     const { match } = this.props;
     console.log(match.params.keyword);
@@ -12,7 +24,7 @@ export default class Mypage extends Component {
     return (
       <>
         <Nav />
-        <MainTab />
+        <MainTab checkMenuId={this.bringMenuId} />
         <SubTab />
         {match.params.keyword === 'cart' && <Cart />}
         {match.params.keyword === 'order' && <Order />}

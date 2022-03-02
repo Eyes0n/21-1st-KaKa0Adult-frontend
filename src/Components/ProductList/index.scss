@@ -25,13 +25,13 @@
           top: 237px;
           width: 32px;
           z-index: 1;
-          background: url('http://localhost:3000/images/heart.png') center
-            center / cover no-repeat;
+          background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heart.png')
+            center center / cover no-repeat;
 
           &.addToLike {
             width: 32px;
-            background: url('http://localhost:3000/images/heartRed.png') center
-              center / cover no-repeat;
+            background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heartRed.png')
+              center center / cover no-repeat;
           }
 
           .likeBtn {
@@ -105,8 +105,8 @@
               display: inline-block;
               width: 61px;
               height: 22px;
-              background: url('http://localhost:3000/images/soldout.png') center
-                center / contain no-repeat;
+              background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/soldout.png')
+                center center / contain no-repeat;
             }
           }
         }
@@ -117,12 +117,12 @@
           height: 32px;
           right: 0px;
           top: 299px;
-          background: url('http://localhost:3000/images/cart.png') center center /
-            contain no-repeat;
+          background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/cart.png')
+            center center / contain no-repeat;
 
           &.addToCart {
-            background: url('http://localhost:3000/images/addToCart.png') center
-              center / contain no-repeat;
+            background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/addToCart.png')
+              center center / contain no-repeat;
           }
 
           .cartBtn {

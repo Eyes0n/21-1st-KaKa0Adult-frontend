@@ -5,7 +5,7 @@ import {
   fetchDelete,
   fetchGet,
 } from '../../../../utils/fetches.js';
-import { CART_API } from '../../../../config.js';
+import { CART_API, API } from '../../../../config';
 import CartList from './CartList';
 import './index.scss';
 
@@ -119,8 +119,8 @@ export default class Cart extends Component {
       order_item_id: event.target.dataset.id,
       select: event.target.className === 'fa-check-circle fas fill' ? 0 : 1,
     };
-    fetchPatch(`${CART_API}/orders/order-items`, select).then((res) =>
-      res.json(),
+    fetchPatch(`${CART_API}/orders/${event.target.dataset.id}`, select).then(
+      (res) => res.json(),
     );
   };
 

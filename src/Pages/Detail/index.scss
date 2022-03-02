@@ -5,7 +5,8 @@
 
 %downUpArrow {
   display: inline-block;
-  background: url('http://localhost:3000/images/sprite.png') no-repeat -30px -300px;
+  background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/sprite.png')
+    no-repeat -30px -300px;
   width: 16px;
   height: 9px;
 }
@@ -38,18 +39,19 @@
         width: 14px;
         height: 14px;
         margin: 0px 2.5px 2px;
-        background: url('http://localhost:3000/images/starOff.png') left center /
-          auto 100% no-repeat;
+        background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/starOff.png')
+          left center / auto 100% no-repeat;
 
         &.starOn {
-          background: url('http://localhost:3000/images/starOn.png') left center /
-            auto 100% no-repeat;
+          background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/starOn.png')
+            left center / auto 100% no-repeat;
         }
       }
     }
   }
 
   .detailContent {
+    width: 640px;
   }
 
   .detailInfo {
@@ -139,7 +141,8 @@
           width: 20px;
           height: 20px;
           margin-right: 5px;
-          background: url('http://localhost:3000/images/grayTalk.png') no-repeat;
+          background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/grayTalk.png')
+            no-repeat;
           background-size: 20px 20px;
         }
       }

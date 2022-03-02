@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { API } from '../../config';
+import { Link } from 'react-router-dom';
+import { API, USER_API } from '../../config';
 import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
 import Footer from './Footer';
@@ -33,19 +33,22 @@ class Login extends Component {
 
     if (!this.validateInputData(userId, userPw)) return;
 
-    fetchPost(`${API}/users/login`, {
+    fetchPost(`${USER_API}/users/login`, {
       email: userId,
       password: userPw,
     })
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.token) {
-          localStorage.setItem('token', res.token);
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        if (result.token) {
+          localStorage.setItem('token', result.token);
+          localStorage.setItem('user_name', result['user_name']);
+
           this.setState({
-            loggedUser: res.userInfo,
+            loggedUser: result.userInfo,
           });
 
-          this.props.history.push('/hotproducs');
+          this.props.history.push('/products/newList');
         }
       })
       .catch((error) => {
@@ -71,7 +74,10 @@ class Login extends Component {
                       이제 펫샵 계정으로 이용해 보세요!
                     </p>
                   </div>
-                  <img alt="login banner" src="/images/banner_login.png" />
+                  <img
+                    alt="login banner"
+                    src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/banner_login.png"
+                  />
                 </div>
                 <div className="formWrap">
                   <h1 className="logo">
@@ -100,15 +106,14 @@ class Login extends Component {
                           로그인 상태 유지
                         </label>
                       </div>
-                      <Link to="/" className="loginLink">
-                        <button
-                          className="loginBtn"
-                          disabled={!this.validateInputData(userId, userPw)}
-                          onClick={this.handleSubmit}
-                        >
-                          로그인
-                        </button>
-                      </Link>
+
+                      <button
+                        className="loginBtn"
+                        disabled={!this.validateInputData(userId, userPw)}
+                        onClick={this.handleSubmit}
+                      >
+                        로그인
+                      </button>
                     </form>
                   </div>
                   <div className="lineWrap">
@@ -116,13 +121,13 @@ class Login extends Component {
                     <span className="lineWord">또는</span>
                     <span className="line"></span>
                   </div>
-                  <Link to="/">
-                    <button className="qrBtn" type="button">
-                      QR코드 로그인
-                    </button>
-                  </Link>
+
+                  <button className="qrBtn" type="button">
+                    QR코드 로그인
+                  </button>
+
                   <div className="infoUser">
-                    <Link to="/">회원가입</Link>
+                    <Link to="/signup">회원가입</Link>
                     <div>
                       <Link to="/">카카오계정</Link>
                       <Link to="/">비밀번호 찾기</Link>
@@ -139,4 +144,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default Login;
