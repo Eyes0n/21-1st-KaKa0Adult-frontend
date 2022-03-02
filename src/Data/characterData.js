@@ -30,6 +30,3 @@ export const characterData = [
     name: '앵무새',
   },
 ];
-
-// req: /products?type='character/category/new/hot'&keyword='상품이름'
-// res: productId productInfo

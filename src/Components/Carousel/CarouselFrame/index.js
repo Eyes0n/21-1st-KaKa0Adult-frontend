@@ -20,6 +20,7 @@ export default class CarouselFrame extends Component {
         });
       });
   }
+
   render() {
     const { imgLists } = this.state;
     const { listTransform, listTransition, moveToPrev, moveToNext } =

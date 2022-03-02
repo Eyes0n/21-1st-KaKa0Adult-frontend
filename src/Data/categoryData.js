@@ -25,6 +25,3 @@ export const categoryData = [
     name: '집',
   },
 ];
-
-// req: /products?type='character/category/new/hot'&keyword='상품이름'
-// res: productId productInfo

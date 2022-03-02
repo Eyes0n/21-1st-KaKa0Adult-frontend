@@ -24,7 +24,11 @@ export default class Nav extends Component {
     const { isOpenAside } = this.state;
     const classList = [...e.target.classList];
 
-    if (!isOpenAside || classList.includes('sideMenuWrap')) {
+    if (
+      !isOpenAside ||
+      classList.includes('sideMenuWrap') ||
+      classList.includes('loginInOutBtn')
+    ) {
       this.setState({ isOpenAside: !isOpenAside });
     }
   };
@@ -50,7 +54,7 @@ export default class Nav extends Component {
                   <span className="hamburgerBtnBadge"></span>
                 </button>
                 <h1 className="titleWrap">
-                  <Link to="/" className="titleLink"></Link>
+                  <Link to="/products/newList" className="titleLink"></Link>
                 </h1>
                 <button
                   type="button"
@@ -59,9 +63,11 @@ export default class Nav extends Component {
                 >
                   <span className="searchBtnLogo"></span>
                 </button>
-                <button type="button" className="cartBtn">
-                  <span className="cartBtnLogo"></span>
-                </button>
+                <Link to="/mypage/cart">
+                  <button type="button" className="cartBtn">
+                    <span className="cartBtnLogo"></span>
+                  </button>
+                </Link>
               </div>
             </div>
           </header>

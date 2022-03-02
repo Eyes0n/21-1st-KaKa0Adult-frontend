@@ -48,7 +48,7 @@
         width: 27px;
         height: 27px;
         margin-right: 24px;
-        background: url('http://localhost:3000/images/alert-bell.jpg');
+        background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/alert-bell.jpg');
         background-size: 27px 27px;
       }
     }
@@ -75,12 +75,12 @@
     }
   }
 
-  .loginInOutBtn {
+  .loginInOut {
     height: 222px;
     padding-top: 24px;
     text-align: center;
 
-    a {
+    .loginInOutBtn {
       display: inline-block;
       height: 20px;
       margin-right: 6px;
@@ -88,6 +88,7 @@
       font-size: 14px;
       line-height: 2;
       letter-spacing: -0.22px;
+      cursor: pointer;
     }
   }
 }

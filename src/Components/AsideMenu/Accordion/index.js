@@ -8,7 +8,7 @@ class Accordion extends Component {
     this.state = { isShowList: false };
   }
 
-  toggleList = (e) => {
+  toggleList = () => {
     const { isShowList } = this.state;
     this.setState({ isShowList: !isShowList });
   };
@@ -29,11 +29,14 @@ class Accordion extends Component {
               {characters.length &&
                 characters.map((character) => (
                   <li key={character.id} className="characterItem">
-                    <Link to="/" className="characterLink">
+                    <Link
+                      to={`/products/character/${character.name}`}
+                      className="characterLink"
+                    >
                       <div className="character">
                         <img
                           className="characterImg"
-                          src="/images/PetCharacter.png"
+                          src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/PetCharacter.png"
                           alt={character.name}
                         />
                         <span className="characterSpan">{character.name}</span>
@@ -46,7 +49,7 @@ class Accordion extends Component {
             <ul className="category">
               {categories?.map((category) => (
                 <li key={category.id} className="categoryItem">
-                  <Link to="/" className="categoryLink">
+                  <Link to={`/products/category`} className="categoryLink">
                     {category.name}
                   </Link>
                 </li>

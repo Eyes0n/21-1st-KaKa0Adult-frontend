@@ -30,7 +30,7 @@ export default class CartList extends Component {
                 <img
                   className="thumbImage"
                   alt={item.name}
-                  src="/images/thumb.jpeg"
+                  src={item.image_url}
                 />
               </span>
             </span>

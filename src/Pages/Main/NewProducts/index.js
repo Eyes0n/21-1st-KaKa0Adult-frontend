@@ -20,19 +20,21 @@ export default class NewProducts extends Component {
 
   render() {
     return (
-      <article className="NewProducts">
+      <>
         <Nav />
-        <MainTab checkMenuId={this.bringMenuId} />
-        <Carousel />
-        <div className="wrapLists">
-          <div className="listsContainer">
-            <p className="subtitle">따끈따끈 새로나온</p>
-            <strong className="title">신상품</strong>
+        <article className="NewProducts">
+          <MainTab checkMenuId={this.bringMenuId} />
+          <Carousel />
+          <div className="wrapLists">
+            <div className="listsContainer">
+              <p className="subtitle">따끈따끈 새로나온</p>
+              <strong className="title">신상품</strong>
+            </div>
+            <ProductList />
           </div>
-          <ProductList />
-        </div>
-        <Footer />
-      </article>
+          <Footer />
+        </article>
+      </>
     );
   }
 }

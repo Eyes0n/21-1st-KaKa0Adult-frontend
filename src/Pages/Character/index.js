@@ -35,7 +35,7 @@ class Character extends Component {
   }
 
   onSelectCharacter = (name) => {
-    fetchGet(`${API}/products/character?search=${name}`);
+    fetchGet(`${API}/products?character=${name}`);
   };
 
   toggleFilterModal = (e) => {
@@ -80,7 +80,7 @@ class Character extends Component {
             <span className="bannerTitle">전체</span>
             <img
               className="DropBtn"
-              src="https://t1.kakaocdn.net/friends/new_store/2.0/mobile/ico_category_header_fold.png"
+              src="/images/bigdropdown.png"
               alt="dropbox"
             />
             <select>
@@ -116,7 +116,7 @@ class Character extends Component {
             </div>
           </div>
           <div className="listWrap">
-            <ProductList history={history} location={location} match={match} />
+            <ProductList />
           </div>
         </section>
         {/* footer */}

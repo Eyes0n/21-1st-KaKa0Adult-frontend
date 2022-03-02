@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { API } from '../../config';
+import { API, USER_API } from '../../config';
 import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
 import './index.scss';
@@ -49,7 +49,7 @@ class Signup extends Component {
 
     if (!this.validateInputData(this.state.email, this.state.password)) return;
 
-    fetchPost(API, {
+    fetchPost(`${USER_API}/users/signup`, {
       email,
       password,
       phone_number,

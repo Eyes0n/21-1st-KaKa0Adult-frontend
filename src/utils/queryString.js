@@ -10,3 +10,8 @@ export const queryString = (locationSearch) => {
 
   return qsObj;
 };
+
+export const matchParser = (match) => {
+  const arr = match.split('/');
+  return arr[arr.length - 1];
+};
