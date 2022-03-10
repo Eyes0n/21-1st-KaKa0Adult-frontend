@@ -1,37 +1,41 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { API, USER_API } from '../../config';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { USER_API } from '../../config';
 import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
-import Footer from './Footer';
-import './index.scss';
+import styles from './index.module.scss';
+import LoginFooter from '../../components/LoginFooter';
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+const Login = () => {
+  const [loginData, setLoginData] = useState({
+    userId: '',
+    userPw: '',
+    loggedUser: {},
+  });
+  const router = useRouter();
 
-    this.state = { userId: '', userPw: '', loggedUser: {} };
-  }
-
-  validateInputData = (id, pw) => {
+  const validateInputData = (id, pw) => {
     return (
       validate(id, REGEXP.emailRegExp) && validate(pw, REGEXP.passwordRegExp)
     );
   };
 
-  handleInput = (e) => {
+  const handleInput = (e) => {
     const { name, value } = e.target;
-    this.setState({
+    setLoginData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { userId, userPw } = this.state;
+    const { userId, userPw } = loginData;
 
-    if (!this.validateInputData(userId, userPw)) return;
+    if (validateInputData(userId, userPw)) return;
 
     fetchPost(`${USER_API}/users/login`, {
       email: userId,
@@ -44,11 +48,12 @@ class Login extends Component {
           localStorage.setItem('token', result.token);
           localStorage.setItem('user_name', result['user_name']);
 
-          this.setState({
+          setLoginData((prev) => ({
+            ...prev,
             loggedUser: result.userInfo,
-          });
+          }));
 
-          this.props.history.push('/products/newList');
+          router.push('/products/newList');
         }
       })
       .catch((error) => {
@@ -56,81 +61,102 @@ class Login extends Component {
       });
   };
 
-  render() {
-    const { userId, userPw } = this.state;
+  const { userId, userPw } = loginData;
 
-    return (
+  return (
+    <>
+      <main>
+        <div>login</div>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+      </main>
       <div>
-        <div className="loginPage">
-          <div className="loginContainer">
-            <div className="loginWrap">
-              <div className="loginBanner">
-                <div className="bannerWrap">
-                  <div className="info">
-                    <p className="strongTxt">Pet shop계정 하나로 충분합니다.</p>
-                    <p className="description">
+        <div className={styles.loginPage}>
+          <div className={styles.loginContainer}>
+            <div className={styles.loginWrap}>
+              <div className={styles.loginBanner}>
+                <div className={styles.bannerWrap}>
+                  <div className={styles.info}>
+                    <p className={styles.strongTxt}>
+                      Pet shop계정 하나로 충분합니다.
+                    </p>
+                    <p className={styles.description}>
                       Pet shop의 모든 서비스 뿐 아니라 Pelon, Paum등 다른 다양한
                       서비스까지 <br />
                       이제 펫샵 계정으로 이용해 보세요!
                     </p>
                   </div>
-                  <img
-                    alt="login banner"
-                    src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/banner_login.png"
-                  />
+                  <div className={styles.imageContainer}>
+                    <Image
+                      alt="login banner"
+                      src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/banner_login.png"
+                      width={540}
+                      height={600}
+                    />
+                  </div>
                 </div>
-                <div className="formWrap">
-                  <h1 className="logo">
+                <div className={styles.formWrap}>
+                  <h1 className={styles.logo}>
                     <p>Pet Shop</p>
                   </h1>
-                  <div className="formContainer">
-                    <form onSubmit={this.handleSubmit}>
+                  <div className={styles.formContainer}>
+                    <form onSubmit={handleSubmit}>
                       <input
                         type="text"
                         name="userId"
                         placeholder="메일 아이디, 이메일, 전화번호"
                         value={userId}
-                        onChange={this.handleInput}
+                        onChange={handleInput}
                       />
                       <input
                         type="password"
                         name="userPw"
                         placeholder="비밀번호"
                         value={userPw}
-                        onChange={this.handleInput}
+                        onChange={handleInput}
                       />
 
-                      <div className="keepLogin">
+                      <div className={styles.keepLogin}>
                         <label>
-                          <input type="checkbox" className="keepLoginInBox" />
+                          <input
+                            type="checkbox"
+                            className={styles.keepLoginInBox}
+                          />
                           로그인 상태 유지
                         </label>
                       </div>
 
                       <button
-                        className="loginBtn"
-                        disabled={!this.validateInputData(userId, userPw)}
-                        onClick={this.handleSubmit}
+                        className={styles.loginBtn}
+                        disabled={!validateInputData(userId, userPw)}
+                        onClick={handleSubmit}
                       >
                         로그인
                       </button>
                     </form>
                   </div>
-                  <div className="lineWrap">
-                    <span className="line"></span>
-                    <span className="lineWord">또는</span>
-                    <span className="line"></span>
+                  <div className={styles.lineWrap}>
+                    <span className={styles.line}></span>
+                    <span className={styles.lineWord}>또는</span>
+                    <span className={styles.line}></span>
                   </div>
 
-                  <button className="qrBtn" type="button">
+                  <button className={styles.qrBtn} type="button">
                     QR코드 로그인
                   </button>
 
-                  <div className="infoUser">
-                    <Link to="/signup">회원가입</Link>
+                  <div className={styles.infoUser}>
+                    <Link href="/signup">
+                      <a>회원가입</a>
+                    </Link>
                     <div>
-                      <Link to="/">카카오계정</Link>
-                      <Link to="/">비밀번호 찾기</Link>
+                      <Link href="/">
+                        <a>카카오계정</a>
+                      </Link>
+                      <Link href="/">
+                        <a>비밀번호 찾기</a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -138,10 +164,10 @@ class Login extends Component {
             </div>
           </div>
         </div>
-        <Footer />
+        {/* <LoginFooter /> */}
       </div>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default Login;

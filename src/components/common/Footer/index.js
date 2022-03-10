@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './index.scss';
+import { Link } from 'next/link';
+// import './index.scss';
 
 export default class Footer extends Component {
   constructor(props) {
@@ -24,19 +24,19 @@ export default class Footer extends Component {
         <section className="footerWrap">
           <div className="footerContainer">
             <div className="infoSection">
-              <Link to="/" className="infoLink">
+              <Link href="/" className="infoLink">
                 제휴문의
               </Link>
-              <Link to="/" className="infoLink">
+              <Link href="/" className="infoLink">
                 고객문의
               </Link>
-              <Link to="/" className="infoLink">
+              <Link href="/" className="infoLink">
                 이용약관
               </Link>
-              <Link to="/" className="infoLink">
+              <Link href="/" className="infoLink">
                 개인정보처리방침
               </Link>
-              <Link to="/" className="infoLink">
+              <Link href="/" className="infoLink">
                 지식재산권보호센터
               </Link>
             </div>

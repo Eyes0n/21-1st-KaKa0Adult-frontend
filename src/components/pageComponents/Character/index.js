@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ProductList from '../../Components/ProductList';
-import { API } from '../../config';
-import { categoryData } from '../../Data/categoryData';
-import { characterData } from '../../Data/characterData';
-import { fetchGet } from '../../utils/fetches';
+import ProductList from '../../ProductList';
+import { API } from '../../../config';
+import { categoryData } from '../../../Data/categoryData';
+import { characterData } from '../../../Data/characterData';
+import { fetchGet } from '../../../utils/fetches';
 
 import FilterModal from './FilterModal';
 import './index.scss';
