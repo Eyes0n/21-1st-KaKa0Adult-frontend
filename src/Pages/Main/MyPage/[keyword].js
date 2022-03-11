@@ -13,7 +13,16 @@ const OrderList = () => (
   </div>
 );
 
+const Wish = () => (
+  <div
+    style={{ display: 'flex', justifyContent: 'center', marginTop: '200px' }}
+  >
+    찜한 상품
+  </div>
+);
+
 const MAPPING_COMPONENT = {
+  wish: <Wish />,
   cart: <Cart />,
   payment: <Order />,
   orderlist: <OrderList />,

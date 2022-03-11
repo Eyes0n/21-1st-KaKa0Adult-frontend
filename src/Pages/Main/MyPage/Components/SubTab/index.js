@@ -3,13 +3,13 @@ import styles from './index.module.scss';
 import { useRouter } from 'next/router';
 
 const SUB_ARR = [
-  { name: '찜하다', params: 'choice' },
+  { name: '찜하다', params: 'wish' },
   { name: '장바구니', params: 'cart' },
   { name: '주문내역', params: 'orderlist' },
 ];
 
 const LINK_OBJ = {
-  찜하다: 'choice',
+  찜하다: 'wish',
   장바구니: 'cart',
   주문내역: 'orderlist',
 };
