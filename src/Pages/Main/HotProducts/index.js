@@ -5,7 +5,7 @@ import GridCard from './GridCard';
 import { API, PRODUCT_API } from '../../../config';
 import { fetchDelete, fetchGet, fetchPost } from '../../../utils/fetches';
 import { hotData } from './hotData';
-import './index.scss';
+import styles from './index.module.scss';
 
 export default class HotProducts extends Component {
   constructor() {
@@ -103,9 +103,9 @@ export default class HotProducts extends Component {
         <Nav />
         <MainTab checkMenuId={this.bringMenuId} />
 
-        <div className="hotGridWrap">
-          <div className="hotGrid">
-            <div className="sectionGrid1">
+        <div className={styles.hotGridWrap}>
+          <div className={styles.hotGrid}>
+            <div className={styles.sectionGrid1}>
               {products.slice(0, 3).map((product) => (
                 <GridCard
                   key={product.id}
@@ -115,7 +115,7 @@ export default class HotProducts extends Component {
                 />
               ))}
             </div>
-            <div className="sectionGrid2">
+            <div className={styles.sectionGrid2}>
               {products.slice(3, 9).map((product) => (
                 <GridCard
                   key={product.id}
@@ -125,7 +125,7 @@ export default class HotProducts extends Component {
                 />
               ))}
             </div>
-            <div className="sectionGrid3">
+            <div className={styles.sectionGrid3}>
               {products.slice(9, 12).map((product) => (
                 <GridCard
                   key={product.id}

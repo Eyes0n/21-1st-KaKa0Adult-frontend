@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import './index.scss';
+import { withRouter } from 'next/router';
 import OrderList from './OrderList';
 import OrderPrice from './OrderPrice';
 import { fetchPost } from '../../../../../utils/fetches';
 import { API } from '../../../../../config';
+import styles from './index.module.scss';
 
 export default withRouter(
   class Order extends Component {
@@ -56,12 +56,12 @@ export default withRouter(
         selectedItems.reduce((acc, item) => acc + item.price * item.count, 0),
       );
       return (
-        <div className="Order">
-          <form className="formWrap" onSubmit={this.handleSubmit}>
-            <section className="itemToOrder">
-              <h3 className="title">01 주문상품</h3>
-              <div className="contents">
-                <ul className="orderDetailList">
+        <div className={styles.Order}>
+          <form className={styles.formWrap} onSubmit={this.handleSubmit}>
+            <section className={styles.itemToOrder}>
+              <h3 className={styles.title}>01 주문상품</h3>
+              <div className={styles.contents}>
+                <ul className={styles.orderDetailList}>
                   {dataByCart.map((item, idx) => {
                     return (
                       <OrderList
@@ -75,15 +75,15 @@ export default withRouter(
                 <OrderPrice totalPrice={totalPrice} />
               </div>
             </section>
-            <section className="shippingInfo">
-              <h3 className="title">02 배송지정보</h3>
-              <div className="infoWrap">
-                <div className="subtitleContainer">
-                  <h4 className="subtitle">받는분</h4>
+            <section className={styles.shippingInfo}>
+              <h3 className={styles.title}>02 배송지정보</h3>
+              <div className={styles.infoWrap}>
+                <div className={styles.subtitleContainer}>
+                  <h4 className={styles.subtitle}>받는분</h4>
                 </div>
-                <div className="nameContainer">
+                <div className={styles.nameContainer}>
                   <input
-                    className="name"
+                    className={styles.name}
                     name="name"
                     type="text"
                     placeholder="이름"
@@ -91,9 +91,9 @@ export default withRouter(
                     value={this.state.name}
                   />
                 </div>
-                <div className="phoneContainer">
+                <div className={styles.phoneContainer}>
                   <input
-                    className="phone"
+                    className={styles.phone}
                     name="phone_number"
                     type="text"
                     placeholder="전화번호 (-없이 입력)"
@@ -101,9 +101,9 @@ export default withRouter(
                     value={this.state.phone_number}
                   />
                 </div>
-                <div className="addressContainer">
+                <div className={styles.addressContainer}>
                   <input
-                    className="address"
+                    className={styles.address}
                     name="address"
                     type="text"
                     placeholder="주소"
@@ -111,19 +111,19 @@ export default withRouter(
                     value={this.state.address}
                   />
                 </div>
-                <div className="requestContainer">
+                <div className={styles.requestContainer}>
                   <textarea
-                    className="request"
+                    className={styles.request}
                     name="request"
                     placeholder="배송 요청메시지가 있으시면 남겨주세요."
                     onChange={this.handleInput}
                     value={this.state.request}
                   ></textarea>
                 </div>
-                <div className="saveToMyInfoContainer">
-                  <label className="saveToMyInfoLabel">
+                <div className={styles.saveToMyInfoContainer}>
+                  <label className={styles.saveToMyInfoLabel}>
                     <input
-                      className="saveToMyInfoCheck"
+                      className={styles.saveToMyInfoCheck}
                       type="checkbox"
                       name="saveToMyInfo"
                       readOnly
@@ -131,14 +131,11 @@ export default withRouter(
                     내 정보 및 기본 배송지로 저장
                   </label>
                 </div>
-                <div className="noticeContainer">
-                  <div
-                    className="
-                intendedDday"
-                  >
+                <div className={styles.noticeContainer}>
+                  <div className={styles.intendedDday}>
                     <i className="fas fa-shuttle-van"></i> 6/16(수) 도착 예정
                   </div>
-                  <div className="para">
+                  <div className={styles.para}>
                     오후 3시 이전 주문시 당일 출고
                     <br />
                     출고 후 평균 1~2일 이내 수령
@@ -152,13 +149,13 @@ export default withRouter(
                 </div>
               </div>
             </section>
-            <section className="payment">
-              <h3 className="title">03 결제하기</h3>
-              <div className="paymentWrap">
+            <section className={styles.payment}>
+              <h3 className={styles.title}>03 결제하기</h3>
+              <div className={styles.paymentWrap}>
                 <OrderPrice totalPrice={totalPrice} />
-                <div className="payMethod">
-                  <h4 className="subtitle">결제수단 선택</h4>
-                  <div className="selectBox">
+                <div className={styles.payMethod}>
+                  <h4 className={styles.subtitle}>결제수단 선택</h4>
+                  <div className={styles.selectBox}>
                     <label htmlFor="kakaopay" className="">
                       카카오페이
                       <input id="kakaopay" type="radio" value="kakaopay" />
@@ -168,19 +165,19 @@ export default withRouter(
                       <input id="creditcard" type="radio" value="creditcard" />
                     </label>
                   </div>
-                  <div className="agreeBox">
-                    <label className="agreeToNotice">
-                      <input className="checkbox" type="checkbox" />
+                  <div className={styles.agreeBox}>
+                    <label className={styles.agreeToNotice}>
+                      <input className={styles.checkbox} type="checkbox" />
                       상품 주문 및 배송정보 수집에 동의합니다<span>[필수]</span>
                     </label>
-                    <label className="agreeToNotice">
-                      <input className="checkbox" type="checkbox" />
+                    <label className={styles.agreeToNotice}>
+                      <input className={styles.checkbox} type="checkbox" />
                       주문 상품의 명시내용과 사용조건을 확인하였으며, 취소환불
                       규정에 동의합니다<span>[필수]</span>
                     </label>
                   </div>
                   <div>
-                    <button type="submit" className="submitBtn">
+                    <button type="submit" className={styles.submitBtn}>
                       결제하기
                     </button>
                   </div>

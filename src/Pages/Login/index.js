@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { API, USER_API } from '../../config';
 import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
 import Footer from './Footer';
-import './index.scss';
+import styles from './index.module.scss';
 
 class Login extends Component {
   constructor(props) {
@@ -61,14 +61,16 @@ class Login extends Component {
 
     return (
       <div>
-        <div className="loginPage">
-          <div className="loginContainer">
-            <div className="loginWrap">
-              <div className="loginBanner">
-                <div className="bannerWrap">
-                  <div className="info">
-                    <p className="strongTxt">Pet shop계정 하나로 충분합니다.</p>
-                    <p className="description">
+        <div className={styles.loginPage}>
+          <div className={styles.loginContainer}>
+            <div className={styles.loginWrap}>
+              <div className={styles.loginBanner}>
+                <div className={styles.bannerWrap}>
+                  <div className={styles.info}>
+                    <p className={styles.strongTxt}>
+                      Pet shop계정 하나로 충분합니다.
+                    </p>
+                    <p className={styles.description}>
                       Pet shop의 모든 서비스 뿐 아니라 Pelon, Paum등 다른 다양한
                       서비스까지 <br />
                       이제 펫샵 계정으로 이용해 보세요!
@@ -79,11 +81,11 @@ class Login extends Component {
                     src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/banner_login.png"
                   />
                 </div>
-                <div className="formWrap">
-                  <h1 className="logo">
+                <div className={styles.formWrap}>
+                  <h1 className={styles.logo}>
                     <p>Pet Shop</p>
                   </h1>
-                  <div className="formContainer">
+                  <div className={styles.formContainer}>
                     <form onSubmit={this.handleSubmit}>
                       <input
                         type="text"
@@ -100,15 +102,18 @@ class Login extends Component {
                         onChange={this.handleInput}
                       />
 
-                      <div className="keepLogin">
+                      <div className={styles.keepLogin}>
                         <label>
-                          <input type="checkbox" className="keepLoginInBox" />
+                          <input
+                            type="checkbox"
+                            className={styles.keepLoginInBox}
+                          />
                           로그인 상태 유지
                         </label>
                       </div>
 
                       <button
-                        className="loginBtn"
+                        className={styles.loginBtn}
                         disabled={!this.validateInputData(userId, userPw)}
                         onClick={this.handleSubmit}
                       >
@@ -116,21 +121,27 @@ class Login extends Component {
                       </button>
                     </form>
                   </div>
-                  <div className="lineWrap">
-                    <span className="line"></span>
-                    <span className="lineWord">또는</span>
-                    <span className="line"></span>
+                  <div className={styles.lineWrap}>
+                    <span className={styles.line}></span>
+                    <span className={styles.lineWord}>또는</span>
+                    <span className={styles.line}></span>
                   </div>
 
-                  <button className="qrBtn" type="button">
+                  <button className={styles.qrBtn} type="button">
                     QR코드 로그인
                   </button>
 
-                  <div className="infoUser">
-                    <Link to="/signup">회원가입</Link>
+                  <div className={styles.infoUser}>
+                    <Link href="/signup">
+                      <a>회원가입</a>
+                    </Link>
                     <div>
-                      <Link to="/">카카오계정</Link>
-                      <Link to="/">비밀번호 찾기</Link>
+                      <Link href="/">
+                        <a>카카오계정</a>
+                      </Link>
+                      <Link href="/">
+                        <a>비밀번호 찾기</a>
+                      </Link>
                     </div>
                   </div>
                 </div>

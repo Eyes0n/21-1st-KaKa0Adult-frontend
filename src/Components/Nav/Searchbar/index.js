@@ -5,6 +5,7 @@ import { categoryData } from '../../../Data/categoryData';
 import { characterData } from '../../../Data/characterData';
 import { fetchGet } from '../../../utils/fetches';
 import { PRODUCT_API } from '../../../config';
+import styles from './index.module.scss';
 
 export default class Searchbar extends Component {
   constructor(props) {
@@ -54,11 +55,11 @@ export default class Searchbar extends Component {
 
     return (
       <>
-        <div className="searchModal">
-          <div className="searchForm">
-            <form className="searchInputWrap" onSubmit={this.handleReset}>
+        <div className={styles.searchModal}>
+          <div className={styles.searchForm}>
+            <form className={styles.earchInputWrap} onSubmit={this.handleReset}>
               <input
-                className="searchInput"
+                className={styles.searchInput}
                 id="keyword"
                 name="keyword"
                 value={searchKeyword}
@@ -67,16 +68,16 @@ export default class Searchbar extends Component {
               />
               <button
                 type="reset"
-                className="resetBtn"
+                className={styles.resetBtn}
                 onClick={this.handleReset}
               ></button>
             </form>
-            <button className="searchCloseBtn" onClick={searchbarOff}>
+            <button className={styles.searchCloseBtn} onClick={searchbarOff}>
               취소
             </button>
           </div>
 
-          <div className="searchBottomWrap">
+          <div className={searchBottomWrap}>
             {searchKeyword.length > 0 ? (
               // 검색결과가 있을 경우
               <ResultView

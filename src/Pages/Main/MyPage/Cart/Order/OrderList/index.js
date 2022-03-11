@@ -1,36 +1,42 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './index.scss';
+import Link from 'next/link';
+import styles from './index.module.scss';
 
 export default class OrderList extends Component {
   render() {
     const { item } = this.props;
     const price = Number(item.price).toLocaleString();
     return (
-      <li className="basketItemWrap" id={item.id}>
-        <label className="checkboxLabel"></label>
-        <div className="thumbWrap">
-          <Link to="/" className="linkThumb">
-            <span className="thumbContainer">
-              <span className="imgBox">
-                <img
-                  className="thumbImage"
-                  alt={item.name}
-                  src="/images/thumb.jpeg"
-                />
+      <li className={styles.basketItemWrap} id={item.id}>
+        <label className={styles.checkboxLabel}></label>
+        <div className={styles.thumbWrap}>
+          <Link href="/">
+            <a className={styles.linkThumb}>
+              <span className={styles.thumbContainer}>
+                <span className={styles.imgBox}>
+                  <img
+                    className={styles.thumbImage}
+                    alt={item.name}
+                    src="/images/thumb.jpeg"
+                  />
+                </span>
               </span>
-            </span>
+            </a>
           </Link>
         </div>
-        <div className="itemInfo">
-          <div className="titleWrap">
-            <div className="itemtitle">{item.name}</div>
+        <div className={styles.itemInfo}>
+          <div className={styles.titleWrap}>
+            <div className={styles.itemtitle}>{item.name}</div>
           </div>
-          <div className="specWrap">
-            <div className="countWrap">
-              <input value={`${item.count}`} readOnly className="qtyDp" />
+          <div className={styles.specWrap}>
+            <div className={styles.countWrap}>
+              <input
+                value={`${item.count}`}
+                readOnly
+                className={styles.qtyDp}
+              />
             </div>
-            <div className="priceWrap">
+            <div className={styles.priceWrap}>
               <span>{price}원</span>
             </div>
           </div>

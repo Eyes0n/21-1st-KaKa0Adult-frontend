@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './index.scss';
+import Link from 'next/link';
+import styles from './index.module.scss';
 
 class Accordion extends Component {
   constructor() {
@@ -19,38 +19,44 @@ class Accordion extends Component {
 
     return (
       <>
-        <button className="accordionBtn" onClick={this.toggleList}>
+        <button className={styles.accordionBtn} onClick={this.toggleList}>
           {title}
-          <span className={`arrow ${isShowList && 'rotate'}`}></span>
+          <span
+            className={`${styles.arrow} ${isShowList ? styles.rotate : ''}`}
+          ></span>
         </button>
         {isShowList &&
           (type === 'character' ? (
-            <ul className="characters">
+            <ul className={styles.characters}>
               {characters.length &&
                 characters.map((character) => (
-                  <li key={character.id} className="characterItem">
+                  <li key={character.id} className={styles.characterItem}>
                     <Link
-                      to={`/products/character/${character.name}`}
-                      className="characterLink"
+                      href={`/products/character/${character.name}`}
+                      className={styles.characterLink}
                     >
-                      <div className="character">
-                        <img
-                          className="characterImg"
-                          src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/PetCharacter.png"
-                          alt={character.name}
-                        />
-                        <span className="characterSpan">{character.name}</span>
-                      </div>
+                      <a>
+                        <div className={styles.character}>
+                          <img
+                            className={characterImg}
+                            src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/PetCharacter.png"
+                            alt={character.name}
+                          />
+                          <span className={styles.characterSpan}>
+                            {character.name}
+                          </span>
+                        </div>
+                      </a>
                     </Link>
                   </li>
                 ))}
             </ul>
           ) : (
-            <ul className="category">
+            <ul className={styles.category}>
               {categories?.map((category) => (
-                <li key={category.id} className="categoryItem">
-                  <Link to={`/products/category`} className="categoryLink">
-                    {category.name}
+                <li key={category.id} className={styles.categoryItem}>
+                  <Link href={`/products/category`}>
+                    <a className={styles.categoryLink}>{category.name}</a>
                   </Link>
                 </li>
               ))}

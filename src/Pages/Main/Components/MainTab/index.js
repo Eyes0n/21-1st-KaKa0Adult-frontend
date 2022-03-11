@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './index.scss';
+import Link from 'next/link';
+import styles from './index.module.scss';
 
 export default class MainTab extends Component {
   constructor(props) {
@@ -20,21 +20,23 @@ export default class MainTab extends Component {
     const { currentId } = this.state;
 
     return (
-      <div className="mainTabWrap">
-        <ul className="mainTabUI">
+      <div className={styles.mainTabWrap}>
+        <ul className={styles.mainTabUI}>
           {CATEGORY_ARR.map((category, idx) => {
             return (
-              <li className="tabList" key={category}>
+              <li className={styles.tabList} key={category}>
                 <Link
                   to={`${PAGE_ARR[idx]}`}
                   onClick={() => {
                     this.setCurrentId(idx);
                   }}
                 >
-                  <div className="tabItem">
+                  <div className={styles.tabItem}>
                     <span
                       className={
-                        currentId === idx ? 'tabName active' : 'tabName'
+                        currentId === idx
+                          ? `${styles.tabName} ${styles.active}`
+                          : styles.tabName
                       }
                     >
                       {category}
@@ -42,7 +44,7 @@ export default class MainTab extends Component {
                   </div>
                 </Link>
                 <hr
-                  className="focusUnderline"
+                  className={styles.focusUnderline}
                   // className={
                   //   currentId === idx
                   //     ? 'focusUnderline active'

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import ProductList from '../../Components/ProductList';
+import FilterModal from './FilterModal';
 import { API } from '../../config';
 import { categoryData } from '../../Data/categoryData';
 import { characterData } from '../../Data/characterData';
 import { fetchGet } from '../../utils/fetches';
-
-import FilterModal from './FilterModal';
-import './index.scss';
+import styles from './index.module.scss';
 
 class Character extends Component {
   constructor() {
@@ -74,12 +73,11 @@ class Character extends Component {
 
     return (
       <>
-        {/* nav */}
-        <section className="characterWrap">
-          <div className="bannerWrap">
-            <span className="bannerTitle">전체</span>
+        <section className={styles.characterWrap}>
+          <div className={styles.bannerWrap}>
+            <span className={styles.bannerTitle}>전체</span>
             <img
-              className="DropBtn"
+              className={styles.DropBtn}
               src="/images/bigdropdown.png"
               alt="dropbox"
             />
@@ -94,28 +92,31 @@ class Character extends Component {
               ))}
             </select>
           </div>
-          <div className="filterWrap">
-            <div className="filter">
-              <div className="filterName" onClick={this.toggleFilterModal}>
+          <div className={styles.filterWrap}>
+            <div className={styles.filter}>
+              <div
+                className={styles.filterName}
+                onClick={this.toggleFilterModal}
+              >
                 <span>{filteringName}</span>
                 <img src="/images/dropdown.png" alt="dropdown" />
               </div>
             </div>
-            <div className="filteredInfo">
-              <div className="filterTxt">
+            <div className={styles.filteredInfo}>
+              <div className={styles.filterTxt}>
                 <span>총</span>
                 <span>328</span>
                 <span>개</span>
               </div>
-              <div className="filterCheckBox">
+              <div className={styles.filterCheckBox}>
                 <img src="/images/checkIcon.png" alt="체크" />
-                <span className="filterGlobaltxt">
+                <span className={styles.filterGlobaltxt}>
                   글로벌 배송 가능상품 보기
                 </span>
               </div>
             </div>
           </div>
-          <div className="listWrap">
+          <div className={styles.listWrap}>
             <ProductList />
           </div>
         </section>

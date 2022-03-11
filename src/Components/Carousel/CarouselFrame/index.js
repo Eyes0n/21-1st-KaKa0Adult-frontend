@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CarouselList from '../CarouselList';
-import './index.scss';
+import styles from './index.module.scss';
 
 const CARD_WIDTH = 640;
 
@@ -26,10 +26,10 @@ export default class CarouselFrame extends Component {
     const { listTransform, listTransition, moveToPrev, moveToNext } =
       this.props;
     return (
-      <div className="frameWrap">
-        <div className="frameContainer">
+      <div className={styles.frameWrap}>
+        <div className={styles.frameContainer}>
           <div
-            className="carouselList"
+            className={styles.carouselList}
             style={{
               transform: `translateX(${listTransform}px)`,
               transition: `${listTransition}`,
@@ -48,10 +48,18 @@ export default class CarouselFrame extends Component {
             })}
           </div>
         </div>
-        <button type="button" className="btnPrev" onClick={moveToPrev}></button>
-        <button type="button" className="btnNext" onClick={moveToNext}></button>
-        <div className="countNumBox">
-          <span className="countNum">
+        <button
+          type="button"
+          className={styles.btnPrev}
+          onClick={moveToPrev}
+        ></button>
+        <button
+          type="button"
+          className={styles.btnNext}
+          onClick={moveToNext}
+        ></button>
+        <div className={styles.countNumBox}>
+          <span className={styles.countNum}>
             <span>
               {listTransform === 0
                 ? 1

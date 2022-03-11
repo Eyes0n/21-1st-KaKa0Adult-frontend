@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CarouselFrame from './CarouselFrame';
-import './index.scss';
+import styles from './index.module.scss';
 
 const CARD_WIDTH = 640;
 const INTERVAL = 4000;
@@ -56,8 +56,8 @@ export default class Carousel extends Component {
     const { listTransition, listTransform } = this.state;
     const { moveToPrev, moveToNext } = this;
     return (
-      <div className="Carousel">
-        <section className="carouselWrap">
+      <div className={styles.Carousel}>
+        <section className={styles.carouselWrap}>
           <CarouselFrame
             listTransform={listTransform}
             listTransition={listTransition}

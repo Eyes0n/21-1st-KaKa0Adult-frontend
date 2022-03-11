@@ -3,9 +3,9 @@ import Product from '../Product';
 import { newProductData } from './newProductData';
 import { fetchDelete, fetchGet, fetchPost } from '../../utils/fetches';
 import { USER_API, CART_API, PRODUCT_API } from '../../config';
-import './index.scss';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'next/router';
 import { matchParser } from '../../utils/queryString';
+import styles from './index.module.scss';
 
 class ProductList extends Component {
   constructor() {
@@ -127,10 +127,10 @@ class ProductList extends Component {
     console.log('l', location);
 
     return (
-      <div className="ProductWrap">
-        <ul className="itemUl">
+      <div className={styles.ProductWrap}>
+        <ul className={styles.itemUl}>
           {products.map((product, i) => (
-            <li className="itemLi" key={product.id}>
+            <li className={styles.itemLi} key={product.id}>
               <Product
                 index={i}
                 product={product}

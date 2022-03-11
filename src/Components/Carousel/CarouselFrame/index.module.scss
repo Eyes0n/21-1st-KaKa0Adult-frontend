@@ -13,33 +13,6 @@
       position: relative;
       width: 3840px;
       height: 100%;
-
-      .slideContent {
-        position: relative;
-        display: table;
-        float: left;
-
-        img {
-          width: 640px;
-          height: 360px;
-        }
-
-        .titleContents {
-          position: absolute;
-          color: #fff;
-          left: 5%;
-          top: 75%;
-
-          .title {
-            font-size: 24px;
-            font-weight: bold;
-          }
-
-          .subtitle {
-            font-size: 16px;
-          }
-        }
-      }
     }
   }
   .btnPrev {

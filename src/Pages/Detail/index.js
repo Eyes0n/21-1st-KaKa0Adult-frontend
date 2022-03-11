@@ -3,7 +3,7 @@ import InnerCarousel from './InnerCarousel';
 import Nav from '../../Components/Nav';
 import { fetchGet, fetchPost } from '../../utils/fetches';
 import { API } from '../../config';
-import './index.scss';
+import styles from './index.module.scss';
 
 class Detail extends Component {
   constructor(props) {
@@ -72,53 +72,58 @@ class Detail extends Component {
     return (
       <main>
         <Nav />
-        <div className="detailWrap">
+        <div className={styles.detailWrap}>
           <InnerCarousel imgData={product} />
-          <div className="detailHeader">
-            <h2 className="detailTitle">{product.name}</h2>
-            <p className="detailPrice">
+          <div className={styles.detailHeader}>
+            <h2 className={styles.detailTitle}>{product.name}</h2>
+            <p className={styles.detailPrice}>
               <span>{product.price}</span>원
             </p>
-            <div className="starGrade">
+            <div className={styles.starGrade}>
               {starArr.map((star) =>
                 star < starPoint ? (
-                  <span key={star} className="star starOn"></span>
+                  <span
+                    key={star}
+                    className={`${styles.star} ${styles.starOn}`}
+                  ></span>
                 ) : (
-                  <span key={star} className="star"></span>
+                  <span key={star} className={styles.star}></span>
                 ),
               )}
             </div>
           </div>
           <img
-            className="detailContent"
+            className={styles.detailContent}
             src={product.content}
             alt={product.name}
           />
-          <div className="detailBottom">
+          <div className={styles.detailBottom}>
             <div
-              className="detailInfo"
+              className={styles.detailInfo}
               onClick={() => this.toggleTargetOpen('isInfo')}
             >
-              <span className="boldTxt">세부정보</span>
-              <button type="button" className="infoBtn"></button>
+              <span className={styles.boldTxt}>세부정보</span>
+              <button type="button" className={styles.infoBtn}></button>
             </div>
             {isInfo && (
-              <ul className="infoUl">
-                <li className="infoLi">
+              <ul className={styles.infoUl}>
+                <li className={styles.infoLi}>
                   품명 및 모델명 : {product.name}&nbsp;1111111111111
                 </li>
-                <li className="infoLi">KC 인증필 유무 : CB111R1111-1111</li>
-                <li className="infoLi">치수 : 약 11*11*11cm, 11g</li>
-                <li className="infoLi">색상 : 오렌지&nbsp;외</li>
-                <li className="infoLi">
+                <li className={styles.infoLi}>
+                  KC 인증필 유무 : CB111R1111-1111
+                </li>
+                <li className={styles.infoLi}>치수 : 약 11*11*11cm, 11g</li>
+                <li className={styles.infoLi}>색상 : 오렌지&nbsp;외</li>
+                <li className={styles.infoLi}>
                   재질 : [표면] 폴리에스터 96%, 폴리우레탄 4% / [솜] 폴리에스터
                   100%
                 </li>
-                <li className="infoLi">사용연령 : 만 3세 이상</li>
-                <li className="infoLi">동일모델의 출시년월 : 0000.00</li>
-                <li className="infoLi">제조자 : ㈜Pet Shop</li>
-                <li className="infoLi">제조국 : 중국</li>
-                <li className="infoLi">
+                <li className={styles.infoLi}>사용연령 : 만 3세 이상</li>
+                <li className={styles.infoLi}>동일모델의 출시년월 : 0000.00</li>
+                <li className={styles.infoLi}>제조자 : ㈜Pet Shop</li>
+                <li className={styles.infoLi}>제조국 : 중국</li>
+                <li className={styles.infoLi}>
                   취급 시 주의사항
                   <br />
                   1) 포장은 반드시 부모님(보호자)께서 개봉해 주시고 분리수거해
@@ -134,34 +139,34 @@ class Detail extends Component {
                   <br />
                   6) 물에 젖을 경우 그늘에서 말려 주십시오.
                 </li>
-                <li className="infoLi">
+                <li className={styles.infoLi}>
                   품질보증 기준 : 본 제품은 공정거래위원회 고시 소비자
                   분쟁해결기준에 의거 교환 및 보상을 받으실 수 있습니다.
                 </li>
-                <li className="infoLi">
+                <li className={styles.infoLi}>
                   A/S 책임자와 전화번호 : 고객센터 1234-1234
                 </li>
               </ul>
             )}
             <div
-              className="delevery"
+              className={styles.delevery}
               onClick={() => this.toggleTargetOpen('isDelevery')}
             >
-              <span className="boldTxt">배송반품</span>
-              <button type="button" className="downUpArrow"></button>
+              <span className={styles.boldTxt}>배송반품</span>
+              <button type="button" className={styles.downUpArrow}></button>
             </div>
             {isDelevery && (
-              <ul className="infoUl">
-                <strong className="deleveryTxt">배송</strong>
-                <li className="infoLi">
+              <ul className={styles.infoUl}>
+                <strong className={styles.deleveryTxt}>배송</strong>
+                <li className={styles.infoLi}>
                   <span className="">배송사 : CJ대한통운</span>
                 </li>
-                <li className="infoLi">
+                <li className={styles.infoLi}>
                   <span className="">
                     배송비 : 국내 3,000원 (3만 원 이상 구매 시 무료배송)
                   </span>
                 </li>
-                <li className="infoLi">
+                <li className={styles.infoLi}>
                   <span className="">
                     오후 3시 이전 결제 완료 주문건은 당일 출고, 오후 3시 이후
                     주문 건은 익일 출고됩니다.
@@ -176,21 +181,23 @@ class Detail extends Component {
               </ul>
             )}
           </div>
-          <div className="inquire">
-            <button className="inquireBtn">
-              <span className="boldTxt">실시간 문의</span>
-              <span className="counselBtn boldTxt">상담하기</span>
+          <div className={styles.inquire}>
+            <button className={styles.inquireBtn}>
+              <span className={styles.boldTxt}>실시간 문의</span>
+              <span className={`${styles.counselBtn} ${styles.boldTxt}`}>
+                상담하기
+              </span>
             </button>
           </div>
 
-          <div className="purchase">
-            <div className="purchaseContent">
+          <div className={styles.purchase}>
+            <div className={styles.purchaseContent}>
               <p>장바구니</p>
 
-              <div className="addOrMinus">
+              <div className={styles.addOrMinus}>
                 <div>
                   <span
-                    className="calculation"
+                    className={styles.calculation}
                     id="minus"
                     onClick={this.minusPlusCount}
                   >
@@ -198,7 +205,7 @@ class Detail extends Component {
                   </span>
                   <span>{count}</span>
                   <span
-                    className="calculation"
+                    className={styles.calculation}
                     id="plus"
                     onClick={this.minusPlusCount}
                   >
@@ -208,7 +215,7 @@ class Detail extends Component {
               </div>
 
               <i
-                className="fas fa-shopping-cart detailCartBtn"
+                className={`fas fa-shopping-cart ${styles.detailCartBtn}`}
                 onClick={() => this.submitCart(product.id, product.cart)}
               ></i>
             </div>

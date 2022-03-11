@@ -1,39 +1,47 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './index.scss';
+import Link from 'next/link';
+import styles from './index.module.scss';
 
 class GridCard extends Component {
   render() {
     const { product, addToCart, toggleProductLike } = this.props;
 
     return (
-      <div className="gridItem">
+      <div className={styles.gridItem}>
         <div
-          className={product.like ? 'gridHeart gridAddToLike' : 'gridHeart'}
+          className={
+            product.like
+              ? `${styles.gridHeart} ${gridAddToLike}`
+              : styles.gridHeart
+          }
           onClick={() => toggleProductLike(product.id)}
         >
-          <button className="gridLikeBtn" type="button">
+          <button className={styles.gridLikeBtn} type="button">
             좋아요
           </button>
         </div>
 
-        <Link to={`/products/${product.id}`} className="gridLink">
-          <div className="gridImg">
-            <img alt={product.name} src={product.image} alt="상품 이미지" />
+        <Link href={`/products/${product.id}`} className={styles.gridLink}>
+          <div className={styles.gridImg}>
+            <img alt={product.name || '상품 이미지'} src={product.image} />
           </div>
 
           {!Number(product.stock) && (
-            <div className="gridSoldout">
-              <label className="gridSoldoutLabel"></label>
+            <div className={styles.gridSoldout}>
+              <label className={styles.gridSoldoutLabel}></label>
             </div>
           )}
         </Link>
 
         <div
-          className={product.cart ? 'girdCart girdAddToCart' : 'girdCart'}
+          className={
+            product.cart
+              ? `${styles.girdCart} ${styles.girdAddToCart}`
+              : styles.girdCart
+          }
           onClick={() => addToCart(product.id)}
         >
-          <button className="gridCartBtn" type="button">
+          <button className={styles.gridCartBtn} type="button">
             담기
           </button>
         </div>

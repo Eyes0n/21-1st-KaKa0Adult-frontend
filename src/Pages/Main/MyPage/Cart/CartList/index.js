@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import styles from './index.module.scss';
 
 export default class CartList extends Component {
   render() {
@@ -13,8 +14,8 @@ export default class CartList extends Component {
     } = this.props;
     const price = Number(item.price).toLocaleString();
     return (
-      <li className="basketItemWrap" key={item.order_item_id}>
-        <label className="checkboxLabel">
+      <li className={styles.basketItemWrap} key={item.order_item_id}>
+        <label className={styles.checkboxLabel}>
           <i
             data-id={item.order_item_id}
             className={`fa-check-circle ${
@@ -23,48 +24,54 @@ export default class CartList extends Component {
             onClick={(e) => handleIsChecked(e, id)}
           />
         </label>
-        <div className="thumbWrap">
-          <Link to="/" className="linkThumb">
-            <span className="thumbContainer">
-              <span className="imgBox">
-                <img
-                  className="thumbImage"
-                  alt={item.name}
-                  src={item.image_url}
-                />
+        <div className={styles.thumbWrap}>
+          <Link href="/">
+            <a className={styles.linkThumb}>
+              <span className={styles.thumbContainer}>
+                <span className={styles.imgBox}>
+                  <img
+                    className={styles.thumbImage}
+                    alt={item.name}
+                    src={item.image_url}
+                  />
+                </span>
               </span>
-            </span>
+            </a>
           </Link>
         </div>
-        <div className="itemInfo">
-          <div className="titleWrap">
-            <div className="title">{item.name}</div>
+        <div className={styles.itemInfo}>
+          <div className={styles.titleWrap}>
+            <div className={styles.title}>{item.name}</div>
             <button
-              className="deleteButton"
+              className={styles.deleteButton}
               data-id={item.order_item_id}
               onClick={(e) => removeCartItem(e, id)}
             />
           </div>
-          <div className="priceWrap">
+          <div className={styles.priceWrap}>
             <span>{price}원</span>
           </div>
-          <div className="countWrap">
-            <div className="itemCounter">
+          <div className={styles.countWrap}>
+            <div className={styles.itemCounter}>
               <button
                 value={id}
                 data-id={item.order_item_id}
                 data-count={item.count}
-                className="quantity-minus"
+                className={styles['quantity-minus']}
                 onClick={handleQuantity}
               >
                 -
               </button>
-              <input value={`${item.count}`} readOnly className="qtyDp"></input>
+              <input
+                value={`${item.count}`}
+                readOnly
+                className={styles.qtyDp}
+              ></input>
               <button
                 value={id}
                 data-id={item.order_item_id}
                 data-count={item.count}
-                className="quantity-plus"
+                className={styles['quantity-plus']}
                 onClick={handleQuantity}
               >
                 +

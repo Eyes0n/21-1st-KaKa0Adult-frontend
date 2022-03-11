@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import AsideMenu from '../AsideMenu';
-import './index.scss';
 import Searchbar from './Searchbar';
+import styles from './index.module.scss';
 
 export default class Nav extends Component {
   constructor(props) {
@@ -42,30 +42,32 @@ export default class Nav extends Component {
         {isSearchbarOn ? (
           <Searchbar searchbarOff={this.toggleSearchOpen} />
         ) : (
-          <header className="Nav">
-            <div className="innerHead">
-              <div className="header">
+          <header className={styles.Nav}>
+            <div className={styles.innerHead}>
+              <div className={styles.header}>
                 <button
                   type="button"
-                  className="hamburgerBtn"
+                  className={styles.hamburgerBtn}
                   onClick={this.toggleSideMenu}
                 >
-                  <span className="hamburgerBtnLogo"></span>
-                  <span className="hamburgerBtnBadge"></span>
+                  <span className={styles.hamburgerBtnLogo}></span>
+                  <span className={styles.hamburgerBtnBadge}></span>
                 </button>
-                <h1 className="titleWrap">
-                  <Link to="/products/newList" className="titleLink"></Link>
+                <h1 className={styles.titleWrap}>
+                  <Link href="/products/newList">
+                    <a className={styles.titleLink}></a>
+                  </Link>
                 </h1>
                 <button
                   type="button"
-                  className="searchBtn"
+                  className={styles.searchBtn}
                   onClick={this.toggleSearchOpen}
                 >
-                  <span className="searchBtnLogo"></span>
+                  <span className={styles.searchBtnLogo}></span>
                 </button>
-                <Link to="/mypage/cart">
-                  <button type="button" className="cartBtn">
-                    <span className="cartBtnLogo"></span>
+                <Link href="/mypage/cart">
+                  <button type="button" className={styles.cartBtn}>
+                    <span className={styles.cartBtnLogo}></span>
                   </button>
                 </Link>
               </div>

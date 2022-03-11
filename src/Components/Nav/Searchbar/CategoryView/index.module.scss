@@ -1,0 +1,74 @@
+.charactersWrap {
+  padding: 15px 20px;
+
+  .charactersUI {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .charactersUIList {
+      margin: 8px 9px;
+      width: 70px;
+      height: 94px;
+
+      .charactersUILink {
+        background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/chracterIcon.png')
+          center center / 71px no-repeat;
+        display: block;
+        width: 71px;
+        height: 71px;
+      }
+
+      .charactersName {
+        width: 70px;
+        padding-top: 8px;
+        font-size: 12px;
+        text-align: center;
+        color: rgb(119, 119, 119);
+      }
+    }
+  }
+}
+.dividingLine {
+  margin: 0px 20px;
+  width: 600px;
+  border: none;
+  height: 1px;
+  color: rgb(242, 242, 242);
+  background-color: rgb(242, 242, 242);
+}
+
+.categoryTitle {
+  width: 79px;
+  height: 20px;
+  font-size: 15px;
+  color: rgb(102, 102, 102);
+  letter-spacing: -0.23px;
+  margin-top: 22px;
+  margin-left: 20px;
+}
+
+.categoryLists {
+  padding: 4px 32px 20px;
+  width: 640px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .categoryList {
+    padding: 4px 4px;
+    height: 36px;
+    flex: 0 0 auto;
+
+    .categoryLink {
+      line-height: 1;
+      padding: 6px 13px;
+      border-radius: 51.2px;
+      font-size: 14px;
+      display: inline-block;
+      border: 1px solid rgb(228, 228, 228);
+      background-color: #fff;
+      letter-spacing: -0.25px;
+      color: #000;
+    }
+  }
+}

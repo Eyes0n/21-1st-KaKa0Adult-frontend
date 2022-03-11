@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import {
   fetchPatch,
   fetchDelete,
@@ -7,7 +7,7 @@ import {
 } from '../../../../utils/fetches.js';
 import { CART_API, API } from '../../../../config';
 import CartList from './CartList';
-import './index.scss';
+import styles from './index.module.scss';
 
 export default class Cart extends Component {
   constructor() {
@@ -205,28 +205,30 @@ export default class Cart extends Component {
     );
 
     return this.state.cartData.length === 0 ? (
-      <div className="myPage">
-        <div className="contents">
-          <div className="emptyBasket">
-            <div className="emptyImg"></div>
-            <div className="emptyMsg">
+      <div className={styles.myPage}>
+        <div className={styles.contents}>
+          <div className={styles.emptyBasket}>
+            <div className={styles.emptyImg}></div>
+            <div className={styles.emptyMsg}>
               아직 관심 상품이 없네요!
               <br />
               귀여운 프렌즈 상품을 추천드릴게요
             </div>
-            <Link to="/hotproducts" className="linkToHot">
-              <span className="linkTitle">인기상품 보기</span>
+            <Link href="/hotproducts">
+              <a ßclassName={styles.linkToHot}>
+                <span className={styles.linkTitle}>인기상품 보기</span>
+              </a>
             </Link>
           </div>
         </div>
       </div>
     ) : (
       <>
-        <div className="myPage">
-          <div className="headerWrap">
-            <div className="headerContainer">
-              <div className="checkAllBox">
-                <div className="checkboxLabel">
+        <div className={styles.myPage}>
+          <div className={styles.headerWrap}>
+            <div className={styles.headerContainer}>
+              <div className={styles.checkAllBox}>
+                <div className={styles.checkboxLabel}>
                   <i
                     className={`fa-check-circle ${
                       this.isCheckArr() ? 'far' : 'fas fill'
@@ -234,23 +236,23 @@ export default class Cart extends Component {
                     onClick={this.selectAll}
                   />
                 </div>
-                <button className="checkTitle" onClick={this.selectAll}>
+                <button className={styles.checkTitle} onClick={this.selectAll}>
                   전체선택
                 </button>
-                <span className="checkCount">{cartData.length}</span>
+                <span className={styles.checkCount}>{cartData.length}</span>
               </div>
-              <div className="deleteBox">
+              <div className={styles.deleteBox}>
                 <button
                   type="button"
-                  className="deleteButton"
+                  className={styles.deleteButton}
                   onClick={this.selectDelete}
                 ></button>
               </div>
             </div>
           </div>
-          <div className="contentsWrap">
-            <div className="basketDetailWrap">
-              <ul className="basketDetailLists">
+          <div className={styles.contentsWrap}>
+            <div className={styles.basketDetailWrap}>
+              <ul className={styles.basketDetailLists}>
                 {cartData &&
                   cartData.map((data, index) => {
                     return (
@@ -266,23 +268,25 @@ export default class Cart extends Component {
                     );
                   })}
               </ul>
-              <div className="totalCostBarWrap">
-                <div className="totalCostBar">
-                  <span className="totalCostTitle">총 주문금액</span>
+              <div className={styles.totalCostBarWrap}>
+                <div className={styles.totalCostBar}>
+                  <span className={styles.totalCostTitle}>총 주문금액</span>
                   <div>
                     <span>{totalPrice.toLocaleString()}</span>원
                   </div>
                 </div>
-                <div className="totalCostBar">
-                  <span className="totalCostTitle">배송비</span>
+                <div className={styles.totalCostBar}>
+                  <span className={styles.totalCostTitle}>배송비</span>
                   <div>
                     <span>3,000</span>원
                   </div>
                 </div>
-                <div className="totalCostBar">
-                  <span className="totalCostTitle last">총 결제금액</span>
+                <div className={styles.totalCostBar}>
+                  <span className={`${styles.totalCostTitle} ${last}`}>
+                    총 결제금액
+                  </span>
                   <span>
-                    <span className="totalCost">
+                    <span className={styles.totalCost}>
                       {(totalPrice + 3000).toLocaleString()}
                     </span>
                   </span>
@@ -291,7 +295,7 @@ export default class Cart extends Component {
             </div>
           </div>
         </div>
-        <div className="bottomBarWrap">
+        <div className={styles.bottomBarWrap}>
           <Link
             to={{
               pathname: '/mypage/order',

@@ -4,10 +4,10 @@ import Footer from '../../Components/Footer';
 import Nav from '../../Components/Nav';
 import MainTab from './Components/MainTab';
 import HotProducts from './HotProducts';
-import './index.scss';
 import Order from './Order';
 import Mypage from './MyPage';
 import NewProducts from './NewProducts';
+import styles from './index.module.scss';
 
 export default class Main extends Component {
   constructor(props) {
@@ -23,9 +23,9 @@ export default class Main extends Component {
 
   render() {
     return (
-      <div className="Main">
+      <div className={styles.Main}>
         <Nav />
-        <div className="mainArticle">
+        <div className={styles.mainArticle}>
           <MainTab checkMenuId={this.bringMenuId} />
           {MAPPING_OBJ[this.state.currentId]}
           {/* <Carousel /> */}

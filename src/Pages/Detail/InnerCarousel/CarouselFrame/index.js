@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CarouselList from '../CarouselList';
 import { withRouter } from 'react-router';
-import './index.scss';
+import styles from './index.module.scss';
 
 const CARD_WIDTH = 640;
 
@@ -12,10 +12,10 @@ export default withRouter(
         this.props;
 
       return (
-        <div className="frameWrap">
-          <div className="frameContainer">
+        <div className={styles.frameWrap}>
+          <div className={styles.frameContainer}>
             <div
-              className="innerCarouselList"
+              className={styles.innerCarouselList}
               style={{
                 transform: `translateX(${listTransform}px)`,
                 transition: `${listTransition}`,
@@ -29,16 +29,16 @@ export default withRouter(
           </div>
           <button
             type="button"
-            className="btnPrev"
+            className={styles.btnPrev}
             onClick={moveToPrev}
           ></button>
           <button
             type="button"
-            className="btnNext"
+            className={styles.btnNext}
             onClick={moveToNext}
           ></button>
-          <div className="countNumBox">
-            <span className="countNum">
+          <div className={styles.countNumBox}>
+            <span className={styles.countNum}>
               <span>
                 {listTransform === 0
                   ? 1

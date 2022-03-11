@@ -11,33 +11,6 @@
     .innerCarouselList {
       position: relative;
       width: 2560px;
-
-      .slideContent {
-        position: relative;
-        display: table;
-        float: left;
-
-        img {
-          width: 640px;
-        }
-
-        .titleContents {
-          display: none;
-          position: absolute;
-          color: #fff;
-          left: 5%;
-          top: 75%;
-
-          .title {
-            font-size: 24px;
-            font-weight: bold;
-          }
-
-          .subtitle {
-            font-size: 16px;
-          }
-        }
-      }
     }
   }
   .btnPrev {

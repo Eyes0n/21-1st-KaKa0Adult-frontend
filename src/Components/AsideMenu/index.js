@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { characterData } from '../../Data/characterData';
 import { categoryData } from '../../Data/categoryData';
 import Menu from './Menu';
-import './index.scss';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'next/router';
+import styles from './index.module.scss';
 
 class AsideMenu extends Component {
   constructor() {
@@ -43,7 +43,11 @@ class AsideMenu extends Component {
 
     return (
       <div
-        className={isSlide ? 'sideMenuWrap openBg' : 'sideMenuWrap'}
+        className={
+          isSlide
+            ? `${styles.sideMenuWrap} ${styles.openBg}`
+            : styles.sideMenuWrap
+        }
         onClick={toggleSideMenu}
       >
         <Menu

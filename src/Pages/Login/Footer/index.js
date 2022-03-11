@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './index.scss';
+import Link from 'next/link';
+import styles from './index.module.scss';
 
 class Footer extends Component {
   render() {
     return (
-      <footer className="loginFooter">
-        <div className="serviceInfo">
-          <Link to="/" className="linkInfo">
-            이용약관
+      <footer className={styles.loginFooter}>
+        <div className={styles.serviceInfo}>
+          <Link href="/">
+            <a className={styles.linkInfo}>이용약관</a>
           </Link>
-          <Link to="/" className="linkInfo linkPolicy">
-            개인정보 처리방침
+          <Link href="/" className={`${styles.linkInfo} ${styles.linkPolicy}`}>
+            <a>개인정보 처리방침</a>
           </Link>
-          <Link to="/" className="linkInfo">
-            운영정책
+          <Link href="/">
+            <a className={styles.linkInfo}>운영정책</a>
           </Link>
-          <Link to="/" className="linkInfo">
-            고객센터
+          <Link href="/">
+            <a className={styles.linkInfo}>고객센터</a>
           </Link>
-          <Link to="" className="linkInfo">
-            공지사항
+          <Link href="">
+            <a className={styles.linkInfo}>공지사항</a>
           </Link>
         </div>
-        <small className="txtCopyright">
+        <small className={styles.txtCopyright}>
           Copyright ©
-          <Link to="" className="linkPet">
-            Pet Shop Corp.
+          <Link href="">
+            <a className={styles.linkPet}>Pet Shop Corp.</a>
           </Link>
           All rights reserved.
         </small>

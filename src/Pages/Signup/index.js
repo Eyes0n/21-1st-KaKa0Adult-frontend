@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'next/router';
 import { API, USER_API } from '../../config';
 import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
-import './index.scss';
+import styles from './index.module.scss';
 
 const BIRTH_YEARS = Array(20)
   .fill()
@@ -62,54 +62,54 @@ class Signup extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <main className="signup">
-        <div className="signupContainer">
-          <section className="header">
-            <h1 className="logo">KaKao</h1>
+      <main className={styles.signup}>
+        <div className={styles.signupContainer}>
+          <section className={styles.header}>
+            <h1 className={styles.logo}>KoKoo</h1>
           </section>
-          <section className="main">
-            <div className="mainWrap">
-              <h2 className="mainTitle">카카오계정 정보를 입력해 주세요.</h2>
-              <form className="mainForm" onSubmit={this.handleSubmit}>
-                <div className="email">
-                  <strong className="emailTitle">카카오계정 이메일</strong>
-                  <div className="emailBox">
-                    <label className="emailLabel">
+          <section className={styles.main}>
+            <div className={styles.mainWrap}>
+              <h2 className={styles.mainTitle}>계정 정보를 입력해 주세요.</h2>
+              <form className={styles.mainForm} onSubmit={this.handleSubmit}>
+                <div className={styles.email}>
+                  <strong className={styles.emailTitle}>계정 이메일</strong>
+                  <div className={styles.emailBox}>
+                    <label className={styles.emailLabel}>
                       <input
                         autoComplete="off"
                         name="email"
-                        className="emailInput"
+                        className={styles.emailInput}
                         type="text"
                         placeholder="이메일 입력"
                         onChange={this.handleInput}
                       />
                     </label>
                   </div>
-                  <ul className="emailCautionLists">
-                    <li className="emailCautionList">
-                      ・ 입력한 카카오메일로 카카오계정에 로그인할 수 있습니다.
+                  <ul className={styles.emailCautionLists}>
+                    <li className={styles.emailCautionList}>
+                      ・ 입력한 메일로 카오펫 계정에 로그인할 수 있습니다.
                     </li>
-                    <li className="emailCautionList">
-                      ・ 한번 만든 카카오메일은 변경할 수 없으니, 오타가 없도록
+                    <li className={styles.emailCautionList}>
+                      ・ 한번 만든 카오펫 메일은 변경할 수 없으니, 오타가 없도록
                       신중히 확인해 주세요.
                     </li>
-                    <li className="emailCautionList">
+                    <li className={styles.emailCautionList}>
                       ・ 이메일은 @포함, 비밀번호는 5글자 이상 작성 형식을
                       지켜주세요.
                     </li>
-                    <li className="emailCautionList">
+                    <li className={styles.emailCautionList}>
                       ・ 생성한 카카오메일로 카카오계정과 관련한 알림을 받아볼
                       수 있습니다.
                     </li>
                   </ul>
                 </div>
-                <div className="pw">
-                  <strong className="pwTitle">비밀번호</strong>
-                  <div className="pwBox">
-                    <label className="pwLabel">
+                <div className={styles.pw}>
+                  <strong className={styles.pwTitle}>비밀번호</strong>
+                  <div className={styles.pwBox}>
+                    <label className={styles.pwLabel}>
                       <input
                         autoComplete="off"
-                        className="pwInput"
+                        className={styles.pwInput}
                         type="password"
                         name="password"
                         placeholder="비밀번호(8~32자리)"
@@ -118,13 +118,13 @@ class Signup extends Component {
                     </label>
                   </div>
                 </div>
-                <div className="nickname">
-                  <strong className="nicknameTitle">닉네임</strong>
-                  <div className="nicknameBox">
-                    <label className="nicknameLabel">
+                <div className={styles.nickname}>
+                  <strong className={styles.nicknameTitle}>닉네임</strong>
+                  <div className={styles.nicknameBox}>
+                    <label className={styles.nicknameLabel}>
                       <input
                         autoComplete="off"
-                        className="nicknameInput"
+                        className={styles.nicknameInput}
                         type="text"
                         name="nickname"
                         placeholder="닉네임을 입력해 주세요."
@@ -133,13 +133,13 @@ class Signup extends Component {
                     </label>
                   </div>
                 </div>
-                <div className="phone">
-                  <strong className="phoneTitle">전화번호</strong>
-                  <div className="phoneBox">
-                    <label className="phoneLabel">
+                <div className={styles.phone}>
+                  <strong className={styles.phoneTitle}>전화번호</strong>
+                  <div className={styles.phoneBox}>
+                    <label className={styles.phoneLabel}>
                       <input
                         autoComplete="off"
-                        className="phoneInput"
+                        className={styles.phoneInput}
                         type="text"
                         name="phone_number"
                         placeholder="전화번호를 입력해 주세요."
@@ -148,12 +148,12 @@ class Signup extends Component {
                     </label>
                   </div>
                 </div>
-                <div className="birthday">
-                  <strong className="birthdayTitle">생일</strong>
-                  <div className="birthdayBox">
-                    <label className="birthdayLabel">
-                      <div className="dateBox">
-                        <div className="yearSelect">
+                <div className={styles.birthday}>
+                  <strong className={styles.birthdayTitle}>생일</strong>
+                  <div className={styles.birthdayBox}>
+                    <label className={styles.birthdayLabel}>
+                      <div className={styles.dateBox}>
+                        <div className={styles.yearSelect}>
                           <select
                             name="year"
                             id="birthYear"
@@ -169,7 +169,7 @@ class Signup extends Component {
                             })}
                           </select>
                         </div>
-                        <div className="monthSelect">
+                        <div className={styles.monthSelect}>
                           <select
                             name="month"
                             id="birthMonth"
@@ -185,7 +185,7 @@ class Signup extends Component {
                             })}
                           </select>
                         </div>
-                        <div className="daySelect">
+                        <div className={styles.daySelect}>
                           <select
                             name="day"
                             id="birthDay"
@@ -205,10 +205,10 @@ class Signup extends Component {
                     </label>
                   </div>
                 </div>
-                <div className="gender">
-                  <strong className="genderTitle">성별</strong>
-                  <div className="genderBox">
-                    <div className="femaleSelect">
+                <div className={styles.gender}>
+                  <strong className={styles.genderTitle}>성별</strong>
+                  <div className={styles.genderBox}>
+                    <div className={styles.femaleSelect}>
                       <input
                         type="radio"
                         name="gender"
@@ -216,11 +216,11 @@ class Signup extends Component {
                         value="female"
                         onChange={this.handleInput}
                       />
-                      <label htmlFor="female" className="femaleLabel">
+                      <label htmlFor="female" className={styles.femaleLabel}>
                         여성
                       </label>
                     </div>
-                    <div className="maleSelect">
+                    <div className={styles.maleSelect}>
                       <input
                         type="radio"
                         name="gender"
@@ -228,15 +228,15 @@ class Signup extends Component {
                         value="male"
                         onChange={this.handleInput}
                       />
-                      <label htmlFor="male" className="maleLabel">
+                      <label htmlFor="male" className={styles.maleLabel}>
                         남성
                       </label>
                     </div>
                   </div>
                 </div>
-                <div className="buttonBox">
+                <div className={styles.buttonBox}>
                   <button
-                    className="button"
+                    className={styles.button}
                     onClick={this.handleSubmit}
                     disabled={!this.validateInputData(email, password)}
                   >
