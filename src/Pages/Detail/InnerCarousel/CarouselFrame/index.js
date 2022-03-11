@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CarouselList from '../CarouselList';
-import { withRouter } from 'react-router';
+import { withRouter } from 'next/router';
 import styles from './index.module.scss';
 
 const CARD_WIDTH = 640;

@@ -1,17 +1,40 @@
-import React, { Component } from 'react';
 import Link from 'next/link';
 import styles from './index.module.scss';
+import { useRouter } from 'next/router';
 
-export default class SubTab extends Component {
-  render() {
-    return (
-      <div className={styles.subTab}>
-        <ul className={styles.tabLists}>
-          <Link className={styles.tabList}>찜한 상품</Link>
-          <Link className={`${styles.tabList} ${styles.active}`}>장바구니</Link>
-          <Link className={styles.tabList}>주문내역</Link>
-        </ul>
-      </div>
-    );
-  }
-}
+const SUB_ARR = [
+  { name: '찜하다', params: 'choice' },
+  { name: '장바구니', params: 'cart' },
+  { name: '주문내역', params: 'orderlist' },
+];
+
+const LINK_OBJ = {
+  찜하다: 'choice',
+  장바구니: 'cart',
+  주문내역: 'orderlist',
+};
+
+const SubTab = () => {
+  const router = useRouter();
+  const { keyword } = router.query;
+
+  return (
+    <div className={styles.subTab}>
+      <ul className={styles.tabLists}>
+        {SUB_ARR.map((ele) => (
+          <Link href={`/main/mypage/${LINK_OBJ[ele.name]}`}>
+            <a
+              className={`${styles.tabList} ${
+                ele.params === keyword ? styles.active : ''
+              }`}
+            >
+              {ele.name}
+            </a>
+          </Link>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default SubTab;

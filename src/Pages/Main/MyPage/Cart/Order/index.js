@@ -21,7 +21,7 @@ export default withRouter(
 
     componentDidMount() {
       this.setState({
-        orderData: this.props.location.state.orderData,
+        orderData: this.props.location?.state?.orderData,
       });
     }
 
@@ -47,13 +47,13 @@ export default withRouter(
     };
 
     render() {
-      const dataByCart = this.props.location.state.orderData;
+      const dataByCart = this.props.location?.state?.orderData;
       let selectedItems;
-      if (dataByCart.length > 0) {
+      if (dataByCart?.length > 0) {
         selectedItems = dataByCart.filter((item) => item.selected);
       }
       const totalPrice = Math.floor(
-        selectedItems.reduce((acc, item) => acc + item.price * item.count, 0),
+        selectedItems?.reduce((acc, item) => acc + item.price * item.count, 0),
       );
       return (
         <div className={styles.Order}>
@@ -62,7 +62,7 @@ export default withRouter(
               <h3 className={styles.title}>01 주문상품</h3>
               <div className={styles.contents}>
                 <ul className={styles.orderDetailList}>
-                  {dataByCart.map((item, idx) => {
+                  {dataByCart?.map((item, idx) => {
                     return (
                       <OrderList
                         key={item.order_item_id}

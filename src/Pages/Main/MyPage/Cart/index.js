@@ -188,15 +188,6 @@ export default class Cart extends Component {
     }
   };
 
-  delieveDateToOrder = () => {
-    return {
-      pathname: '/mypage/order',
-      state: {
-        orderData: this.state.cartData,
-      },
-    };
-  };
-
   render() {
     const { cartData, selectedArr } = this.state;
     const selectedItems = cartData.filter((item) => item.selected);
@@ -297,11 +288,12 @@ export default class Cart extends Component {
         </div>
         <div className={styles.bottomBarWrap}>
           <Link
-            to={{
+            href={{
               pathname: '/mypage/order',
-              state: {
+              query: {
                 orderData: cartData,
               },
+              as: '/mypage/order',
             }}
           >
             <button>
