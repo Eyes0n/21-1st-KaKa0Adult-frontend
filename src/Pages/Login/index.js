@@ -38,7 +38,6 @@ class Login extends Component {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if (result.token) {
           localStorage.setItem('token', result.token);
           localStorage.setItem('user_name', result['user_name']);
