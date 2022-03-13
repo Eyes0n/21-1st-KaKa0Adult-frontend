@@ -6,17 +6,12 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/main/newproducts',
+        destination: '/main/products/new',
         permanent: true,
       },
     ];
   },
   async rewrites() {
-    return [
-      {
-        source: '/newproducts',
-        destination: '/main/newproducts',
-      },
-    ];
+    return [];
   },
 };
