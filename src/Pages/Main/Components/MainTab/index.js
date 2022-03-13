@@ -11,7 +11,7 @@ const ARR = {
 };
 
 const PAGE_ARR = [
-  '/main/products/newList',
+  '/main/products/new',
   '/main/products/hot',
   '/main/mypage/cart',
 ];

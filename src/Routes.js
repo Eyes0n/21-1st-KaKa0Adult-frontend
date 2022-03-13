@@ -8,10 +8,10 @@ import {
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Character from './Pages/Character';
-import NewProducts from './Pages/Main/NewProducts';
-import HotProducts from './Pages/Main/HotProducts';
-import MyPage from './Pages/Main/MyPage';
-import Detail from './Pages/Detail';
+import NewProducts from './pages/main/NewProducts';
+import HotProducts from './pages/main/HotProducts';
+import MyPage from './pages/main/mypage/[keyword]';
+import Detail from './pages/detail/[id]';
 
 class Routes extends React.Component {
   render() {
@@ -33,3 +33,7 @@ class Routes extends React.Component {
 }
 
 export default Routes;
+
+// main/mypage/cart : 장바구니
+// main/mypage/payment : 결제 Order컴포넌트
+// main/mypage/orderlist : 주문내역

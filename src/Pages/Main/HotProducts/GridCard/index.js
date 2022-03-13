@@ -11,7 +11,7 @@ class GridCard extends Component {
         <div
           className={
             product.like
-              ? `${styles.gridHeart} ${gridAddToLike}`
+              ? `${styles.gridHeart} ${styles.gridAddToLike}`
               : styles.gridHeart
           }
           onClick={() => toggleProductLike(product.id)}
@@ -21,16 +21,21 @@ class GridCard extends Component {
           </button>
         </div>
 
-        <Link href={`/products/${product.id}`} className={styles.gridLink}>
-          <div className={styles.gridImg}>
-            <img alt={product.name || '상품 이미지'} src={product.image} />
-          </div>
-
-          {!Number(product.stock) && (
-            <div className={styles.gridSoldout}>
-              <label className={styles.gridSoldoutLabel}></label>
+        <Link href={`/products/${product.id}`}>
+          <a className={styles.gridLink}>
+            <div className={styles.gridImg}>
+              <img
+                alt={product.name || '상품 이미지'}
+                src={product?.image || product?.imgSrc}
+              />
             </div>
-          )}
+
+            {!Number(product.stock) && (
+              <div className={styles.gridSoldout}>
+                <label className={styles.gridSoldoutLabel}></label>
+              </div>
+            )}
+          </a>
         </Link>
 
         <div

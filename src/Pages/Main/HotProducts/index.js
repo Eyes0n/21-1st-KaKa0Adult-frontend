@@ -4,7 +4,6 @@ import MainTab from '../Components/MainTab';
 import GridCard from './GridCard';
 import { API, PRODUCT_API } from '../../../config';
 import { fetchDelete, fetchGet, fetchPost } from '../../../utils/fetches';
-import { hotData } from './hotData';
 import styles from './index.module.scss';
 
 export default class HotProducts extends Component {
@@ -12,26 +11,28 @@ export default class HotProducts extends Component {
     super();
     this.state = {
       products: [],
-      currentId: '',
+      page: 1, // infinite scroll
     };
   }
 
   componentDidMount() {
-    fetchGet(`${PRODUCT_API}/products?order=hot&pageSize=16&page=1`)
+    // fetchGet(`${PRODUCT_API}/products?order=hot&pageSize=16&page=1`)
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     this.setState({
+    //       products: result.resultList,
+    //     });
+    //   });
+
+    fetchGet('http://localhost:3000/data/hotProductsData.json')
       .then((res) => res.json())
       .then((result) => {
-        this.setState({
+        this.setState((prev) => ({
+          ...prev,
           products: result.resultList,
-        });
+        }));
       });
-    // this.setState({
-    //   products: hotData.resultList,
-    // });
   }
-
-  bringMenuId = (id) => {
-    this.setState({ currentId: id });
-  };
 
   toggleProductLike = (updatedId) => {
     const { products } = this.state;
@@ -44,6 +45,7 @@ export default class HotProducts extends Component {
       products: updatedProducts,
     });
 
+    // productId가 1부터 시작 해당 인텍스를 참조하기 위해 -1를 해줌
     if (products[updatedId - 1].like) {
       fetchDelete(`${API}/users/like/product/${updatedId}`)
         .then((res) => {
@@ -101,7 +103,7 @@ export default class HotProducts extends Component {
     return (
       <>
         <Nav />
-        <MainTab checkMenuId={this.bringMenuId} />
+        <MainTab />
 
         <div className={styles.hotGridWrap}>
           <div className={styles.hotGrid}>

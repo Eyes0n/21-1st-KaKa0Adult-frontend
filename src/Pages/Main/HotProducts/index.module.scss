@@ -4,6 +4,7 @@
   grid-template-columns: 212px 212px;
   gap: 2px;
   margin-bottom: 2px;
+  overflow: hidden;
 }
 
 .hotGridWrap {
@@ -12,6 +13,13 @@
   padding-top: 90px;
 
   .hotGrid {
+    overflow: hidden;
+
+    img {
+      width: 212px;
+      object-fit: cover;
+    }
+
     .sectionGrid1 {
       @extend %commonGrid;
 
