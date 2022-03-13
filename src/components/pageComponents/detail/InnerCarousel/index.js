@@ -56,6 +56,7 @@ export default class InnerCarousel extends Component {
     const { listTransition, listTransform } = this.state;
     const { moveToPrev, moveToNext } = this;
     const { imgData } = this.props;
+
     return (
       <div className={styles.Carousel}>
         <section className={styles.carouselWrap}>

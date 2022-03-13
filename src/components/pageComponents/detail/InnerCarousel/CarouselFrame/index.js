@@ -21,10 +21,9 @@ export default withRouter(
                 transition: `${listTransition}`,
               }}
             >
-              {imgData.imageUrls &&
-                imgData.imageUrls.map((el, i) => {
-                  return <CarouselList key={i} img={el} />;
-                })}
+              {imgData?.map((el, i) => {
+                return <CarouselList key={i} img={el} />;
+              })}
             </div>
           </div>
           <button

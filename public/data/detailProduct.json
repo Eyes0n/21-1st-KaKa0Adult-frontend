@@ -1,0 +1,16 @@
+{
+  "id": 10,
+  "name": "가성비 토끼 장난감",
+  "price": "5900.000",
+  "content": "https://raw.githubusercontent.com/jotasic/21-kaka0-pet-shop-images/main/product-content/1.jpg",
+  "stock": 10,
+  "starPoint": 3.5,
+  "starPointCount": 1,
+  "imageUrls": [
+    "https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_1.jpeg",
+    "https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_2.jpeg",
+    "https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_3.jpeg"
+  ],
+  "like": false,
+  "cart": false
+}
