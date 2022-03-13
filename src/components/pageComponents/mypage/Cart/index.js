@@ -1,56 +1,49 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchPatch, fetchDelete, fetchGet } from '../../../../utils/fetches';
 import { CART_API, API } from '../../../../config';
 import CartList from '../CartList';
 import styles from './index.module.scss';
 
-export default class Cart extends Component {
-  constructor() {
-    super();
-    this.state = {
-      cartData: [],
-      selectedArr: [],
-      deletedArr: [],
-    };
-  }
+const Cart = () => {
+  const [cart, setCart] = useState({
+    cartData: [],
+    selectedArr: [],
+    deletedArr: [],
+  });
 
-  componentDidMount() {
-    this.getCartData();
-  }
+  const getCartData = async () => {
+    // fetchGet(`${CART_API}/orders/order-items`)
+    //   .then((res) => res.json())
+    //   .then((res) =>
+    //     setCart(prev =>({
+    //       ...prev
+    //       cartData: res.items_in_cart,
+    //       selectedArr: Array(res.length).fill(true),
+    //     })),
+    //   );
 
-  getCartData = async () => {
-    // try {
-    fetchGet(`${CART_API}/orders/order-items`)
-      .then((res) => res.json())
-      .then((res) =>
-        this.setState({
-          cartData: res.items_in_cart,
-          selectedArr: Array(res.length).fill(true),
-        }),
-      );
-    // } catch {
-    //   const response = await fetchGet(`/data/cartdata.json`);
-    //   const data = await response.json();
-    //   const cartData = data.items_in_cart.map((data) => ({
-    //     ...data,
-    //     selected: true,
-    //   }));
+    const response = await fetchGet(`/data/cartdata.json`);
+    const data = await response.json();
 
-    //   this.setState({
-    //     cartData: cartData,
-    //     selectedArr: Array(cartData.length).fill(true),
-    //   });
-    // }
+    setCart((prev) => ({
+      ...prev,
+      cartData: data['items_in_cart'],
+      selectedArr: Array(data.length).fill(true),
+    }));
   };
 
-  handleQuantity = (event) => {
-    const { cartData } = this.state;
-    const { value, className } = event.target;
-    const isMinusBtn = className === 'quantity-minus';
-    const isCountOne = cartData[parseInt(value)].count === 1;
+  useEffect(() => {
+    getCartData();
+  }, []);
 
-    if (isMinusBtn && isCountOne) return;
+  const handleQuantity = (event) => {
+    const { value, className } = event.target;
+    const { cartData } = cart;
+    const isMinusBtn = className.match(/quantity-minus/) !== null;
+    const isCountZero = cartData[parseInt(value)].count === 0;
+
+    if (isMinusBtn && isCountZero) return;
     const newQuantity = cartData.map((cartItem, index) => {
       return parseInt(value) !== index
         ? cartItem
@@ -59,7 +52,10 @@ export default class Cart extends Component {
             count: isMinusBtn ? cartItem.count - 1 : cartItem.count + 1,
           };
     });
-    this.setState({ cartData: newQuantity });
+    setCart((prev) => ({
+      ...prev,
+      cartData: newQuantity,
+    }));
 
     const res = !isMinusBtn
       ? fetchPatch(`${CART_API}/orders/order-items`, {
@@ -80,8 +76,8 @@ export default class Cart extends Component {
       .catch((err) => console.error(err));
   };
 
-  isCheckArr = () => {
-    const { selectedArr } = this.state;
+  const isCheckArr = () => {
+    const { selectedArr } = cart;
     for (let isChecked of selectedArr) {
       if (isChecked) {
         return false;
@@ -90,15 +86,19 @@ export default class Cart extends Component {
     return true;
   };
 
-  removeCartItem = (event, id) => {
-    const { cartData } = this.state;
+  const removeCartItem = (event, id) => {
+    const { cartData } = cart;
     const newCartData = cartData.filter((cartItem) => {
       return parseInt(id) !== parseInt(cartItem.id);
     });
     const deletedData = cartData.filter((cartItem) => {
       return parseInt(id) === parseInt(cartItem.id);
     });
-    this.setState({ cartData: newCartData, deletedArr: deletedData });
+    setCart((prev) => ({
+      ...prev,
+      cartData: newCartData,
+      deletedArr: deletedData,
+    }));
     fetchDelete(`${CART_API}/orders/order-items/${event.target.dataset.id}`)
       .then((res) => res.status)
       .then((status) => {
@@ -106,29 +106,36 @@ export default class Cart extends Component {
       });
   };
 
-  handleIsChecked = (event, id) => {
-    const { selectedArr } = this.state;
+  const handleIsChecked = (event, id) => {
+    const { selectedArr } = cart;
     const newCheck = [...selectedArr];
     newCheck[id] = !newCheck[id];
-    this.setState({ selectedArr: newCheck });
+    setCart((prev) => ({
+      ...prev,
+      selectedArr: newCheck,
+    }));
     const select = {
       order_item_id: event.target.dataset.id,
-      select: event.target.className === 'fa-check-circle fas fill' ? 0 : 1,
+      select: event.target.className.match(/fa-check-circle fas fill/) ? 0 : 1,
     };
     fetchPatch(`${CART_API}/orders/${event.target.dataset.id}`, select).then(
       (res) => res.json(),
     );
   };
 
-  selectAll = () => {
-    const { selectedArr } = this.state;
-    const newCheckArr = Array(selectedArr.length).fill(this.isCheckArr());
-    this.setState({ selectedArr: newCheckArr });
-    this.updateCartSelection();
+  const selectAll = () => {
+    const { selectedArr } = cart;
+    const newCheckArr = Array(selectedArr.length).fill(isCheckArr());
+    setCart((prev) => ({
+      ...prev,
+      selectedArr: newCheckArr,
+    }));
+    updateCartSelection();
   };
 
-  updateCartSelection = () => {
-    this.state.cartData.forEach((item) => {
+  const updateCartSelection = () => {
+    const { cartData } = cart;
+    cartData.forEach((item) => {
       const itemToSelect = {
         order_item_id: item.order_item_id,
         select: 0,
@@ -139,7 +146,7 @@ export default class Cart extends Component {
           .then((result) => console.log(result));
     });
 
-    this.state.cartData.forEach((item) => {
+    cartData.forEach((item) => {
       const itemToUnselect = {
         order_item_id: item.order_item_id,
         select: 1,
@@ -151,8 +158,8 @@ export default class Cart extends Component {
     });
   };
 
-  selectDelete = () => {
-    const { cartData, selectedArr } = this.state;
+  const selectDelete = () => {
+    const { cartData, selectedArr } = cart;
     const checkedArr = [];
     let idx = selectedArr.indexOf(true);
     while (idx !== -1) {
@@ -165,7 +172,7 @@ export default class Cart extends Component {
     const newDeletedArr = cartData.filter((cartItem) => {
       return checkedArr.includes(parseInt(cartItem.id));
     });
-    this.setState({
+    setCart({
       cartData: newCheckedArr,
       deletedArr: newDeletedArr,
       selectedArr: Array(newCheckedArr.length).fill(false),
@@ -184,120 +191,120 @@ export default class Cart extends Component {
     }
   };
 
-  render() {
-    const { cartData, selectedArr } = this.state;
-    const selectedItems = cartData.filter((item) => item.selected);
-    const totalPrice = Math.floor(
-      selectedItems.reduce((acc, item) => acc + item.price * item.count, 0),
-    );
+  const { cartData, selectedArr } = cart;
+  const selectedItems = cartData?.filter((item) => item.selected);
+  const totalPrice = Math.floor(
+    selectedItems.reduce((acc, item) => acc + item.price * item.count, 0),
+  );
 
-    return this.state.cartData.length === 0 ? (
+  return cartData.length === 0 ? (
+    <div className={styles.myPage}>
+      <div className={styles.contents}>
+        <div className={styles.emptyBasket}>
+          <div className={styles.emptyImg}></div>
+          <div className={styles.emptyMsg}>
+            아직 관심 상품이 없네요!
+            <br />
+            귀여운 프렌즈 상품을 추천드릴게요
+          </div>
+          <Link href="/products/hot">
+            <a className={styles.linkToHot}>
+              <span className={styles.linkTitle}>인기상품 보기</span>
+            </a>
+          </Link>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <>
       <div className={styles.myPage}>
-        <div className={styles.contents}>
-          <div className={styles.emptyBasket}>
-            <div className={styles.emptyImg}></div>
-            <div className={styles.emptyMsg}>
-              아직 관심 상품이 없네요!
-              <br />
-              귀여운 프렌즈 상품을 추천드릴게요
+        <div className={styles.headerWrap}>
+          <div className={styles.headerContainer}>
+            <div className={styles.checkAllBox}>
+              <div className={styles.checkboxLabel}>
+                <i
+                  className={`fa-check-circle ${
+                    isCheckArr() ? 'far' : 'fas fill'
+                  }`}
+                  onClick={selectAll}
+                ></i>
+              </div>
+              <button className={styles.checkTitle} onClick={selectAll}>
+                전체선택
+              </button>
+              <span className={styles.checkCount}>{cartData.length}</span>
             </div>
-            <Link href="/hotproducts">
-              <a className={styles.linkToHot}>
-                <span className={styles.linkTitle}>인기상품 보기</span>
-              </a>
-            </Link>
+            <div className={styles.deleteBox}>
+              <button
+                type="button"
+                className={styles.deleteButton}
+                onClick={selectDelete}
+              ></button>
+            </div>
+          </div>
+        </div>
+        <div className={styles.contentsWrap}>
+          <div className={styles.basketDetailWrap}>
+            <ul className={styles.basketDetailLists}>
+              {cartData &&
+                cartData.map((data, index) => {
+                  return (
+                    <CartList
+                      id={data.id}
+                      key={index}
+                      item={data}
+                      selectedArr={selectedArr}
+                      handleQuantity={handleQuantity}
+                      removeCartItem={removeCartItem}
+                      handleIsChecked={handleIsChecked}
+                    />
+                  );
+                })}
+            </ul>
+            <div className={styles.totalCostBarWrap}>
+              <div className={styles.totalCostBar}>
+                <span className={styles.totalCostTitle}>총 주문금액</span>
+                <div>
+                  <span>{totalPrice.toLocaleString()}</span>원
+                </div>
+              </div>
+              <div className={styles.totalCostBar}>
+                <span className={styles.totalCostTitle}>배송비</span>
+                <div>
+                  <span>3,000</span>원
+                </div>
+              </div>
+              <div className={styles.totalCostBar}>
+                <span className={`${styles.totalCostTitle} ${styles.last}`}>
+                  총 결제금액
+                </span>
+                <span>
+                  <span className={styles.totalCost}>
+                    {(totalPrice + 3000).toLocaleString()}
+                  </span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    ) : (
-      <>
-        <div className={styles.myPage}>
-          <div className={styles.headerWrap}>
-            <div className={styles.headerContainer}>
-              <div className={styles.checkAllBox}>
-                <div className={styles.checkboxLabel}>
-                  <i
-                    className={`fa-check-circle ${
-                      this.isCheckArr() ? 'far' : 'fas fill'
-                    }`}
-                    onClick={this.selectAll}
-                  />
-                </div>
-                <button className={styles.checkTitle} onClick={this.selectAll}>
-                  전체선택
-                </button>
-                <span className={styles.checkCount}>{cartData.length}</span>
-              </div>
-              <div className={styles.deleteBox}>
-                <button
-                  type="button"
-                  className={styles.deleteButton}
-                  onClick={this.selectDelete}
-                ></button>
-              </div>
-            </div>
-          </div>
-          <div className={styles.contentsWrap}>
-            <div className={styles.basketDetailWrap}>
-              <ul className={styles.basketDetailLists}>
-                {cartData &&
-                  cartData.map((data, index) => {
-                    return (
-                      <CartList
-                        id={data.id}
-                        key={index}
-                        item={data}
-                        selectedArr={selectedArr}
-                        handleQuantity={this.handleQuantity}
-                        removeCartItem={this.removeCartItem}
-                        handleIsChecked={this.handleIsChecked}
-                      />
-                    );
-                  })}
-              </ul>
-              <div className={styles.totalCostBarWrap}>
-                <div className={styles.totalCostBar}>
-                  <span className={styles.totalCostTitle}>총 주문금액</span>
-                  <div>
-                    <span>{totalPrice.toLocaleString()}</span>원
-                  </div>
-                </div>
-                <div className={styles.totalCostBar}>
-                  <span className={styles.totalCostTitle}>배송비</span>
-                  <div>
-                    <span>3,000</span>원
-                  </div>
-                </div>
-                <div className={styles.totalCostBar}>
-                  <span className={`${styles.totalCostTitle} ${last}`}>
-                    총 결제금액
-                  </span>
-                  <span>
-                    <span className={styles.totalCost}>
-                      {(totalPrice + 3000).toLocaleString()}
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.bottomBarWrap}>
-          <Link
-            href={{
-              pathname: '/mypage/order',
-              query: {
-                orderData: cartData,
-              },
-              as: '/mypage/order',
-            }}
-          >
-            <button>
-              <span>{totalPrice.toLocaleString()}</span>원 주문 하기
-            </button>
-          </Link>
-        </div>
-      </>
-    );
-  }
-}
+      <div className={styles.bottomBarWrap}>
+        <Link
+          href={{
+            pathname: '/mypage/[keyword]',
+            query: {
+              orderData: cartData,
+            },
+            as: '/mypage/order',
+          }}
+        >
+          <button>
+            <span>{totalPrice.toLocaleString()}</span>원 주문 하기
+          </button>
+        </Link>
+      </div>
+    </>
+  );
+};
+
+export default Cart;

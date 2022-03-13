@@ -5,13 +5,13 @@ import '../styles/Common.scss';
 import '../styles/reset.scss';
 
 function MyApp({ Component, pageProps }) {
-  const { pathname } = useRouter();
-  const mypageRegex = /(\/mypage)/;
+  const { asPath } = useRouter();
+  const mypageOrProductIdRegex = /(\/mypage)|(\/products\/\d+)/;
 
   return (
     <>
       <Component {...pageProps} />
-      {pathname.match(mypageRegex) ? <MyPageFooter /> : <Footer />}
+      {asPath.match(mypageOrProductIdRegex) ? <MyPageFooter /> : <Footer />}
     </>
   );
 }
