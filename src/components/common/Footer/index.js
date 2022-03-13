@@ -10,8 +10,10 @@ class Footer extends Component {
           <Link href="/">
             <a className={styles.linkInfo}>이용약관</a>
           </Link>
-          <Link href="/" className={`${styles.linkInfo} ${styles.linkPolicy}`}>
-            <a>개인정보 처리방침</a>
+          <Link href="/">
+            <a className={`${styles.linkInfo} ${styles.linkPolicy}`}>
+              개인정보 처리방침
+            </a>
           </Link>
           <Link href="/">
             <a className={styles.linkInfo}>운영정책</a>
@@ -19,13 +21,13 @@ class Footer extends Component {
           <Link href="/">
             <a className={styles.linkInfo}>고객센터</a>
           </Link>
-          <Link href="">
+          <Link href="/">
             <a className={styles.linkInfo}>공지사항</a>
           </Link>
         </div>
         <small className={styles.txtCopyright}>
           Copyright ©
-          <Link href="">
+          <Link href="/">
             <a className={styles.linkPet}>Pet Shop Corp.</a>
           </Link>
           All rights reserved.

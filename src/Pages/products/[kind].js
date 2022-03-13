@@ -5,7 +5,6 @@ import NewProducts from '../../components/pageComponents/products/NewProducts';
 const Products = () => {
   const router = useRouter();
   const { kind } = router.query;
-  console.log(kind);
 
   if (kind === 'new') return <NewProducts />;
   if (kind === 'hot') return <HotProducts />;

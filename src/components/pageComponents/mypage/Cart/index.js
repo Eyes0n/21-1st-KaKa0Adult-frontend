@@ -202,7 +202,7 @@ export default class Cart extends Component {
               귀여운 프렌즈 상품을 추천드릴게요
             </div>
             <Link href="/hotproducts">
-              <a ßclassName={styles.linkToHot}>
+              <a className={styles.linkToHot}>
                 <span className={styles.linkTitle}>인기상품 보기</span>
               </a>
             </Link>

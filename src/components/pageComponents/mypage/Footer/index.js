@@ -57,7 +57,7 @@ export default class Footer extends Component {
             </div>
             {arrowIconOn && (
               <div className={styles.companyInfoSection}>
-                <div class={styles.title}>
+                <div className={styles.title}>
                   <span className={styles.companyInfo}>(주)그레이스풀레인</span>
                   <span className={styles.companyInfo}>주소</span>
                   <span className={styles.companyInfo}>사업자등록번호</span>
