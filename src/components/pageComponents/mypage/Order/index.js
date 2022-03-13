@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import OrderList from './OrderList';
 import OrderPrice from './OrderPrice';
-import { fetchPost } from '../../../../../utils/fetches';
-import { API } from '../../../../../config';
+import { fetchPost } from '../../../../utils/fetches';
+import { API } from '../../../../config';
 import styles from './index.module.scss';
 
 export default withRouter(

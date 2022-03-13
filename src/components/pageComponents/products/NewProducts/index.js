@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Carousel from '../../../Components/Carousel';
-import ProductList from '../../../Components/ProductList';
-import Footer from '../../login/Footer';
-import Nav from '../../../Components/Nav';
-import MainTab from '../Components/MainTab';
+import Carousel from '../../../common/Carousel';
+import ProductList from '../../../common/ProductList';
+import Nav from '../../../common/Nav';
+import MainTab from '../../../common/MainTab';
 import styles from './index.module.scss';
 
-import { fetchDelete, fetchGet, fetchPost } from '../../../utils/fetches';
-import { USER_API, CART_API, PRODUCT_API } from '../../../config';
-import { matchParser } from '../../../utils/queryString';
+import { fetchDelete, fetchGet, fetchPost } from '../../../../utils/fetches';
+import { USER_API, CART_API, PRODUCT_API } from '../../../../config';
+import { matchParser } from '../../../../utils/queryString';
 
 const NewProducts = () => {
   const [products, setProducts] = useState([]);
@@ -150,7 +149,6 @@ const NewProducts = () => {
             addToCart={addToCart}
           />
         </div>
-        <Footer />
       </article>
     </>
   );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { characterData } from '../../Data/characterData';
-import { categoryData } from '../../Data/categoryData';
+import { characterData } from '../../../Data/categoryData';
+import { categoryData } from '../../../Data/categoryData';
 import Menu from './Menu';
 import { withRouter } from 'next/router';
 import styles from './index.module.scss';

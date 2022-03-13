@@ -22,7 +22,7 @@ const SubTab = () => {
     <div className={styles.subTab}>
       <ul className={styles.tabLists}>
         {SUB_ARR.map((ele) => (
-          <Link href={`/main/mypage/${LINK_OBJ[ele.name]}`}>
+          <Link href={`/mypage/${LINK_OBJ[ele.name]}`}>
             <a
               className={`${styles.tabList} ${
                 ele.params === keyword ? styles.active : ''

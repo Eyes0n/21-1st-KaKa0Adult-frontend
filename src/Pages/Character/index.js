@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProductList from '../../Components/ProductList';
-import FilterModal from './FilterModal';
+import FilterModal from '../../components/pageComponents/character/FilterModal';
 import { API } from '../../config';
 import { categoryData } from '../../Data/categoryData';
 import { characterData } from '../../Data/characterData';
@@ -120,7 +120,6 @@ class Character extends Component {
             <ProductList />
           </div>
         </section>
-        {/* footer */}
         {isModalOpen && (
           <FilterModal
             filters={modalFilters}

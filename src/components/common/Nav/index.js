@@ -54,7 +54,7 @@ export default class Nav extends Component {
                   <span className={styles.hamburgerBtnBadge}></span>
                 </button>
                 <h1 className={styles.titleWrap}>
-                  <Link href="/products/newList">
+                  <Link href="/products/new">
                     <a className={styles.titleLink}></a>
                   </Link>
                 </h1>

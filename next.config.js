@@ -6,8 +6,8 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/main/products/new',
-        permanent: true,
+        destination: '/products/new',
+        permanent: false,
       },
     ];
   },

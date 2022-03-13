@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import InnerCarousel from './InnerCarousel';
+import InnerCarousel from '../../components/pageComponents/detail/InnerCarousel';
 import Nav from '../../Components/Nav';
 import { fetchGet, fetchPost } from '../../utils/fetches';
 import { API } from '../../config';

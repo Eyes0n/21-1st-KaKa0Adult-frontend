@@ -6,7 +6,7 @@ export default class Footer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrowIconOn: false,
+      arrowIconOn: true,
     };
   }
 
@@ -24,20 +24,20 @@ export default class Footer extends Component {
         <section className={styles.footerWrap}>
           <div className={styles.footerContainer}>
             <div className={styles.infoSection}>
-              <Link href="/" className={styles.infoLink}>
-                <a>제휴문의</a>
+              <Link href="/">
+                <a className={styles.infoLink}>제휴문의</a>
               </Link>
-              <Link href="/" className={styles.infoLink}>
-                <a>고객문의</a>
+              <Link href="/">
+                <a className={styles.infoLink}>고객문의</a>
               </Link>
-              <Link href="/" className={styles.infoLink}>
-                <a>이용약관</a>
+              <Link href="/">
+                <a className={styles.infoLink}>이용약관</a>
               </Link>
-              <Link href="/" className={styles.infoLink}>
-                <a>개인정보처리방침</a>
+              <Link href="/">
+                <a className={styles.infoLink}>개인정보처리방침</a>
               </Link>
-              <Link href="/" className={styles.infoLink}>
-                <a>지식재산권보호센터</a>
+              <Link href="/">
+                <a className={styles.infoLink}>지식재산권보호센터</a>
               </Link>
             </div>
             <div className={styles.companySection}>

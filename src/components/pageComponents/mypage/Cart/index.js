@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import { fetchPatch, fetchDelete, fetchGet } from '../../../../utils/fetches';
 import { CART_API, API } from '../../../../config';
-import CartList from './CartList';
+import CartList from '../CartList';
 import styles from './index.module.scss';
 
 export default class Cart extends Component {

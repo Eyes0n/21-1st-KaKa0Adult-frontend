@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import CategoryView from './CategoryView';
 import ResultView from './ResultView';
-import { categoryData } from '../../../Data/categoryData';
-import { characterData } from '../../../Data/characterData';
-import { fetchGet } from '../../../utils/fetches';
-import { PRODUCT_API } from '../../../config';
+import { categoryData } from '../../../../Data/categoryData';
+import { characterData } from '../../../../Data/characterData';
+import { fetchGet } from '../../../../utils/fetches';
+import { PRODUCT_API } from '../../../../config';
 import styles from './index.module.scss';
 
 export default class Searchbar extends Component {

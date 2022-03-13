@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { API, USER_API } from '../../config';
 import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
-import Footer from './Footer';
 import styles from './index.module.scss';
 
 class Login extends Component {
@@ -149,7 +148,6 @@ class Login extends Component {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

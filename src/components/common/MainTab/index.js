@@ -10,11 +10,7 @@ const ARR = {
   cart: '마이',
 };
 
-const PAGE_ARR = [
-  '/main/products/new',
-  '/main/products/hot',
-  '/main/mypage/cart',
-];
+const PAGE_ARR = ['/products/new', '/products/hot', '/mypage/cart'];
 
 const MainTab = () => {
   const router = useRouter();

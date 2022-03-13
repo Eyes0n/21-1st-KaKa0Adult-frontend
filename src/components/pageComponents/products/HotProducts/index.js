@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Nav from '../../../Components/Nav';
-import MainTab from '../Components/MainTab';
+import Nav from '../../../common/Nav';
+import MainTab from '../../../common/MainTab';
 import GridCard from './GridCard';
-import { API, PRODUCT_API } from '../../../config';
-import { fetchDelete, fetchGet, fetchPost } from '../../../utils/fetches';
+import { API, PRODUCT_API } from '../../../../config';
+import { fetchDelete, fetchGet, fetchPost } from '../../../../utils/fetches';
 import styles from './index.module.scss';
 
 export default class HotProducts extends Component {
