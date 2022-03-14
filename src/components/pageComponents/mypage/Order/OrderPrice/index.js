@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { DELIVERY_CHARGE } from '../../../../../Constants';
 import styles from './index.module.scss';
 
 export default class OrderPrice extends Component {
@@ -24,7 +25,7 @@ export default class OrderPrice extends Component {
           </span>
           <span>
             <span className={styles.totalCost}>
-              {(totalPrice + 3000).toLocaleString()}
+              {(totalPrice + DELIVERY_CHARGE).toLocaleString()}
             </span>
           </span>
         </div>

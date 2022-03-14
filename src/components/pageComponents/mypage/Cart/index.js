@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { fetchPatch, fetchDelete, fetchGet } from '../../../../utils/fetches';
 import { CART_API, API } from '../../../../config';
 import CartList from '../CartList';
+import { DELIVERY_CHARGE } from '../../../../Constants';
 import styles from './index.module.scss';
 
 const Cart = () => {
@@ -29,7 +30,7 @@ const Cart = () => {
     setCart((prev) => ({
       ...prev,
       cartData: data['items_in_cart'],
-      selectedArr: Array(data.length).fill(true),
+      selectedArr: Array(data['items_in_cart'].length).fill(true),
     }));
   };
 
@@ -43,7 +44,13 @@ const Cart = () => {
     const isMinusBtn = className.match(/quantity-minus/) !== null;
     const isCountZero = cartData[parseInt(value)].count === 0;
 
-    if (isMinusBtn && isCountZero) return;
+    console.log(isCountZero);
+    if (isMinusBtn && isCountZero) {
+      unCheckItemAmountZero(parseInt(value));
+      handleIsChecked(parseInt(value));
+      return;
+    }
+
     const newQuantity = cartData.map((cartItem, index) => {
       return parseInt(value) !== index
         ? cartItem
@@ -82,8 +89,8 @@ const Cart = () => {
       if (isChecked) {
         return false;
       }
+      return true;
     }
-    return true;
   };
 
   const removeCartItem = (event, id) => {
@@ -123,16 +130,6 @@ const Cart = () => {
     );
   };
 
-  const selectAll = () => {
-    const { selectedArr } = cart;
-    const newCheckArr = Array(selectedArr.length).fill(isCheckArr());
-    setCart((prev) => ({
-      ...prev,
-      selectedArr: newCheckArr,
-    }));
-    updateCartSelection();
-  };
-
   const updateCartSelection = () => {
     const { cartData } = cart;
     cartData.forEach((item) => {
@@ -156,6 +153,16 @@ const Cart = () => {
           .then((res) => res.json())
           .then((result) => console.log(result));
     });
+  };
+
+  const selectAll = () => {
+    const { selectedArr } = cart;
+    const newCheckArr = Array(selectedArr.length).fill(isCheckArr());
+    setCart((prev) => ({
+      ...prev,
+      selectedArr: newCheckArr,
+    }));
+    updateCartSelection();
   };
 
   const selectDelete = () => {
@@ -247,11 +254,11 @@ const Cart = () => {
           <div className={styles.basketDetailWrap}>
             <ul className={styles.basketDetailLists}>
               {cartData &&
-                cartData.map((data, index) => {
+                cartData.map((data) => {
                   return (
                     <CartList
                       id={data.id}
-                      key={index}
+                      key={data.id}
                       item={data}
                       selectedArr={selectedArr}
                       handleQuantity={handleQuantity}
@@ -271,7 +278,7 @@ const Cart = () => {
               <div className={styles.totalCostBar}>
                 <span className={styles.totalCostTitle}>배송비</span>
                 <div>
-                  <span>3,000</span>원
+                  <span>{DELIVERY_CHARGE.toLocaleString()}</span>원
                 </div>
               </div>
               <div className={styles.totalCostBar}>
@@ -280,7 +287,7 @@ const Cart = () => {
                 </span>
                 <span>
                   <span className={styles.totalCost}>
-                    {(totalPrice + 3000).toLocaleString()}
+                    {(totalPrice + DELIVERY_CHARGE).toLocaleString()}
                   </span>
                 </span>
               </div>
@@ -292,15 +299,19 @@ const Cart = () => {
         <Link
           href={{
             pathname: '/mypage/[keyword]',
+            as: '/mypage/payment',
             query: {
-              orderData: cartData,
+              keyword: 'payment',
+              cartData: encodeURIComponent(JSON.stringify(cartData)),
             },
-            as: '/mypage/order',
           }}
         >
-          <button>
-            <span>{totalPrice.toLocaleString()}</span>원 주문 하기
-          </button>
+          <a>
+            <button>
+              <span>{(totalPrice + DELIVERY_CHARGE).toLocaleString()}</span>원
+              주문 하기
+            </button>
+          </a>
         </Link>
       </div>
     </>
