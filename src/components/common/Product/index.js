@@ -19,7 +19,7 @@ class Product extends Component {
           </button>
         </div>
 
-        <Link href={`detail/${product.id}`}>
+        <Link href={`/products/${product.id}`}>
           <a className={styles.productLink}>
             <div className={styles.productImgWrap}>
               <img src={product.image} alt="상품 이미지" />
