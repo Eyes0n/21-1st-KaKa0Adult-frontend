@@ -28,23 +28,20 @@ class Accordion extends Component {
         {isShowList &&
           (type === 'character' ? (
             <ul className={styles.characters}>
-              {characters.length &&
+              {!!characters.length &&
                 characters.map((character) => (
                   <li key={character.id} className={styles.characterItem}>
-                    <Link
-                      href={`/products/character/${character.name}`}
-                      className={styles.characterLink}
-                    >
-                      <a>
+                    <Link href={`/character?type=${character.name}`}>
+                      <a className={styles.characterLink}>
                         <div className={styles.character}>
                           <img
-                            className={characterImg}
+                            className={styles.characterImg}
                             src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/PetCharacter.png"
                             alt={character.name}
                           />
-                          <span className={styles.characterSpan}>
+                          <p className={styles.characterName}>
                             {character.name}
-                          </span>
+                          </p>
                         </div>
                       </a>
                     </Link>
@@ -52,10 +49,11 @@ class Accordion extends Component {
                 ))}
             </ul>
           ) : (
+            // type === 'category'인 경우
             <ul className={styles.category}>
               {categories?.map((category) => (
                 <li key={category.id} className={styles.categoryItem}>
-                  <Link href={`/products/category`}>
+                  <Link href={`/category?type=${category.name}`}>
                     <a className={styles.categoryLink}>{category.name}</a>
                   </Link>
                 </li>

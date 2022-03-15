@@ -1,6 +1,11 @@
 export const categoryData = [
   {
     type: 'category',
+    id: 0,
+    name: '전체',
+  },
+  {
+    type: 'category',
     id: 1,
     name: '먹이',
   },

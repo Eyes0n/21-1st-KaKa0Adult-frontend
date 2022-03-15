@@ -11,22 +11,3 @@
     background: rgba(0, 0, 0, 0.7);
   }
 }
-
-.category {
-  padding: 16px 0px 36px 24px;
-
-  .categoryItem {
-    display: inline-block;
-    width: 175px;
-    border: none;
-
-    .categoryLink {
-      height: 20px;
-      padding: 0;
-      font-size: 15px;
-      line-height: 1.33;
-      letter-spacing: -0.23px;
-      color: rgb(102, 102, 102);
-    }
-  }
-}

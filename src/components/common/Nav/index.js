@@ -21,15 +21,21 @@ export default class Nav extends Component {
   };
 
   toggleSideMenu = (e) => {
+    const classListArr = [...e.target.classList];
     const { isOpenAside } = this.state;
-    const classList = [...e.target.classList];
 
-    if (
-      !isOpenAside ||
-      classList.includes('sideMenuWrap') ||
-      classList.includes('loginInOutBtn')
-    ) {
-      this.setState({ isOpenAside: !isOpenAside });
+    const closeCondition =
+      isOpenAside === true &&
+      classListArr.find((classList) =>
+        classList.match(
+          /(sideMenuWrap)|(loginInOutBtn)|(Nav_hamburgerBtnLogo)/,
+        ),
+      );
+
+    if (closeCondition) {
+      this.setState({ isOpenAside: false });
+    } else {
+      this.setState({ isOpenAside: true });
     }
   };
 
@@ -38,7 +44,7 @@ export default class Nav extends Component {
 
     return (
       <>
-        {isOpenAside && <AsideMenu toggleSideMenu={this.toggleSideMenu} />}
+        {isOpenAside && <AsideMenu closeSideMenu={this.toggleSideMenu} />}
         {isSearchbarOn ? (
           <Searchbar searchbarOff={this.toggleSearchOpen} />
         ) : (
