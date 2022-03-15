@@ -24,10 +24,6 @@ const Order = ({ router }) => {
     setOrderData(newCartData);
   }, []);
 
-  useEffect(() => {
-    console.log('orderData', orderData);
-  }, [orderData]);
-
   const handleInput = (e) => {
     setPersonalData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };

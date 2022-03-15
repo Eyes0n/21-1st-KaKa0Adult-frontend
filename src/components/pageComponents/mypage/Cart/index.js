@@ -42,10 +42,9 @@ const Cart = () => {
     const { value, className } = event.target;
     const { cartData } = cart;
     const isMinusBtn = className.match(/quantity-minus/) !== null;
-    const isCountZero = cartData[parseInt(value)].count === 0;
+    const isCountOne = cartData[parseInt(value)].count === 1;
 
-    console.log(isCountZero);
-    if (isMinusBtn && isCountZero) {
+    if (isMinusBtn && isCountOne) {
       unCheckItemAmountZero(parseInt(value));
       handleIsChecked(parseInt(value));
       return;
