@@ -3,11 +3,9 @@ import Carousel from '../../../common/Carousel';
 import ProductList from '../../../common/ProductList';
 import Nav from '../../../common/Nav';
 import MainTab from '../../../common/MainTab';
-import styles from './index.module.scss';
-
 import { fetchDelete, fetchGet, fetchPost } from '../../../../utils/fetches';
 import { USER_API, CART_API, PRODUCT_API } from '../../../../config';
-import { matchParser } from '../../../../utils/queryString';
+import styles from './index.module.scss';
 
 const NewProducts = () => {
   const [products, setProducts] = useState([]);
@@ -79,59 +77,6 @@ const NewProducts = () => {
       });
   }, [page]);
 
-  const toggleProductLike = (updatedId, updatedIndex) => {
-    const updatedProducts = products.map((product) =>
-      updatedId === product.id ? { ...product, like: !product.like } : product,
-    );
-
-    setProducts({
-      products: updatedProducts,
-    });
-
-    const isLikeProduct = products[updatedIndex].like;
-
-    const res = isLikeProduct
-      ? fetchDelete(`${USER_API}/users/like/product/${updatedId}`)
-      : fetchPost(`${USER_API}/users/like/product`, { product_id: updatedId });
-
-    res
-      .then((res) => {
-        if (res.status === 201) {
-          return alert('Like Success');
-        } else if (res.status === 204) {
-          return alert('Like Cancle Success');
-        } else throw new Error(res.message);
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const addToCart = (updatedId, updatedIndex) => {
-    const updatedProducts = products.map((product) =>
-      updatedId === product.id && product.cart === false
-        ? { ...product, cart: !product.cart }
-        : product,
-    );
-
-    setProducts({
-      products: updatedProducts,
-    });
-
-    if (!products[updatedIndex].cart) {
-      fetchPost(`${CART_API}/orders/order-items`, {
-        product_id: updatedId,
-        count: 1,
-      })
-        .then((res) => {
-          if (res.ok) {
-            alert('Add Cart Success');
-          } else {
-            alert('Add Cart Fail');
-          }
-        })
-        .catch((error) => console.log(error.message));
-    }
-  };
-
   return (
     <>
       <Nav />
@@ -143,11 +88,7 @@ const NewProducts = () => {
             <p className={styles.subtitle}>따끈따끈 새로나온</p>
             <strong className={styles.title}>신상품</strong>
           </div>
-          <ProductList
-            products={products}
-            toggleProductLike={toggleProductLike}
-            addToCart={addToCart}
-          />
+          <ProductList products={products} />
         </div>
       </article>
     </>
