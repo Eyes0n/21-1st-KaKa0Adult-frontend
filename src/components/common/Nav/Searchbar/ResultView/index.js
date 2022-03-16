@@ -11,11 +11,11 @@ export default class ResultView extends Component {
           <div className={styles.noResult}>검색결과가 없습니다.</div>
         )}
 
-        <ul>
+        <ul className={styles.resultUl}>
           {searchResult.map((data) => (
             <li key={data.id} onClick={searchbarOff}>
               <Link href={`/products/${data.id}`}>
-                <a>{data.name}</a>
+                <a className={styles.resultLink}>{data.name}</a>
               </Link>
             </li>
           ))}

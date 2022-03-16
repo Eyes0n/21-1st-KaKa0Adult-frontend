@@ -8,3 +8,21 @@
   color: #999;
   letter-spacing: -0.25px;
 }
+
+.resultUl {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  .resultLink {
+    display: block;
+    padding: 10px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
