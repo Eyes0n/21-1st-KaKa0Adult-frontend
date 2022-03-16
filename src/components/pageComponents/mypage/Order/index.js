@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { withRouter } from 'next/router';
 import OrderList from './OrderList';
 import OrderPrice from './OrderPrice';
-import { fetchPost } from '../../../../utils/fetches';
+import { fetchPost, fetchGet } from '../../../../utils/fetches';
 import { API } from '../../../../config';
 import styles from './index.module.scss';
 
@@ -19,30 +19,46 @@ const Order = ({ router }) => {
     query: { cartData },
   } = router;
 
+  const getOrderDataAPI = async () => {
+    // mock data
+    const response = await fetchGet(`/data/cartdata.json`);
+    const data = await response.json();
+    const newOrderItems = data.items_in_cart.filter((item) => item.selected);
+    setOrderData(newOrderItems);
+  };
+
   useEffect(() => {
-    const newCartData = JSON.parse(decodeURIComponent(cartData));
-    setOrderData(newCartData);
+    // 장바구니 페이지에서 라우팅으로 넘어온 경우
+    if (cartData) {
+      const newCartData = JSON.parse(decodeURIComponent(cartData));
+      setOrderData(newCartData);
+    } else {
+      // url로 직접 접근한 경우
+      getOrderDataAPI();
+    }
   }, []);
 
   const handleInput = (e) => {
     setPersonalData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, phone_number, address, request } = personalData;
     const itemsToOrder = orderData?.filter((item) => item.selected);
     const idsToOrder = itemsToOrder.map((item) => item.order_item_id);
 
-    fetchPost(`${API}/orders`, {
-      order_item_list: idsToOrder,
-      recipient_info: {
-        name,
-        phone_number,
-        address,
-        request,
-      },
-    }).then((res) => res.message);
+    await alert('정말 결제하시겠습니까?');
+
+    // await fetchPost(`${API}/orders`, {
+    //   order_item_list: idsToOrder,
+    //   recipient_info: {
+    //     name,
+    //     phone_number,
+    //     address,
+    //     request,
+    //   },
+    // }).then((res) => res.message);
 
     router.push('/mypage/orderlist');
   };
