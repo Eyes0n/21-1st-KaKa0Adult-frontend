@@ -108,6 +108,8 @@ export default class HotProducts extends Component {
           <div className={styles.hotGrid}>
             <div className={styles.sectionGrid1}>
               {products.slice(0, 3).map((product) => (
+                // TODO: 주기별로 스타일링
+                // 4n-3 주기로 반복
                 <GridCard
                   key={product.id}
                   product={product}
@@ -118,6 +120,7 @@ export default class HotProducts extends Component {
             </div>
             <div className={styles.sectionGrid2}>
               {products.slice(3, 9).map((product) => (
+                // 2n 주기로 반복
                 <GridCard
                   key={product.id}
                   product={product}
@@ -128,6 +131,7 @@ export default class HotProducts extends Component {
             </div>
             <div className={styles.sectionGrid3}>
               {products.slice(9, 12).map((product) => (
+                // 4n-1 주기로 반복
                 <GridCard
                   key={product.id}
                   product={product}
