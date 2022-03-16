@@ -303,7 +303,7 @@ const Cart = () => {
               cartData: encodeURIComponent(JSON.stringify(cartData)),
             },
           }}
-          as="mypage/payment"
+          as="/mypage/payment"
         >
           <a>
             <button>
