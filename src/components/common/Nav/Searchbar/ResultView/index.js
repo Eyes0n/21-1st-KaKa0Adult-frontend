@@ -8,7 +8,7 @@ export default class ResultView extends Component {
     return (
       <>
         {!searchResult.length && (
-          <div className={styels.noResult}>검색결과가 없습니다.</div>
+          <div className={styles.noResult}>검색결과가 없습니다.</div>
         )}
 
         <ul>

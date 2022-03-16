@@ -1,6 +1,12 @@
 .charactersWrap {
   padding: 15px 20px;
 
+  .charactersTitle {
+    font-size: 15px;
+    color: #666666;
+    letter-spacing: -0.23px;
+  }
+
   .charactersUI {
     display: flex;
     flex-wrap: wrap;

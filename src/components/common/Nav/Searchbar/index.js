@@ -57,7 +57,10 @@ export default class Searchbar extends Component {
       <>
         <div className={styles.searchModal}>
           <div className={styles.searchForm}>
-            <form className={styles.earchInputWrap} onSubmit={this.handleReset}>
+            <form
+              className={styles.searchInputWrap}
+              onSubmit={this.handleReset}
+            >
               <input
                 className={styles.searchInput}
                 id="keyword"
@@ -77,7 +80,7 @@ export default class Searchbar extends Component {
             </button>
           </div>
 
-          <div className={searchBottomWrap}>
+          <div className={styles.searchBottomWrap}>
             {searchKeyword.length > 0 ? (
               // 검색결과가 있을 경우
               <ResultView
