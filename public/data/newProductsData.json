@@ -16,7 +16,7 @@
       "stock": 1,
       "like": false,
       "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=2"
     },
     {
       "id": 3,
@@ -25,7 +25,7 @@
       "stock": 2,
       "like": true,
       "cart": true,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=3"
     },
     {
       "id": 4,
@@ -34,7 +34,7 @@
       "stock": 3,
       "like": false,
       "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=4"
     },
     {
       "id": 5,
@@ -43,7 +43,7 @@
       "stock": 4,
       "like": true,
       "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=5"
     },
     {
       "id": 6,
@@ -52,7 +52,7 @@
       "stock": 0,
       "like": false,
       "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=6"
     },
     {
       "id": 7,
@@ -61,7 +61,7 @@
       "stock": 0,
       "like": true,
       "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=7"
     },
     {
       "id": 8,
@@ -70,7 +70,7 @@
       "stock": 0,
       "like": false,
       "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=8"
     },
     {
       "id": 9,
@@ -79,7 +79,7 @@
       "stock": 0,
       "like": true,
       "cart": true,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=9"
     },
     {
       "id": 10,
@@ -88,65 +88,11 @@
       "stock": 0,
       "like": false,
       "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
-    },
-    {
-      "id": 11,
-      "name": "11[마지막기회] 신소재 앵무새 집",
-      "price": "82500.000",
-      "stock": 1,
-      "like": true,
-      "cart": true,
-      "image": "https://picsum.photos/200/300?random=1"
-    },
-    {
-      "id": 12,
-      "name": "12[마지막기회] 신소재 고슴도치 집",
-      "price": "83100.000",
-      "stock": 2,
-      "like": false,
-      "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
-    },
-    {
-      "id": 13,
-      "name": "13[마지막기회] 신소재 앵무새 집",
-      "price": "82500.000",
-      "stock": 1,
-      "like": true,
-      "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
-    },
-    {
-      "id": 14,
-      "name": "14[마지막기회] 신소재 고슴도치 집",
-      "price": "83100.000",
-      "stock": 2,
-      "like": false,
-      "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
-    },
-    {
-      "id": 15,
-      "name": "15[마지막기회] 신소재 고슴도치 집",
-      "price": "83100.000",
-      "stock": 0,
-      "like": true,
-      "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
-    },
-    {
-      "id": 16,
-      "name": "16[마지막기회] 신소재 고슴도치 집",
-      "price": "83100.000",
-      "stock": 0,
-      "like": false,
-      "cart": false,
-      "image": "https://picsum.photos/200/300?random=1"
+      "image": "https://picsum.photos/200/300?random=10"
     }
   ],
   "page": 1,
-  "pageSize": 2,
+  "pageSize": 10,
   "totalCount": 90,
   "totalPageCount": 45,
   "numberOfElements": 2

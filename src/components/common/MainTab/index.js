@@ -23,17 +23,19 @@ const MainTab = () => {
           return (
             <li className={styles.tabList} key={category}>
               <Link href={`${PAGE_ARR[idx]}`}>
-                <div className={styles.tabItem}>
-                  <span
-                    className={
-                      category === ARR[keyword]
-                        ? `${styles.tabName} ${styles.active}`
-                        : styles.tabName
-                    }
-                  >
-                    {category}
-                  </span>
-                </div>
+                <a>
+                  <div className={styles.tabItem}>
+                    <span
+                      className={
+                        category === ARR[keyword]
+                          ? `${styles.tabName} ${styles.active}`
+                          : styles.tabName
+                      }
+                    >
+                      {category}
+                    </span>
+                  </div>
+                </a>
               </Link>
               <hr
                 className={styles.focusUnderline}
