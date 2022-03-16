@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import CategoryView from './CategoryView';
 import ResultView from './ResultView';
 import { categoryData } from '../../../../Data/categoryData';
@@ -6,97 +6,83 @@ import { characterData } from '../../../../Data/characterData';
 import { fetchGet } from '../../../../utils/fetches';
 import { PRODUCT_API } from '../../../../config';
 import styles from './index.module.scss';
+import useDebounce from '../../../../hooks/useDebounceValue';
 
-export default class Searchbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchKeyword: '',
-      searchResult: [],
-    };
-  }
+const Searchbar = ({ searchbarOff }) => {
+  const [keyword, setKeyword] = useState('');
+  const [result, setResult] = useState([]);
 
-  setSearchKeyword = (e) => {
-    this.setState(
-      {
-        searchKeyword: e.target.value,
-      },
-      (e) => this.handleChangeInput(e),
-    );
-  };
+  const debouncedValue = useDebounce(keyword, 500);
 
-  handleReset = () => {
-    this.setState({
-      searchKeyword: '',
-    });
-  };
-
-  handleChangeInput(event) {
-    // const searchKeyword = event.target.value;
-
-    const { searchKeyword } = this.state;
-    !searchKeyword.length ? this.handleReset() : this.fetchSearchResult();
-  }
-
-  fetchSearchResult = () => {
-    fetchGet(`${PRODUCT_API}/products?search=${this.state.searchKeyword}`)
+  const getSearchAPI = (debouncedValue) => {
+    fetchGet(
+      // `${PRODUCT_API}/products?search=${debouncedValue}`
+      'http://localhost:3000/data/searchProducts.json',
+    )
       .then((res) => res.json())
       .then((result) => {
         console.log(result.resultList);
-        this.setState({
-          searchResult: result.resultList,
-        });
+        setResult(result.resultList);
       });
   };
 
-  render() {
-    const { searchKeyword, searchResult } = this.state;
-    const { searchbarOff } = this.props;
+  useEffect(() => {
+    if (!debouncedValue) return;
+    getSearchAPI(debouncedValue);
+  }, [debouncedValue]);
 
-    return (
-      <>
-        <div className={styles.searchModal}>
-          <div className={styles.searchForm}>
-            <form
-              className={styles.searchInputWrap}
-              onSubmit={this.handleReset}
-            >
-              <input
-                className={styles.searchInput}
-                id="keyword"
-                name="keyword"
-                value={searchKeyword}
-                onChange={this.setSearchKeyword}
-                autoComplete="off"
-              />
-              <button
-                type="reset"
-                className={styles.resetBtn}
-                onClick={this.handleReset}
-              ></button>
-            </form>
-            <button className={styles.searchCloseBtn} onClick={searchbarOff}>
-              취소
-            </button>
-          </div>
+  const handleInputReset = () => {
+    setKeyword('');
+  };
 
-          <div className={styles.searchBottomWrap}>
-            {searchKeyword.length > 0 ? (
-              // 검색결과가 있을 경우
-              <ResultView
-                searchbarOff={searchbarOff}
-                searchResult={searchResult}
-              />
-            ) : (
-              // 검색결과가 없을 경우
-              <CategoryView
-                categories={categoryData}
-                characters={characterData}
-              />
-            )}
-          </div>
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setKeyword(value);
+  };
+
+  const handleSubmit = () => {
+    // api 요청은 useDebounceValue의 변화에 따라 useEffect에서 처리함.
+    handleInputReset();
+  };
+  return (
+    <>
+      <div className={styles.searchModal}>
+        <div className={styles.searchForm}>
+          <form className={styles.searchInputWrap} onSubmit={handleSubmit}>
+            <input
+              className={styles.searchInput}
+              id="keyword"
+              name="keyword"
+              value={keyword}
+              onChange={handleInputChange}
+              autoComplete="off"
+            />
+            <button
+              type="reset"
+              className={styles.resetBtn}
+              onClick={handleInputReset}
+            ></button>
+          </form>
+          <button className={styles.searchCloseBtn} onClick={searchbarOff}>
+            취소
+          </button>
         </div>
-      </>
-    );
-  }
-}
+
+        <div className={styles.searchBottomWrap}>
+          {keyword.length > 0 ? (
+            // 검색결과가 있을 경우
+            <ResultView searchbarOff={searchbarOff} searchResult={result} />
+          ) : (
+            // 검색결과가 없을 경우
+            <CategoryView
+              categories={categoryData}
+              characters={characterData}
+            />
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Searchbar;
