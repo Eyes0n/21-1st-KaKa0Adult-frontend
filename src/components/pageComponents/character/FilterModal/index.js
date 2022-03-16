@@ -18,7 +18,13 @@ const FilterModal = ({ filters, toggleFilterModal, selectFilterCheck }) => {
       }
       onClick={toggleFilterModal}
     >
-      <div className={styles.filterModal}>
+      <div
+        className={
+          isSlide
+            ? `${styles.filterModal} ${styles.filterTrans}`
+            : styles.filterModal
+        }
+      >
         <ul className={styles.filterUl}>
           {filters.map((filter, idx) => (
             <li
