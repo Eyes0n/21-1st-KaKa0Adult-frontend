@@ -298,12 +298,12 @@ const Cart = () => {
         <Link
           href={{
             pathname: '/mypage/[keyword]',
-            as: '/mypage/payment',
             query: {
               keyword: 'payment',
               cartData: encodeURIComponent(JSON.stringify(cartData)),
             },
           }}
+          as="mypage/payment"
         >
           <a>
             <button>
