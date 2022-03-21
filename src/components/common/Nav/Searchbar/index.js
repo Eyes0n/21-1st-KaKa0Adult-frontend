@@ -21,7 +21,6 @@ const Searchbar = ({ searchbarOff }) => {
     )
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.resultList);
         setResult(result.resultList);
       });
   };
@@ -77,6 +76,7 @@ const Searchbar = ({ searchbarOff }) => {
             <CategoryView
               categories={categoryData}
               characters={characterData}
+              searchbarOff={searchbarOff}
             />
           )}
         </div>

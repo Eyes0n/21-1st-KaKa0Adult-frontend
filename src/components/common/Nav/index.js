@@ -23,12 +23,11 @@ export default class Nav extends Component {
   toggleSideMenu = (e) => {
     const classListArr = [...e.target.classList];
     const { isOpenAside } = this.state;
-
     const closeCondition =
       isOpenAside === true &&
       classListArr.find((classList) =>
         classList.match(
-          /(sideMenuWrap)|(loginInOutBtn)|(Nav_hamburgerBtnLogo)/,
+          /(sideMenuWrap)|(loginInOutBtn)|(Nav_hamburgerBtnLogo)|(character)|(category)/,
         ),
       );
 

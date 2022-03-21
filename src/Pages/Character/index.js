@@ -137,8 +137,6 @@ const Character = ({ router }) => {
 
   return (
     <>
-      <Nav />
-      <MainTab />
       <section className={styles.characterWrap}>
         <div className={styles.bannerWrap}>
           <span className={styles.bannerTitle}>{type}</span>

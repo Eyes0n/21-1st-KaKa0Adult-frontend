@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 
 export default class CategoryView extends Component {
   render() {
-    const { characters, categories } = this.props;
+    const { characters, categories, searchbarOff } = this.props;
     return (
       <>
         <div className={styles.charactersWrap}>
@@ -12,7 +12,11 @@ export default class CategoryView extends Component {
           <ul className={styles.charactersUI}>
             {characters.map((character) => {
               return (
-                <li className={styles.charactersUIList} key={character.name}>
+                <li
+                  className={styles.charactersUIList}
+                  key={character.name}
+                  onClick={searchbarOff}
+                >
                   <Link href={`/character?type=${character.name}`}>
                     <a className={styles.charactersUILink}></a>
                   </Link>
@@ -27,7 +31,11 @@ export default class CategoryView extends Component {
         <ul className={styles.categoryLists}>
           {categories.map((category) => {
             return (
-              <li className={styles.categoryList} key={category.name}>
+              <li
+                className={styles.categoryList}
+                key={category.name}
+                onClick={searchbarOff}
+              >
                 <Link href={`/categoty?type=${category.name}`}>
                   <a className={styles.categoryLink}>{category.name}</a>
                 </Link>

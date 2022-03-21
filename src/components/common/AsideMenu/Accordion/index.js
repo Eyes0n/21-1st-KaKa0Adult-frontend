@@ -15,7 +15,7 @@ class Accordion extends Component {
 
   render() {
     const { isShowList } = this.state;
-    const { type, title, characters, categories } = this.props;
+    const { type, title, characters, categories, closeSideMenu } = this.props;
 
     return (
       <>
@@ -33,7 +33,10 @@ class Accordion extends Component {
                   <li key={character.id} className={styles.characterItem}>
                     <Link href={`/character?type=${character.name}`}>
                       <a className={styles.characterLink}>
-                        <div className={styles.character}>
+                        <div
+                          className={styles.character}
+                          onClick={(e) => closeSideMenu(e)}
+                        >
                           <img
                             className={styles.characterImg}
                             src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/PetCharacter.png"

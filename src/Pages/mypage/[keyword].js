@@ -20,8 +20,6 @@ const Mypage = () => {
 
   return (
     <>
-      <Nav />
-      <MainTab />
       <SubTab />
       {MAPPING_COMPONENT[keyword]}
     </>

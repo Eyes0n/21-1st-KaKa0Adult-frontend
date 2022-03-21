@@ -59,6 +59,7 @@ const Menu = ({ isSlide, user, characters, categories, closeSideMenu }) => {
               type="character"
               title="캐릭터"
               characters={characters}
+              closeSideMenu={closeSideMenu}
             />
           </li>
           <li className={`${styles.menuLi} ${styles.borderPaddingBottom}`}>
@@ -66,6 +67,7 @@ const Menu = ({ isSlide, user, characters, categories, closeSideMenu }) => {
               type="category"
               title="카테고리"
               categories={categories}
+              closeSideMenu={closeSideMenu}
             />
           </li>
           <li className={`${styles.menuLi} ${styles.topPadding}`}>

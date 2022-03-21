@@ -4,10 +4,13 @@ import Footer from '../components/common/Footer';
 import '../styles/Common.scss';
 import '../styles/reset.scss';
 import Head from 'next/head';
+import Nav from '../components/common/Nav';
+import MainTab from '../components/common/MainTab';
 
 function MyApp({ Component, pageProps }) {
   const { asPath } = useRouter();
   const mypageOrProductIdRegex = /(\/mypage)|(\/products\/\d+)/;
+  const loginOrSignupRegex = /(\/login)|(\/signup)/;
 
   return (
     <>
@@ -18,6 +21,13 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content="KoKoo Pet Shop clone using NextJs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {loginOrSignupRegex.test(asPath) ? null : (
+        <>
+          <Nav />
+          <MainTab />
+        </>
+      )}
+
       <Component {...pageProps} />
       {asPath.match(mypageOrProductIdRegex) ? <MyPageFooter /> : <Footer />}
     </>
