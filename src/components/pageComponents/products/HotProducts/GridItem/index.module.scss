@@ -1,5 +1,7 @@
 .gridItem {
   position: relative;
+  width: 100%;
+  height: 100%;
 
   .gridHeart {
     position: absolute;
@@ -28,11 +30,13 @@
 
   .gridLink {
     display: block;
+    height: 100%;
 
     .gridImg {
       position: relative;
       overflow: hidden;
       width: 100%;
+      height: 100%;
       margin-right: 20px;
       margin-bottom: 12px;
       border-radius: 6px;

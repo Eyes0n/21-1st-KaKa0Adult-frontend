@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
 import Link from 'next/link';
 import styles from './index.module.scss';
 
-class GridCard extends Component {
-  render() {
-    const { product, addToCart, toggleProductLike } = this.props;
-
-    return (
+const GridItem = ({ item: product, addToCart, toggleProductLike }) => {
+  return (
+    <>
       <div className={styles.gridItem}>
         <div
           className={
@@ -51,8 +48,8 @@ class GridCard extends Component {
           </button>
         </div>
       </div>
-    );
-  }
-}
+    </>
+  );
+};
 
-export default GridCard;
+export default GridItem;
