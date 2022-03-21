@@ -12,11 +12,21 @@ import MainTab from '../../components/common/MainTab';
 
 const PAGE_SIZE = 10;
 
-const Character = ({ router }) => {
+export async function getServerSideProps(context) {
+  const res = await fetch('http://localhost:3000/data/characterData.json');
+  const data = await res.json();
+  const characters = { list: data.resultList, totalCount: data.totalCount };
+
+  return {
+    props: { characters },
+  };
+}
+const Character = ({ router, characters }) => {
   const [products, setProducts] = useState({
-    list: [],
-    totalCount: 0,
+    list: [characters.list],
+    totalCount: characters.totalCount,
   });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState({
     categoryFilter: categoryData,
@@ -54,7 +64,7 @@ const Character = ({ router }) => {
   };
 
   useEffect(() => {
-    page === 1 ? getCharacterDataAPI(type, 1) : getCharacterDataAPI(type, page);
+    if (page !== 1) getCharacterDataAPI(type, page);
   }, [page, type]);
 
   const onSelectCharacter = (name) => {

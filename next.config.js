@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domain: ['jotasic.github.io'],
+    domain: ['jotasic.github.io', 'picsum.photos'],
   },
   async redirects() {
     return [

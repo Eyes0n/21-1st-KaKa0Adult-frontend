@@ -7,8 +7,21 @@ import styles from './index.module.scss';
 import HotGridLayout from './HotGridLayout';
 import GridItemList from './GridItemList';
 
-const HotProducts = () => {
-  const [productsList, setProductsList] = useState([]);
+const HotProducts = ({ products }) => {
+  // 데이터 9개씩 짤라줘야함 -> 그리드당 9개 데이터 사용
+  const copyProducts = [...products];
+  const dividedListByNine = [];
+
+  const num =
+    copyProducts.length % 9 === 0
+      ? copyProducts.length / 9
+      : Math.floor(copyProducts.length / 9) + 1;
+
+  for (let i = 0; i < num; i++) {
+    dividedListByNine[i] = copyProducts.splice(0, 9);
+  }
+
+  const [productsList, setProductsList] = useState(dividedListByNine);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -19,15 +32,6 @@ const HotProducts = () => {
     //     }));
     //   },
     // );
-
-    fetchGet('http://localhost:3000/data/hotProductsData.json')
-      .then((res) => res.json())
-      .then((result) => {
-        setProductsList((prev) => [...prev, result.resultList.slice(0, 9)]);
-        setProductsList((prev) => [...prev, result.resultList.slice(9, 18)]);
-        setProductsList((prev) => [...prev, result.resultList.slice(18, 27)]);
-        setProductsList((prev) => [...prev, result.resultList.slice(27)]);
-      });
   }, [page]);
 
   const toggleProductLike = (targetId) => {

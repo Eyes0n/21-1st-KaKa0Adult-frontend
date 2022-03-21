@@ -7,8 +7,8 @@ import { fetchDelete, fetchGet, fetchPost } from '../../../../utils/fetches';
 import { USER_API, CART_API, PRODUCT_API } from '../../../../config';
 import styles from './index.module.scss';
 
-const NewProducts = () => {
-  const [productsList, setProductsList] = useState([]);
+const NewProducts = ({ products }) => {
+  const [productsList, setProductsList] = useState([products]);
   const [page, setPage] = useState(1); // infinteScroll
 
   useEffect(() => {
@@ -17,12 +17,6 @@ const NewProducts = () => {
     //   .then((result) => {
     //     setProductsList((prev) => [...prev, result.resultList]);
     //   });
-
-    fetchGet('http://localhost:3000/data/newProductsData.json')
-      .then((res) => res.json())
-      .then((result) => {
-        setProductsList((prev) => [...prev, result.resultList]);
-      });
   }, [page]);
 
   return (

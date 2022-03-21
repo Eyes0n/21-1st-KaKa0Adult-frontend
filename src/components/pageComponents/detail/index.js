@@ -6,8 +6,8 @@ import { fetchGet, fetchPost } from '../../../utils/fetches';
 import { API } from '../../../config';
 import styles from './index.module.scss';
 
-const Detail = ({ productId }) => {
-  const [product, setProduct] = useState({});
+const Detail = ({ productInfo }) => {
+  const [product, setProduct] = useState(productInfo);
   const [cartAmount, setCartAmount] = useState(0);
   const [openSection, setOpenSection] = useState({
     info: false,
@@ -16,25 +16,25 @@ const Detail = ({ productId }) => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    // fetchGet(`${API}/products/${detailProductId}`)
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     setProduct(result);
-    //   });
+  // useEffect(() => {
+  //   // fetchGet(`${API}/products/${detailProductId}`)
+  //   //   .then((res) => res.json())
+  //   //   .then((result) => {
+  //   //     setProduct(result);
+  //   //   });
 
-    // fetchGet(`${API}/products/${productId}`)
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     setProduct(result);
-    //   });
+  //   // fetchGet(`${API}/products/${productId}`)
+  //   //   .then((res) => res.json())
+  //   //   .then((result) => {
+  //   //     setProduct(result);
+  //   //   });
 
-    fetchGet('http://localhost:3000/data/detailProduct.json')
-      .then((res) => res.json())
-      .then((result) => {
-        setProduct(result);
-      });
-  }, []);
+  //   fetchGet('http://localhost:3000/data/detailProduct.json')
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       setProduct(result);
+  //     });
+  // }, []);
 
   const toggleTargetOpen = (target) => {
     setOpenSection((prev) => ({ ...prev, [target]: !prev[target] }));
