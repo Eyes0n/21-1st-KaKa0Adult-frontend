@@ -23,7 +23,7 @@ const Character = ({ router }) => {
     characterFilter: characterData,
   });
   const [modalFilter, setModalFilter] = useState({
-    condition: [
+    conditions: [
       { name: '신상품순', isCheck: true },
       { name: '판매량순', isCheck: false },
       { name: '낮은가격순', isCheck: false },
@@ -33,7 +33,7 @@ const Character = ({ router }) => {
   });
 
   // TODO: 무한 스크롤 기능으로 page 업데이트 해주기
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const {
     query: { type },
@@ -46,10 +46,10 @@ const Character = ({ router }) => {
     )
       .then((res) => res.json())
       .then((result) =>
-        setProducts({
-          list: result.resultList,
+        setProducts((prev) => ({
+          list: [...prev.list, result.resultList],
           totalCount: result.totalCount,
-        }),
+        })),
       );
   };
 
@@ -84,24 +84,30 @@ const Character = ({ router }) => {
   );
 
   const selectFilterCheck = (targetIdx, name) => {
-    const prevChange = modalFilter.condition.map((el) =>
-      el.isCheck ? { ...el, isCheck: !el.isCheck } : el,
+    const prevConditionsOff = modalFilter.conditions.map((condition) =>
+      condition.isCheck
+        ? { ...condition, isCheck: !condition.isCheck }
+        : condition,
     );
 
-    const nextFilters = prevChange.map((el, idx) =>
+    const nextConditionsOn = prevConditionsOff.map((el, idx) =>
       targetIdx === idx ? { ...el, isCheck: !el.isCheck } : el,
     );
 
     setModalFilter({
-      condition: nextFilters,
-      filteringName: modalFilter.condition[targetIdx].name,
+      conditions: nextConditionsOn,
+      filteringName: modalFilter.conditions[targetIdx].name,
     });
 
     // '신상품순' -> id  높은 값이 우선
     // '판매량순' -> stock 높은 값이 우선
     // '낮은가격순' -> price 낮은 값이 우선
     // '높은가격순' -> price 높은 값이 우선
-    const updatedProducts = [...products.list].sort((a, b) => {
+    // products: [ [{}, {}, ...], ... ] 2중 배열 형태
+
+    // 1. flat: 2차원 배열을 1차원 배열로 만듬
+    // 2. sort
+    const sortedProducts = products.list.flat(2).sort((a, b) => {
       if (name === ('높은가격순' || '신상품순')) {
         // 내림차순 2 -> 1
         return b[FILTER_NAME_MAPPING[name]] - a[FILTER_NAME_MAPPING[name]];
@@ -109,6 +115,19 @@ const Character = ({ router }) => {
       // 오름차순 1 -> 2
       return a[FILTER_NAME_MAPPING[name]] - b[FILTER_NAME_MAPPING[name]];
     });
+
+    // 3. 1차원 배열를 2차원 배열 형태로 만들기
+    const num =
+      sortedProducts.length % 9 === 0
+        ? sortedProducts.length / 9
+        : Math.floor(sortedProducts.length / 9) + 1;
+
+    const updatedProducts = [];
+
+    for (let i = 0; i < num; i++) {
+      console.log(i);
+      updatedProducts[i] = sortedProducts.splice(0, 9);
+    }
 
     setProducts((prev) => ({
       ...prev,
@@ -160,12 +179,12 @@ const Character = ({ router }) => {
           </div>
         </div>
         <div className={styles.listWrap}>
-          <ProductList products={products.list} />
+          <ProductList productsList={products.list} />
         </div>
       </section>
       {isModalOpen && (
         <FilterModal
-          filters={modalFilter.condition}
+          filters={modalFilter.conditions}
           toggleFilterModal={toggleFilterModal}
           selectFilterCheck={selectFilterCheck}
         />

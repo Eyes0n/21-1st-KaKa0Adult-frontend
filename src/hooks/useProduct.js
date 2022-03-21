@@ -1,60 +1,89 @@
 import { useState, useEffect } from 'react';
 
-export const useProduct = (state) => {
-  const [products, setProducts] = useState();
+export const useProduct = (itemsList) => {
+  // productsList : [ [{}, {}, ...], ...]
+  const [productsList, setProductsList] = useState();
 
   useEffect(() => {
-    setProducts(state);
-  }, [state]);
+    setProductsList(itemsList);
+  }, [itemsList]);
 
-  const toggleProductLike = (updatedId, updatedIndex) => {
-    const updatedProducts = products.map((product) =>
-      updatedId === product.id ? { ...product, like: !product.like } : product,
+  const toggleProductLike = (targetId) => {
+    const updatedProducts = productsList.map((products) =>
+      products.map((product) =>
+        targetId === product.id ? { ...product, like: !product.like } : product,
+      ),
     );
 
-    setProducts(updatedProducts);
+    setProductsList(updatedProducts);
 
-    const isLikeProduct = products[updatedIndex].like;
+    const targetProductsGroupIndex = productsList.findIndex((products) =>
+      products.find((product) => product.id === targetId),
+    );
 
-    // const res = isLikeProduct
-    //   ? fetchDelete(`${USER_API}/users/like/product/${updatedId}`)
-    //   : fetchPost(`${USER_API}/users/like/product`, { product_id: updatedId });
+    const targetProductIndex = productsList[targetProductsGroupIndex].findIndex(
+      (product) => product.id === targetId,
+    );
 
-    // res
-    //   .then((res) => {
-    //     if (res.status === 201) {
-    //       return alert('Like Success');
-    //     } else if (res.status === 204) {
-    //       return alert('Like Cancle Success');
-    //     } else throw new Error(res.message);
+    // api 요청 주석처리
+    // if (productsList[targetProductsGroupIndex][targetProductIndex].like) {
+    //   fetchDelete(`${API}/users/like/product/${targetId}`)
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         alert('Like Cancle Success');
+    //       } else {
+    //         alert('Like Cancle Fail');
+    //       }
+    //     })
+    //     .catch((error) => console.log(error.message));
+    // } else {
+    //   fetchPost(`${API}/users/like/product`, { product_id: targetId })
+    //     .then((res) => {
+    //       if (res.status === 201) {
+    //         alert('Like Success');
+    //       } else {
+    //         alert('Like Fail');
+    //       }
+    //     })
+    //     .catch((error) => console.log(error.message));
+    // }
+  };
+
+  const addToCart = (targetId) => {
+    const updatedProducts = productsList.map((products) =>
+      products.map((product) =>
+        targetId === product.id && product.cart === false
+          ? { ...product, cart: !product.cart }
+          : product,
+      ),
+    );
+
+    setProductsList(updatedProducts);
+
+    const targetProductsGroupIndex = productsList.findIndex((products) =>
+      products.find((product) => product.id === targetId),
+    );
+
+    const targetProductIndex = productsList[targetProductsGroupIndex].findIndex(
+      (product) => product.id === targetId,
+    );
+
+    // api요청 주석 처리
+    // if (!productsList[targetProductsGroupIndex][targetProductIndex].cart) {
+    //   fetchPost(`${API}/orders/order-items`, {
+    //     product_id: targetId,
+    //     count: 1,
     //   })
-    //   .catch((err) => console.error(err));
+    //     .then((res) => {
+    //       if (res.status === 201) {
+    //         alert('Add Cart Success');
+    //       } else {
+    //         alert('Add Cart Fail', res.message);
+    //       }
+    //     })
+    //     .catch((error) => console.log(error.message));
+    // }
   };
 
-  const addToCart = (updatedId, updatedIndex) => {
-    const updatedProducts = products.map((product) =>
-      updatedId === product.id && product.cart === false
-        ? { ...product, cart: !product.cart }
-        : product,
-    );
-
-    setProducts(updatedProducts);
-
-    if (!products[updatedIndex].cart) {
-      // fetchPost(`${CART_API}/orders/order-items`, {
-      //   product_id: updatedId,
-      //   count: 1,
-      // })
-      //   .then((res) => {
-      //     if (res.ok) {
-      //       alert('Add Cart Success');
-      //     } else {
-      //       alert('Add Cart Fail');
-      //     }
-      //   })
-      //   .catch((error) => console.log(error.message));
-    }
-  };
-
-  return [products, toggleProductLike, addToCart];
+  return [productsList, toggleProductLike, addToCart];
 };
