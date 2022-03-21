@@ -125,7 +125,6 @@ const Character = ({ router }) => {
     const updatedProducts = [];
 
     for (let i = 0; i < num; i++) {
-      console.log(i);
       updatedProducts[i] = sortedProducts.splice(0, 9);
     }
 
