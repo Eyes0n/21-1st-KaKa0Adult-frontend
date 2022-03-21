@@ -1,6 +1,11 @@
 export const characterData = [
   {
     type: 'character',
+    id: 0,
+    name: '전체',
+  },
+  {
+    type: 'character',
     id: 1,
     name: '강아지',
   },
