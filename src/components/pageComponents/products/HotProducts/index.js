@@ -113,8 +113,6 @@ const HotProducts = ({ products }) => {
 
   return (
     <>
-      <Nav />
-      <MainTab />
       <HotGridLayout>
         {productsList?.map((products, idx) => (
           <GridItemList

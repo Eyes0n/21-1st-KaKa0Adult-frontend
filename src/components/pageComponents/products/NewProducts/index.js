@@ -21,9 +21,7 @@ const NewProducts = ({ products }) => {
 
   return (
     <>
-      <Nav />
       <article className={styles.NewProducts}>
-        <MainTab />
         <Carousel />
         <div className={styles.wrapLists}>
           <div className={styles.listsContainer}>
