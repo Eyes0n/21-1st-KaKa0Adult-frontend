@@ -47,14 +47,14 @@ const Character = ({ router }) => {
       .then((res) => res.json())
       .then((result) =>
         setProducts((prev) => ({
-          list: [...prev.list, result.resultList],
+          list: [result.resultList],
           totalCount: result.totalCount,
         })),
       );
   };
 
   useEffect(() => {
-    getCharacterDataAPI(type, page);
+    page === 1 ? getCharacterDataAPI(type, 1) : getCharacterDataAPI(type, page);
   }, [page, type]);
 
   const onSelectCharacter = (name) => {
