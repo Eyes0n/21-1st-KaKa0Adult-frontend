@@ -1,0 +1,20 @@
+.ProductWrap {
+  min-width: 100%;
+
+  .itemUl {
+    display: flex;
+    flex-wrap: wrap;
+    width: 570px;
+    margin: 0 auto;
+
+    .itemLi {
+      width: 275px;
+      margin-bottom: 40px;
+      padding: 0px;
+
+      &:nth-child(odd) {
+        margin: 0px 20px 0px 0px;
+      }
+    }
+  }
+}

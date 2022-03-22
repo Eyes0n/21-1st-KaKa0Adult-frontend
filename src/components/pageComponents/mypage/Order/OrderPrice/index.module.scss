@@ -1,0 +1,22 @@
+.totalCostBarWrap {
+  padding: 30px 0px;
+  border-bottom: 1px solid rgb(227, 229, 232);
+
+  .totalCostBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .totalCostTitle {
+      font-size: 16px;
+      letter-spacing: -0.2px;
+      line-height: 1.88;
+    }
+    .last {
+      font-weight: bold;
+    }
+    .totalCost {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+}

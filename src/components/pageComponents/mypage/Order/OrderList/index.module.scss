@@ -1,0 +1,90 @@
+.basketItemWrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px 0px;
+  // margin: 0px 16px 0px 20px;
+  border-bottom: 1px solid rgb(242, 242, 242);
+
+  .checkboxLabel {
+    margin-right: 10px;
+  }
+  .thumbWrap {
+    width: 100px;
+    height: 100px;
+    margin-right: 14px;
+    padding: 0px;
+    object-fit: contain;
+
+    .thumbContainer {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      border-radius: 6px;
+      width: 100px;
+      height: 100px;
+
+      .imgBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+
+        .thumbImage {
+          width: 100%;
+          height: auto;
+          border: 0 none;
+        }
+      }
+    }
+  }
+}
+
+.itemInfo {
+  position: relative;
+  width: 100%;
+
+  .titleWrap {
+    position: relative;
+    padding: 6.5px 0px;
+    width: 446px;
+
+    .itemtitle {
+      padding-top: 4px;
+      width: 344px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+      color: rgb(0, 0, 0);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .specWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    min-height: 50px;
+
+    .priceWrap {
+      line-height: 37px;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+    }
+
+    .qtyDp {
+      border: 1px solid rgb(227, 229, 232);
+      border-radius: 4px;
+      width: 60px;
+      height: 35px;
+      background-color: #fff;
+      text-indent: 8px;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

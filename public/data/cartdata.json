@@ -1,0 +1,45 @@
+{
+  "MESSAGE": "SUCCESS",
+  "items_in_cart": [
+    {
+      "id": 0,
+      "order_item_id": 5,
+      "name": "1",
+      "count": 4,
+      "price": "12400.00",
+      "stock": 3,
+      "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=975&q=80",
+      "selected": true
+    },
+    {
+      "id": 1,
+      "order_item_id": 6,
+      "name": "2",
+      "count": 4,
+      "price": "3750.00",
+      "stock": 2,
+      "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=975&q=80",
+      "selected": true
+    },
+    {
+      "id": 2,
+      "order_item_id": 7,
+      "name": "3",
+      "count": 4,
+      "price": "63600.00",
+      "stock": 6,
+      "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=975&q=80",
+      "selected": true
+    },
+    {
+      "id": 3,
+      "order_item_id": 8,
+      "name": "4",
+      "count": 4,
+      "price": "2300.00",
+      "stock": 8,
+      "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=975&q=80",
+      "selected": true
+    }
+  ]
+}

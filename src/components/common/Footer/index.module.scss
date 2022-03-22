@@ -1,0 +1,28 @@
+.loginFooter {
+  padding: 20px 0 60px;
+  border-top: 1px solid #e5e5e5;
+  text-align: center;
+
+  .linkInfo {
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 12px;
+    color: #4c4c4c;
+    line-height: 20px;
+
+    &.linkPolicy {
+      font-weight: 600;
+      font-family: NotoSans-Bold, sans-serif;
+    }
+  }
+
+  .txtCopyright {
+    display: block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #7c7c7c;
+    line-height: 18px;
+    letter-spacing: 0;
+  }
+}

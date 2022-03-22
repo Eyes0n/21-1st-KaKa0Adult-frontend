@@ -1,0 +1,122 @@
+.characterWrap {
+  max-width: 640px;
+  margin: 90px auto 0;
+
+  .bannerWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 222px;
+    margin-top: -3px;
+    background: url('https://t1.daumcdn.net/friends/prod/category/Category_Ryan_210303.jpg')
+      right 0px / contain no-repeat;
+
+    .bannerTitle {
+      margin-left: 20px;
+      color: rgb(255, 255, 255);
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.25;
+      letter-spacing: -0.2px;
+    }
+
+    .DropBtn {
+      width: 18px;
+      margin-left: 6px;
+      border: 0 none;
+
+      &.rotate {
+        transform: rotate(180deg);
+      }
+    }
+
+    select {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 220px;
+      border: none;
+      background-color: transparent;
+      font-size: 0px;
+      min-height: 111px;
+      appearance: none;
+      outline: none;
+
+      option {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .filterWrap {
+    .filter {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      border-bottom: 1px solid rgb(242, 242, 242);
+
+      .filterName {
+        flex: 1 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        span {
+          margin-right: 2px;
+          color: rgb(17, 17, 17);
+          font-size: 16px;
+          letter-spacing: -0.21px;
+        }
+
+        img {
+          width: 18px;
+          object-fit: contain;
+        }
+      }
+    }
+
+    .filteredInfo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 23px;
+
+      .filterTxt {
+        span {
+          font-size: 16px;
+          letter-spacing: -0.23px;
+
+          &:nth-child(2) {
+            font-size: 15px;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .filterCheckBox {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        img {
+          width: 20px;
+          margin-right: 6px;
+        }
+
+        .filterGlobaltxt {
+          font-size: 16px;
+          letter-spacing: -0.23px;
+        }
+      }
+    }
+  }
+
+  .listWrap {
+    display: flex;
+    justify-content: center;
+  }
+}

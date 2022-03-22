@@ -1,0 +1,201 @@
+.myPage {
+  margin: 44px auto 0px;
+  max-width: 640px;
+
+  .contents {
+    width: 640px;
+    padding: 54px 0px 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin-top: 0px;
+    background-color: rgb(252, 252, 252);
+
+    .emptyBasket {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 694px;
+      padding-top: 166px;
+
+      .emptyImg {
+        background-size: 184px 184px;
+        width: 184px;
+        height: 184px;
+        margin-bottom: 12px;
+        background-image: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/emptyImg.png');
+        background-repeat: no-repeat;
+      }
+
+      .emptyMsg {
+        margin-bottom: 20px;
+        text-align: center;
+        color: rgb(154, 154, 158);
+        font-size: 16px;
+        line-height: 1.58;
+        letter-spacing: -0.2px;
+      }
+
+      .linkToHot {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 170px;
+        height: 35px;
+        border-radius: 4px;
+        margin: 0px auto;
+        background-color: rgb(60, 64, 75);
+
+        .linkTitle {
+          width: 130px;
+          height: 35px;
+          line-height: 35px;
+          margin: 0px;
+          text-align: center;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// 장바구니 차 있을 경우
+.myPage {
+  max-width: 640px;
+  margin: 44px auto 0px;
+
+  .far {
+    color: #d4d7e1;
+  }
+
+  .fill {
+    color: #efa543;
+  }
+
+  .headerWrap {
+    position: fixed;
+    top: 135px;
+    width: 640px;
+    background: #fff;
+    z-index: 10;
+    .headerContainer {
+      display: flex;
+      left: 0;
+      right: 0;
+      padding: 0 20px;
+      height: 54px;
+      border-bottom: 1px solid rgb(227, 229, 232);
+      justify-content: space-between;
+      .checkAllBox {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        .checkbutton {
+          width: 25px;
+          height: 20px;
+          margin-right: 10px;
+        }
+        .checkTitle {
+          font-size: 16px;
+          letter-spacing: -0.21px;
+          margin-right: 4px;
+          display: inline-block;
+          vertical-align: middle;
+          line-height: 1;
+          color: rgb(51, 51, 51);
+        }
+        .checkCount {
+          font-weight: bold;
+          font-size: 16px;
+          letter-spacing: -0.21px;
+          display: inline-block;
+          vertical-align: middle;
+          line-height: 1;
+          color: rgb(51, 51, 51);
+        }
+      }
+      .deleteBox {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 50%;
+
+        .selectedCount {
+          display: inline-block;
+          vertical-align: middle;
+          line-height: 30px;
+          height: 26px;
+          color: rgb(102, 102, 102);
+          padding-right: 8px;
+          font-size: 16px;
+          letter-spacing: -0.21px;
+        }
+        .deleteButton {
+          width: 16px;
+          height: 30px;
+          background-size: 16px 17px;
+          background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/trashcan-btn.png')
+            center center / 16px 17px no-repeat;
+        }
+      }
+    }
+  }
+  .contentsWrap {
+    width: 640px;
+    padding: 95px 0px 0px;
+    margin-top: 90px;
+    background-color: rgb(252, 252, 252);
+
+    .basketDetailWrap {
+      background-color: #fff;
+
+      .basketDetailLists {
+        border-top: 10px solid rgb(247, 247, 247);
+      }
+
+      .totalCostBarWrap {
+        padding: 40px 20px 123px;
+        border-top: 1px solid rgb(227, 229, 232);
+
+        .totalCostBar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .totalCostTitle {
+            font-size: 16px;
+            letter-spacing: -0.2px;
+            line-height: 1.88;
+          }
+          .last {
+            font-weight: bold;
+          }
+          .totalCost {
+            font-size: 24px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+.bottomBarWrap {
+  position: fixed;
+  bottom: 0px;
+  right: 50%;
+  width: 100%;
+  max-width: 640px;
+  margin: 0px -320px;
+  background-color: rgba(60, 64, 75, 0.95);
+  text-align: center;
+  z-index: 90;
+  button {
+    height: 80px;
+    font-size: 18px;
+    background-color: rgba(251, 46, 69, 0.95);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    width: 100%;
+    margin: 0px auto;
+    outline: none;
+    border: none;
+  }
+}

@@ -1,0 +1,22 @@
+.NewProducts {
+  margin: 0 auto;
+  width: 640px;
+  .wrapLists {
+    margin: 0 auto;
+    .listsContainer {
+      width: 570px;
+      margin: 20px auto;
+      .subtitle {
+        font-size: 15px;
+        margin-bottom: 5px;
+        line-height: 22px;
+        color: rgb(154, 154, 158);
+      }
+      .title {
+        font-size: 28px;
+        letter-spacing: -0.29px;
+        line-height: 28px;
+      }
+    }
+  }
+}

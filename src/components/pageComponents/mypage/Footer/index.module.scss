@@ -1,0 +1,87 @@
+.Footer {
+  background-color: #fff;
+
+  .footerWrap {
+    width: 640px;
+    padding: 0px 16px 63px;
+    margin: 0px auto;
+    background-color: rgb(250, 250, 250);
+  }
+
+  .infoSection {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 32px 0px;
+
+    .infoLink {
+      display: inline-block;
+      font-size: 12px;
+      line-height: 19px;
+      letter-spacing: -0.5px;
+      margin: 4px 0px 4px;
+      color: rgb(102, 102, 102);
+    }
+
+    .infoLink + .infoLink::before {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 11px;
+      background-color: #e4e8eb;
+      vertical-align: -1px;
+      margin: 0 8px;
+    }
+  }
+
+  .logoToggle {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    height: 18px;
+
+    .logo {
+      font-size: 14px;
+      letter-spacing: 0.25px;
+
+      .bold {
+        font-weight: 700;
+      }
+    }
+
+    .logoToggleIcon {
+      width: 10px;
+      height: 6px;
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/arrow-footer-close.png')
+        center center / 100% no-repeat;
+      margin-left: 8px;
+    }
+
+    .active {
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/arrow-footer-open.png')
+        center center / 100% no-repeat;
+    }
+  }
+
+  .companyInfoSection {
+    display: flex;
+    margin: 10px 0px;
+
+    .title {
+      max-width: 85px;
+    }
+
+    .para {
+      max-width: 200px;
+      margin-left: 25px;
+    }
+
+    .companyInfo {
+      display: block;
+      margin: 3px 0px;
+      font-size: 11px;
+      letter-spacing: -0.5px;
+      color: rgb(153, 153, 153);
+    }
+  }
+}

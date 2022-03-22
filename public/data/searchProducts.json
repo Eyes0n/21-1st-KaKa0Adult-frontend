@@ -1,0 +1,31 @@
+{
+  "resultList": [
+    {
+      "id": 1,
+      "name": "1[마지막기회] 신소재 앵무새 집",
+      "price": "82500.000",
+      "stock": 0,
+      "like": true,
+      "cart": true,
+      "imgSrc": "https://picsum.photos/200/300?random=1"
+    },
+    {
+      "id": 2,
+      "name": "2[마지막기회] 신소재 고슴도치 집",
+      "price": "83100.000",
+      "stock": 1,
+      "like": false,
+      "cart": false,
+      "imgSrc": "https://picsum.photos/200/300?random=2"
+    },
+    {
+      "id": 3,
+      "name": "3[마지막기회] 신소재 앵무새 집",
+      "price": "82500.000",
+      "stock": 2,
+      "like": true,
+      "cart": true,
+      "imgSrc": "https://picsum.photos/200/300?random=3"
+    }
+  ]
+}

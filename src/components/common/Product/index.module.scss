@@ -1,0 +1,121 @@
+.product {
+  position: relative;
+
+  .heart {
+    position: absolute;
+    left: 14px;
+    top: 234px;
+    width: 32px;
+    height: 32px;
+    z-index: 1;
+    background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heart.png')
+      center center / cover no-repeat;
+    cursor: pointer;
+
+    &.addToLike {
+      width: 32px;
+      height: 32px;
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heartRed.png')
+        center center / cover no-repeat;
+    }
+
+    .likeBtn {
+      border-radius: 3px;
+      text-indent: -9999em;
+      font-size: 1px;
+    }
+  }
+
+  .productLink {
+    display: block;
+
+    .productImgWrap {
+      position: relative;
+      overflow: hidden;
+      width: 275px;
+      margin-right: 20px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+
+      &::after {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.02);
+        content: '';
+        z-index: 0;
+      }
+
+      img {
+        width: 100%;
+        height: 275px;
+      }
+    }
+
+    .productName {
+      width: 220px;
+      margin: 15px 0px 5px;
+      color: rgb(119, 119, 119);
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: -0.23px;
+      overflow: hidden;
+      overflow-wrap: break-word;
+    }
+
+    .productPrice {
+      .price {
+        color: rgb(0, 0, 0);
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 20px;
+        letter-spacing: -0.25px;
+      }
+
+      .unit {
+        color: rgb(0, 0, 0);
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 20px;
+        letter-spacing: -0.23px;
+      }
+    }
+
+    .soldout {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+
+      .soldoutLabel {
+        display: inline-block;
+        width: 61px;
+        height: 22px;
+        background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/soldout.png')
+          center center / contain no-repeat;
+      }
+    }
+  }
+
+  .cart {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    right: 0px;
+    top: 299px;
+    background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/cart.png')
+      center center / contain no-repeat;
+    cursor: pointer;
+
+    &.addToCart {
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/addToCart.png')
+        center center / contain no-repeat;
+    }
+
+    .cartBtn {
+      border-radius: 3px;
+      text-indent: -9999em;
+      font-size: 1px;
+    }
+  }
+}
