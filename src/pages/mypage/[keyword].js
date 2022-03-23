@@ -1,5 +1,3 @@
-import Nav from '../../components/common/Nav';
-import MainTab from '../../components/common/MainTab';
 import SubTab from '../../components/pageComponents/Mypage/SubTab';
 import Cart from '../../components/pageComponents/Mypage/Cart';
 import Order from '../../components/pageComponents/Mypage/Order';

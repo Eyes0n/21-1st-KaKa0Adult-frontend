@@ -7,8 +7,6 @@ import { categoryData } from '../../Data/categoryData';
 import { characterData } from '../../Data/characterData';
 import { fetchGet } from '../../utils/fetches';
 import styles from './index.module.scss';
-import Nav from '../../components/common/Nav';
-import MainTab from '../../components/common/MainTab';
 
 const PAGE_SIZE = 10;
 
