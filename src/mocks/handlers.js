@@ -1,30 +1,30 @@
 // src/mocks/handlers.js
 import { rest } from 'msw';
 import { API } from '../config';
-import character from '../pages/character';
 
 const CHARACTER = ['강아지', '고양이', '햄스터', '토끼', '고슴도치', '앵무새'];
 const CATEGORY = ['먹이', '토이', '스티커', '발바닥', '집'];
-const mockProducts = Array.from({ length: 80 }).map((_, i) => ({
-  id: i + 1,
-  name: `${i + 1}`,
-  character: CHARACTER[Math.floor(Math.random() * (6 + 1))],
-  category: CATEGORY[Math.floor(Math.random() * (5 + 1))],
-  price: i + 1,
-  stock: Math.floor(Math.random() * 10) + i,
-  like: false,
-  cart: false,
-  imgSrc: `https://picsum.photos/200/300?random=${i}`,
-  content:
-    'https://raw.githubusercontent.com/jotasic/21-kaka0-pet-shop-images/main/product-content/1.jpg',
-  imageUrls: [
-    'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_1.jpeg',
-    'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_2.jpeg',
-    'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_3.jpeg',
-  ],
-  starPoint: 3.5,
-  starPointCount: 1,
-}));
+const mockProducts = (() =>
+  Array.from({ length: 80 }).map((_, i) => ({
+    id: i + 1,
+    name: `${i + 1}`,
+    character: CHARACTER[Math.floor(Math.random() * (5 + 1))],
+    category: CATEGORY[Math.floor(Math.random() * (4 + 1))],
+    price: i + 1,
+    stock: Math.floor(Math.random() * 10) + i,
+    like: false,
+    cart: false,
+    imgSrc: `https://picsum.photos/200/300?random=${i + 1}`,
+    content:
+      'https://raw.githubusercontent.com/jotasic/21-kaka0-pet-shop-images/main/product-content/1.jpg',
+    imageUrls: [
+      'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_1.jpeg',
+      'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_2.jpeg',
+      'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_3.jpeg',
+    ],
+    starPoint: (Math.random() * 5).toFixed(1),
+    starPointCount: 1,
+  })))();
 
 export const handlers = [
   // login
@@ -54,24 +54,25 @@ export const handlers = [
       }
     } else {
       // 전체 상품 데이터 요청 경우
-      return rest(
+      return res(
         ctx.status(200),
         ctx.json({
           resultList: mockProducts,
           page: 1,
           pageSize: mockProducts.length,
-          totalCount: pagedProducts.length,
+          totalCount: mockProducts.length,
           totalPageCount: 1,
-          numberOfElements: pagedProducts.length,
+          numberOfElements: mockProducts.length,
         })
       );
     }
 
     const modifiedProducts = mockProducts.map((product) => {
-      delete product.content;
-      delete product.imageUrls;
-      delete product.starPoint;
-      delete product.starPointCount;
+      // TODO: 필요없는 프로퍼티를 삭제하는 건데 products/:id 처리과정에서 여기 부분에 영향을 받아 해당 프로퍼티가 있야하는데 없다....??
+      // delete product.content;
+      // delete product.imageUrls;
+      // delete product.starPoint;
+      // delete product.starPointCount;
       return product;
     });
 
@@ -114,8 +115,8 @@ export const handlers = [
           ? pagedProducts.length % pageSize
           : (pagedProducts.length % pageSize) + 1;
     }
-
     return res(
+      ctx.status(200),
       ctx.json({
         resultList: pagedProducts,
         page: page || 1,
@@ -126,27 +127,23 @@ export const handlers = [
       })
     );
   }),
+  // get products/:id
+  rest.get(`${API}/product/:productId`, (req, res, ctx) => {
+    const { productId } = req.params;
+    const [productInfo] = mockProducts.filter(
+      (product) => product.id === Number(productId)
+    );
+    console.log('productId', mockProducts[productId - 1]);
+    console.log('---------one--------', productInfo);
+    return res(ctx.json({ result: productInfo }));
+  }),
 ];
 
 /*
--  /products?category=카테코리명&character=캐릭터명&search=검색키워드
-    &order=(new || old || popular || unpopular || highPrice || lowPrice || bestSell || worstSell)
-    &keyword=&pageSize10&page=( n )
-
--  신상품 : /products?order= newList&pageSize=페이지사이즈&page=페이지번호
-
--  인기상품 : /products?order=popular&pageSize=페이지사이즈&page=페이지번호
-
--  카테고리별상품  : /products?category=카테고리명&pageSize=페이지사이즈&page=페이지번호
-
--  캐릭터별상품 : /products?character=캐릭터명&pageSize=페이지사이즈&page=페이지번호
-
--  상품이름검색 :  /products?search=검색키워드
-
--  상품상세페이지 :  /products/상품id
+- 장바구니
+- 좋아요 
 
 page : 현재 페이지 번호
-
 pageSize : 페이지 한개당 결과 갯수
 totalCount : 전체 아이템 갯수
 totalPageCount : 전체 페이지 갯수
