@@ -7,7 +7,7 @@ import { API } from '../../../config';
 import styles from './index.module.scss';
 
 const Detail = ({ productInfo }) => {
-  const [product, setProduct] = useState(productInfo);
+  const [product, setProduct] = useState({ ...productInfo });
   const [cartAmount, setCartAmount] = useState(0);
   const [openSection, setOpenSection] = useState({
     info: false,
@@ -15,26 +15,6 @@ const Detail = ({ productInfo }) => {
   });
 
   const router = useRouter();
-
-  // useEffect(() => {
-  //   // fetchGet(`${API}/products/${detailProductId}`)
-  //   //   .then((res) => res.json())
-  //   //   .then((result) => {
-  //   //     setProduct(result);
-  //   //   });
-
-  //   // fetchGet(`${API}/products/${productId}`)
-  //   //   .then((res) => res.json())
-  //   //   .then((result) => {
-  //   //     setProduct(result);
-  //   //   });
-
-  //   fetchGet('http://localhost:3000/data/detailProduct.json')
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       setProduct(result);
-  //     });
-  // }, []);
 
   const toggleTargetOpen = (target) => {
     setOpenSection((prev) => ({ ...prev, [target]: !prev[target] }));
@@ -68,7 +48,7 @@ const Detail = ({ productInfo }) => {
     router.push('/mypage/cart');
   };
 
-  const starPoint = Math.floor(Number(product?.starPoint));
+  const starPoint = Math.round(Number(product?.starPoint));
   const starArr = Array(5)
     .fill(1)
     .map((el, i) => el + i);
@@ -85,14 +65,14 @@ const Detail = ({ productInfo }) => {
           </p>
           <div className={styles.starGrade}>
             {starArr.map((star) =>
-              star < starPoint ? (
+              star <= starPoint ? (
                 <span
                   key={star}
                   className={`${styles.star} ${styles.starOn}`}
                 ></span>
               ) : (
                 <span key={star} className={styles.star}></span>
-              ),
+              )
             )}
           </div>
         </div>
