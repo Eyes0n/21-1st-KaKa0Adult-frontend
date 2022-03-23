@@ -13,7 +13,7 @@ import MainTab from '../../components/common/MainTab';
 const PAGE_SIZE = 10;
 
 export async function getServerSideProps(context) {
-  const res = await fetch('http://localhost:3000/data/characterData.json');
+  const res = await fetch(`${API}/products?character=전체&page=1&pageSize=10`);
   const data = await res.json();
   const characters = { list: data.resultList, totalCount: data.totalCount };
 
@@ -21,6 +21,7 @@ export async function getServerSideProps(context) {
     props: { characters },
   };
 }
+
 const Character = ({ router, characters }) => {
   const [products, setProducts] = useState({
     list: [characters.list],
@@ -51,15 +52,14 @@ const Character = ({ router, characters }) => {
 
   const getCharacterDataAPI = (name, page) => {
     fetchGet(
-      // `${API}/products?character=${name}&page=${page}&pageSize=${PAGE_SIZE}`,
-      'http://localhost:3000/data/characterData.json',
+      `${API}/products?character=${name}&page=${page}&pageSize=${PAGE_SIZE}`
     )
       .then((res) => res.json())
       .then((result) =>
         setProducts((prev) => ({
           list: [result.resultList],
           totalCount: result.totalCount,
-        })),
+        }))
       );
   };
 
@@ -90,18 +90,18 @@ const Character = ({ router, characters }) => {
       낮은가격순: 'price',
       높은가격순: 'price',
     }),
-    [],
+    []
   );
 
   const selectFilterCheck = (targetIdx, name) => {
     const prevConditionsOff = modalFilter.conditions.map((condition) =>
       condition.isCheck
         ? { ...condition, isCheck: !condition.isCheck }
-        : condition,
+        : condition
     );
 
     const nextConditionsOn = prevConditionsOff.map((el, idx) =>
-      targetIdx === idx ? { ...el, isCheck: !el.isCheck } : el,
+      targetIdx === idx ? { ...el, isCheck: !el.isCheck } : el
     );
 
     setModalFilter({

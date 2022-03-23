@@ -22,7 +22,6 @@ export default class Nav extends Component {
 
   toggleSideMenu = (e) => {
     const classListArr = [...e.target.classList];
-    console.log(classListArr);
     const { isOpenAside } = this.state;
     const closeCondition =
       isOpenAside === true &&

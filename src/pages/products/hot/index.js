@@ -1,7 +1,8 @@
 import HotProducts from '../../../components/pageComponents/Products/HotProducts';
+import { API } from '../../../config';
 
 export async function getServerSideProps(context) {
-  const res = await fetch('http://localhost:3000/data/hotProductsData.json');
+  const res = await fetch(`${API}/products?order=hot&pageSize=18&page=1`);
   const data = await res.json();
   const productsArrList = data.resultList;
 

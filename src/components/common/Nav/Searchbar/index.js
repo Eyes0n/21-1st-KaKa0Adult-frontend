@@ -4,7 +4,7 @@ import ResultView from './ResultView';
 import { categoryData } from '../../../../Data/categoryData';
 import { characterData } from '../../../../Data/characterData';
 import { fetchGet } from '../../../../utils/fetches';
-import { PRODUCT_API } from '../../../../config';
+import { PRODUCT_API, API } from '../../../../config';
 import styles from './index.module.scss';
 import useDebounce from '../../../../hooks/useDebounceValue';
 
@@ -15,10 +15,7 @@ const Searchbar = ({ searchbarOff }) => {
   const debouncedValue = useDebounce(keyword, 500);
 
   const getSearchAPI = (debouncedValue) => {
-    fetchGet(
-      // `${PRODUCT_API}/products?search=${debouncedValue}`
-      'http://localhost:3000/data/searchProducts.json',
-    )
+    fetchGet(`${API}/products?search=${debouncedValue}`)
       .then((res) => res.json())
       .then((result) => {
         setResult(result.resultList);

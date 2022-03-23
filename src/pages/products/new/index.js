@@ -1,7 +1,8 @@
 import NewProducts from '../../../components/pageComponents/Products/NewProducts';
+import { API } from '../../../config';
 
 export async function getServerSideProps(context) {
-  const res = await fetch('http://localhost:3000/data/newProductsData.json');
+  const res = await fetch(`${API}/products?order=new&pageSize=10&page=1`);
   const data = await res.json();
   const productsArrList = data.resultList;
 

@@ -7,16 +7,21 @@ import { fetchDelete, fetchGet, fetchPost } from '../../../../utils/fetches';
 import { USER_API, CART_API, PRODUCT_API } from '../../../../config';
 import styles from './index.module.scss';
 
+const pageSize = 10;
+
 const NewProducts = ({ products }) => {
   const [productsList, setProductsList] = useState([products]);
   const [page, setPage] = useState(1); // infinteScroll
 
   useEffect(() => {
-    // fetchGet(`${PRODUCT_API}/products?order=new&pageSize=16&page=${page}`)
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     setProductsList((prev) => [...prev, result.resultList]);
-    //   });
+    if (page === 1) return;
+    fetchGet(
+      `${PRODUCT_API}/products?order=new&pageSize=${pageSize}&page=${page}`
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        setProductsList((prev) => [...prev, result.resultList]);
+      });
   }, [page]);
 
   return (

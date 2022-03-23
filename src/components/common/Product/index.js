@@ -19,7 +19,7 @@ const Product = ({ product, addToCart, toggleProductLike }) => {
       <Link href={`/products/${product.id}`}>
         <a className={styles.productLink}>
           <div className={styles.productImgWrap}>
-            <img src={product.image} alt="상품 이미지" />
+            <img src={product.imgSrc} alt="상품 이미지" />
           </div>
           <p className={styles.productName}>{product.name}</p>
           <p className={styles.productPrice}>
