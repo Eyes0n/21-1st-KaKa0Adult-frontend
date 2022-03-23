@@ -11,18 +11,18 @@ export const useProduct = (itemsList) => {
   const toggleProductLike = (targetId) => {
     const updatedProducts = productsList.map((products) =>
       products.map((product) =>
-        targetId === product.id ? { ...product, like: !product.like } : product,
-      ),
+        targetId === product.id ? { ...product, like: !product.like } : product
+      )
     );
 
     setProductsList(updatedProducts);
 
     const targetProductsGroupIndex = productsList.findIndex((products) =>
-      products.find((product) => product.id === targetId),
+      products.find((product) => product.id === targetId)
     );
 
     const targetProductIndex = productsList[targetProductsGroupIndex].findIndex(
-      (product) => product.id === targetId,
+      (product) => product.id === targetId
     );
 
     // api 요청 주석처리
@@ -54,18 +54,18 @@ export const useProduct = (itemsList) => {
       products.map((product) =>
         targetId === product.id && product.cart === false
           ? { ...product, cart: !product.cart }
-          : product,
-      ),
+          : product
+      )
     );
 
     setProductsList(updatedProducts);
 
     const targetProductsGroupIndex = productsList.findIndex((products) =>
-      products.find((product) => product.id === targetId),
+      products.find((product) => product.id === targetId)
     );
 
     const targetProductIndex = productsList[targetProductsGroupIndex].findIndex(
-      (product) => product.id === targetId,
+      (product) => product.id === targetId
     );
 
     // api요청 주석 처리

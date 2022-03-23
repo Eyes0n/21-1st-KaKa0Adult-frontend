@@ -26,6 +26,9 @@ const mockProducts = (() =>
     starPointCount: 1,
   })))();
 
+let cartList = [];
+let likeList = [];
+
 export const handlers = [
   // login
   rest.post(`${API}/users/login`, (req, res, ctx) => {
@@ -97,8 +100,8 @@ export const handlers = [
     });
 
     let offset = 0;
-    let pageSize = searchObj?.pageSize || 0;
-    let page = searchObj?.page;
+    let pageSize = Number(searchObj?.pageSize) || 0;
+    let page = Number(searchObj?.page) || 1;
 
     if (page && pageSize) {
       offset = (page - 1) * pageSize;
@@ -109,12 +112,18 @@ export const handlers = [
       : filteredProducts.slice(offset);
 
     let pagedProductsTotalPageCount = 1;
+
     if (pageSize !== 0) {
       pagedProductsTotalPageCount =
         pagedProducts.length % pageSize === 0
-          ? pagedProducts.length % pageSize
-          : (pagedProducts.length % pageSize) + 1;
+          ? Math.floor(filteredProducts.length / pageSize)
+          : Math.floor(filteredProducts.length / pageSize) + 1;
     }
+
+    if (page > pagedProductsTotalPageCount) {
+      return res(cts.status(204));
+    }
+
     return res(
       ctx.status(200),
       ctx.json({
@@ -133,15 +142,14 @@ export const handlers = [
     const [productInfo] = mockProducts.filter(
       (product) => product.id === Number(productId)
     );
-    console.log('productId', mockProducts[productId - 1]);
-    console.log('---------one--------', productInfo);
     return res(ctx.json({ result: productInfo }));
   }),
 ];
 
 /*
-- 장바구니
-- 좋아요 
+- 장바구니 get post patch delete
+- 좋아요 get, delete||patch
+  좋아요/취소 같이 : users/like/product/숫자
 
 page : 현재 페이지 번호
 pageSize : 페이지 한개당 결과 갯수

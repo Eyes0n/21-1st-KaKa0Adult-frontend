@@ -1,28 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Carousel from '../../../common/Carousel';
 import ProductList from '../../../common/ProductList';
-import Nav from '../../../common/Nav';
-import MainTab from '../../../common/MainTab';
 import { fetchDelete, fetchGet, fetchPost } from '../../../../utils/fetches';
-import { USER_API, CART_API, PRODUCT_API } from '../../../../config';
+import { USER_API, CART_API, PRODUCT_API, API } from '../../../../config';
 import styles from './index.module.scss';
 
-const pageSize = 10;
+const PAGE_SIZE = 10;
 
-const NewProducts = ({ products }) => {
-  const [productsList, setProductsList] = useState([products]);
-  const [page, setPage] = useState(1); // infinteScroll
+const NewProducts = ({ productArr, totalPages }) => {
+  // productsList : [[{},{},.. ], [{},{},...],...]
+  const [productsList, setProductsList] = useState([productArr]);
+  const [page, setPage] = useState(1);
+  const totalPageCount = useMemo(() => totalPages, [totalPages]);
 
   useEffect(() => {
-    if (page === 1) return;
-    fetchGet(
-      `${PRODUCT_API}/products?order=new&pageSize=${pageSize}&page=${page}`
-    )
-      .then((res) => res.json())
-      .then((result) => {
-        setProductsList((prev) => [...prev, result.resultList]);
-      });
-  }, [page]);
+    if (page !== 1 && page <= totalPageCount) {
+      fetchGet(`${API}/products?order=new&pageSize=${PAGE_SIZE}&page=${page}`)
+        .then((res) => {
+          if (res.status === 204) return null;
+          return res.json();
+        })
+        .then((result) => {
+          if (result !== null) {
+            setProductsList((prev) => [...prev, result.resultList]);
+          }
+        });
+    }
+  }, [page, totalPageCount]);
+
+  const infiniteScroll = useCallback(() => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 800 &&
+      page <= totalPageCount
+    ) {
+      setPage((prev) => prev + 1);
+    }
+  }, [page, totalPageCount]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', infiniteScroll);
+    return () => window.removeEventListener('scroll', infiniteScroll);
+  }, [infiniteScroll]);
 
   return (
     <>

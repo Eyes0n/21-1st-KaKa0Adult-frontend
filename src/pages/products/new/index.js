@@ -4,15 +4,16 @@ import { API } from '../../../config';
 export async function getServerSideProps(context) {
   const res = await fetch(`${API}/products?order=new&pageSize=10&page=1`);
   const data = await res.json();
-  const productsArrList = data.resultList;
+  const productList = data.resultList;
+  const totalPages = data.totalPageCount;
 
   return {
-    props: { productsArrList },
+    props: { productList, totalPages },
   };
 }
 
-const NewProductsPage = ({ productsArrList }) => {
-  return <NewProducts products={productsArrList} />;
+const NewProductsPage = ({ productList, totalPages }) => {
+  return <NewProducts productArr={productList} totalPages={totalPages} />;
 };
 
 export default NewProductsPage;
