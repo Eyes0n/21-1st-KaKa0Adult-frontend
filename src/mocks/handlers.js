@@ -123,7 +123,6 @@ export const handlers = [
     if (page > pagedProductsTotalPageCount) {
       return res(cts.status(204));
     }
-
     return res(
       ctx.status(200),
       ctx.json({
