@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 export default class CartList extends Component {
   render() {
     const {
-      id,
+      idx,
       item,
       selectedArr,
       handleQuantity,
@@ -14,14 +14,14 @@ export default class CartList extends Component {
     } = this.props;
     const price = Number(item.price).toLocaleString();
     return (
-      <li className={styles.basketItemWrap} key={item.order_item_id}>
+      <li className={styles.basketItemWrap} key={item.id}>
         <label className={styles.checkboxLabel}>
           <i
-            data-id={item.order_item_id}
+            data-id={item.id}
             className={`fa-check-circle ${
-              selectedArr[id] ? 'fas fill' : 'far'
+              selectedArr[idx] ? 'fas fill' : 'far'
             }`}
-            onClick={(e) => handleIsChecked(e, id)}
+            onClick={(e) => handleIsChecked(e, idx)}
           />
         </label>
         <div className={styles.thumbWrap}>
@@ -32,7 +32,7 @@ export default class CartList extends Component {
                   <img
                     className={styles.thumbImage}
                     alt={item.name}
-                    src={item.image_url}
+                    src={item.imgSrc}
                   />
                 </span>
               </span>
@@ -44,8 +44,8 @@ export default class CartList extends Component {
             <div className={styles.title}>{item.name}</div>
             <button
               className={styles.deleteButton}
-              data-id={item.order_item_id}
-              onClick={(e) => removeCartItem(e, id)}
+              data-id={item.id}
+              onClick={(e) => removeCartItem(e, idx)}
             />
           </div>
           <div className={styles.priceWrap}>
@@ -54,8 +54,8 @@ export default class CartList extends Component {
           <div className={styles.countWrap}>
             <div className={styles.itemCounter}>
               <button
-                value={id}
-                data-id={item.order_item_id}
+                value={idx}
+                data-id={item.id}
                 data-count={item.count}
                 className={styles['quantity-minus']}
                 onClick={handleQuantity}
@@ -68,8 +68,8 @@ export default class CartList extends Component {
                 className={styles.qtyDp}
               ></input>
               <button
-                value={id}
-                data-id={item.order_item_id}
+                value={idx}
+                data-id={item.id}
                 data-count={item.count}
                 className={styles['quantity-plus']}
                 onClick={handleQuantity}

@@ -14,23 +14,12 @@ const Cart = () => {
   });
 
   const getCartData = async () => {
-    // fetchGet(`${CART_API}/orders/order-items`)
-    //   .then((res) => res.json())
-    //   .then((res) =>
-    //     setCart(prev =>({
-    //       ...prev
-    //       cartData: res.items_in_cart,
-    //       selectedArr: Array(res.length).fill(true),
-    //     })),
-    //   );
-
-    const response = await fetchGet(`/data/cartdata.json`);
-    const data = await response.json();
-
+    const res = await fetchGet(`${API}/orders/order-items`);
+    const data = await res.json();
     setCart((prev) => ({
       ...prev,
-      cartData: data['items_in_cart'],
-      selectedArr: Array(data['items_in_cart'].length).fill(true),
+      cartData: data.items_in_cart,
+      selectedArr: Array(data.items_in_cart.length).fill(true),
     }));
   };
 
@@ -125,7 +114,7 @@ const Cart = () => {
       select: event.target.className.match(/fa-check-circle fas fill/) ? 0 : 1,
     };
     fetchPatch(`${CART_API}/orders/${event.target.dataset.id}`, select).then(
-      (res) => res.json(),
+      (res) => res.json()
     );
   };
 
@@ -157,6 +146,7 @@ const Cart = () => {
   const selectAll = () => {
     const { selectedArr } = cart;
     const newCheckArr = Array(selectedArr.length).fill(isCheckArr());
+
     setCart((prev) => ({
       ...prev,
       selectedArr: newCheckArr,
@@ -187,7 +177,7 @@ const Cart = () => {
     const idsToDelete = itemsToDelete.map((item) => item.order_item_id);
     for (let itemId in idsToDelete) {
       fetchDelete(`${CART_API}/orders/order-items/${idsToDelete[itemId]}`).then(
-        (res) => res.status,
+        (res) => res.status
       );
       // .then((status) => {
       //   status === 204
@@ -200,7 +190,7 @@ const Cart = () => {
   const { cartData, selectedArr } = cart;
   const selectedItems = cartData?.filter((item) => item.selected);
   const totalPrice = Math.floor(
-    selectedItems.reduce((acc, item) => acc + item.price * item.count, 0),
+    selectedItems.reduce((acc, item) => acc + item.price * item.count, 0)
   );
 
   return cartData.length === 0 ? (
@@ -253,11 +243,11 @@ const Cart = () => {
           <div className={styles.basketDetailWrap}>
             <ul className={styles.basketDetailLists}>
               {cartData &&
-                cartData.map((data) => {
+                cartData.map((data, idx) => {
                   return (
                     <CartList
-                      id={data.id}
                       key={data.id}
+                      idx={idx}
                       item={data}
                       selectedArr={selectedArr}
                       handleQuantity={handleQuantity}

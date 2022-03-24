@@ -1,4 +1,3 @@
-// src/mocks/handlers.js
 import { rest } from 'msw';
 import { API } from '../config';
 
@@ -71,7 +70,8 @@ export const handlers = [
     }
 
     const modifiedProducts = mockProducts.map((product) => {
-      // TODO: 필요없는 프로퍼티를 삭제하는 건데 products/:id 처리과정에서 여기 부분에 영향을 받아 해당 프로퍼티가 있야하는데 없다....??
+      // TODO 필요 없는 속성들을 지웠으나 상세 데이터 요청 시 상세 데이터가 누락되어 옴
+      // 이유는 배열 원소인 객체가 참조형이라 영향을 받음 이걸 해결할려면 새로운 객체들로 구성된 새로운 배열이 필요
       // delete product.content;
       // delete product.imageUrls;
       // delete product.starPoint;
@@ -183,6 +183,27 @@ export const handlers = [
       ctx.status(201),
       ctx.json({
         id: targetId,
+      })
+    );
+  }),
+  // get orders/order-items
+  rest.get(`${API}/orders/order-items`, (req, res, ctx) => {
+    const cartData = [];
+    for (const productId in cartList) {
+      const targetId = Number(productId);
+      const targetIndex = mockProducts.findIndex(
+        (product) => product.id === targetId
+      );
+      const product = { ...mockProducts[targetIndex] };
+      product.count = cartList[productId];
+      product.selected = true;
+      cartData.push(product);
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        items_in_cart: cartData,
       })
     );
   }),
