@@ -10,12 +10,13 @@ const Cart = () => {
   const [cart, setCart] = useState({
     cartData: [],
     selectedArr: [],
-    deletedArr: [],
+    // deletedArr: [],
   });
 
   const getCartData = async () => {
     const res = await fetchGet(`${API}/orders/order-items`);
     const data = await res.json();
+
     setCart((prev) => ({
       ...prev,
       cartData: data.items_in_cart,
@@ -68,6 +69,7 @@ const Cart = () => {
 
   const isCheckArr = () => {
     const { selectedArr } = cart;
+
     for (let isChecked of selectedArr) {
       if (isChecked) {
         return false;
@@ -78,38 +80,39 @@ const Cart = () => {
 
   const removeCartItem = (event, idx) => {
     const { cartData } = cart;
-    const newCartData = cartData.filter((cartItem) => {
-      return parseInt(idx) !== parseInt(cartItem.idx);
-    });
-    const deletedData = cartData.filter((cartItem) => {
-      return parseInt(idx) === parseInt(cartItem.idx);
-    });
+    const newCartData = [...cartData];
+    const deletedData = newCartData.splice(idx, 1);
 
-    fetchDelete(`${API}/orders/order-items/${event.target.dataset.id}`)
-      .then((res) => res.status)
-      .then((status) => {
-        status === 200
-          ? setCart((prev) => ({
-              ...prev,
-              cartData: newCartData,
-              deletedArr: deletedData,
-            }))
-          : alert('삭제를 실패하였습니다.');
-      });
+    fetchDelete(`${API}/orders/order-items/${event.target.dataset.id}`).then(
+      (res) => {
+        if (res.status === 200) {
+          setCart((prev) => ({
+            ...prev,
+            cartData: newCartData,
+            // deletedArr: deletedData,
+          }));
+        } else alert('삭제를 실패하였습니다.');
+        return res.json();
+      }
+    );
   };
 
   const handleIsChecked = (event, idx) => {
     const { selectedArr } = cart;
-    const newCheck = [...selectedArr];
-    newCheck[idx] = !newCheck[idx];
+    const newSelectArr = [...selectedArr];
+    newSelectArr[idx] = !newSelectArr[idx];
+
     setCart((prev) => ({
       ...prev,
-      selectedArr: newCheck,
+      selectedArr: newSelectArr,
     }));
+
     const select = {
       order_item_id: event.target.dataset.id,
       select: event.target.className.match(/fa-check-circle fas fill/) ? 0 : 1,
     };
+
+    // TODO
     fetchPatch(`${API}/orders/${event.target.dataset.id}`, select).then((res) =>
       res.json()
     );
@@ -122,6 +125,7 @@ const Cart = () => {
         order_item_id: item.order_item_id,
         select: 0,
       };
+      // TODO
       !item.selected &&
         fetchPatch(`${API}/orders/order-items`, itemToSelect)
           .then((res) => res.json())
@@ -133,6 +137,7 @@ const Cart = () => {
         order_item_id: item.order_item_id,
         select: 1,
       };
+      // TODO
       item.selected &&
         fetchPatch(`${API}/orders/order-items`, itemToUnselect)
           .then((res) => res.json())
@@ -142,12 +147,13 @@ const Cart = () => {
 
   const selectAll = () => {
     const { selectedArr } = cart;
-    const newCheckArr = Array(selectedArr.length).fill(isCheckArr());
+    const newSelectArr = Array(selectedArr.length).fill(isCheckArr());
 
     setCart((prev) => ({
       ...prev,
-      selectedArr: newCheckArr,
+      selectedArr: newSelectArr,
     }));
+
     updateCartSelection();
   };
 
@@ -155,33 +161,53 @@ const Cart = () => {
     const { cartData, selectedArr } = cart;
     const checkedArr = [];
     let idx = selectedArr.indexOf(true);
+
     while (idx !== -1) {
       checkedArr.push(idx);
       idx = selectedArr.indexOf(true, idx + 1);
     }
+
     const newCheckedArr = cartData.filter((cartItem) => {
       return !checkedArr.includes(parseInt(cartItem.id));
     });
     const newDeletedArr = cartData.filter((cartItem) => {
       return checkedArr.includes(parseInt(cartItem.id));
     });
+
     setCart({
       cartData: newCheckedArr,
-      deletedArr: newDeletedArr,
+      // deletedArr: newDeletedArr,
       selectedArr: Array(newCheckedArr.length).fill(false),
     });
+
     const itemsToDelete = cartData.filter((item) => item.selected);
-    const idsToDelete = itemsToDelete.map((item) => item.order_item_id);
-    for (let itemId in idsToDelete) {
-      fetchDelete(`${API}/orders/order-items/${idsToDelete[itemId]}`).then(
-        (res) => res.status
-      );
-      // .then((status) => {
-      //   status === 204
-      //     ? alert('다중 삭제성공!')
-      //     : alert('삭제를 실패하였습니다.');
-      // });
-    }
+    const deletePromises = [];
+
+    itemsToDelete.forEach((item) =>
+      deletePromises.push(fetchDelete(`${API}/orders/order-items/${item.id}`))
+    );
+
+    Promise.all(deletePromises)
+      .then(async (responses) => {
+        const flags = [];
+        const jsons = [];
+        for (const res of responses) {
+          if (res.status === 200) {
+            flags.push(true);
+            jsons.push(await res.json());
+          } else {
+            flags.push(false);
+          }
+        }
+        const res = { flags, jsons };
+        return res;
+      })
+      .then(({ flags, jsons }) => {
+        console.log(jsons);
+        flags.every((flag) => flag)
+          ? alert('전체 삭제 성공')
+          : alert('전체 삭제 실패');
+      });
   };
 
   const { cartData, selectedArr } = cart;
