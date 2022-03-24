@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { API } from '../config';
+import { fetchDelete, fetchPost } from '../utils/fetches';
 
 export const useProduct = (itemsList) => {
   // productsList : [ [{}, {}, ...], ...]
@@ -15,8 +17,6 @@ export const useProduct = (itemsList) => {
       )
     );
 
-    setProductsList(updatedProducts);
-
     const targetProductsGroupIndex = productsList.findIndex((products) =>
       products.find((product) => product.id === targetId)
     );
@@ -26,27 +26,28 @@ export const useProduct = (itemsList) => {
     );
 
     // api 요청 주석처리
-    // if (productsList[targetProductsGroupIndex][targetProductIndex].like) {
-    //   fetchDelete(`${API}/users/like/product/${targetId}`)
-    //     .then((res) => {
-    //       if (res.status === 204) {
-    //         alert('Like Cancle Success');
-    //       } else {
-    //         alert('Like Cancle Fail');
-    //       }
-    //     })
-    //     .catch((error) => console.log(error.message));
-    // } else {
-    //   fetchPost(`${API}/users/like/product`, { product_id: targetId })
-    //     .then((res) => {
-    //       if (res.status === 201) {
-    //         alert('Like Success');
-    //       } else {
-    //         alert('Like Fail');
-    //       }
-    //     })
-    //     .catch((error) => console.log(error.message));
-    // }
+    if (productsList[targetProductsGroupIndex][targetProductIndex].like) {
+      fetchDelete(`${API}/users/like/product/${targetId}`)
+        .then((res) => {
+          if (res.status === 204) {
+            setProductsList(updatedProducts);
+          } else {
+            alert('Like Cancle Fail');
+          }
+        })
+        .catch((error) => console.log(error.message));
+    } else {
+      fetchPost(`${API}/users/like/product`, { product_id: targetId })
+        .then((res) => {
+          if (res.status === 201) {
+            // alert('Like Success');
+            setProductsList(updatedProducts);
+          } else {
+            alert('Like Fail');
+          }
+        })
+        .catch((error) => console.log(error.message));
+    }
   };
 
   const addToCart = (targetId) => {

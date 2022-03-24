@@ -143,13 +143,48 @@ export const handlers = [
     );
     return res(ctx.json({ result: productInfo }));
   }),
+  // post users/like/product
+  rest.post(`${API}/users/like/product`, (req, res, ctx) => {
+    const { product_id } = req.body;
+    const targetId = Number(product_id);
+    const exist = likeList.includes(targetId);
+    const targetIndex = mockProducts.findIndex(
+      (product) => product.id === targetId
+    );
+
+    if (!exist) {
+      likeList.push(targetId);
+      mockProducts[targetIndex].like = true;
+    }
+
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: targetId,
+        p: mockProducts[targetIndex],
+      })
+    );
+  }),
+  // delete users/like/product
+  rest.delete(`${API}/users/like/product/:id`, (req, res, ctx) => {
+    const { id } = req.params;
+    const targetId = Number(id);
+    const exist = likeList.includes(targetId);
+    const targetIndex = mockProducts.findIndex(
+      (product) => product.id === targetId
+    );
+
+    if (exist) {
+      likeList = likeList.filter((likeId) => likeId !== targetId);
+      mockProducts[targetIndex].like = false;
+    }
+
+    return res(ctx.status(204));
+  }),
 ];
 
 /*
 - 장바구니 get post patch delete
-- 좋아요 get, delete||patch
-  좋아요/취소 같이 : users/like/product/숫자
-
 page : 현재 페이지 번호
 pageSize : 페이지 한개당 결과 갯수
 totalCount : 전체 아이템 갯수
