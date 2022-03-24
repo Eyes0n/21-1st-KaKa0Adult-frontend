@@ -25,11 +25,10 @@ export const useProduct = (itemsList) => {
       (product) => product.id === targetId
     );
 
-    // api 요청 주석처리
     if (productsList[targetProductsGroupIndex][targetProductIndex].like) {
       fetchDelete(`${API}/users/like/product/${targetId}`)
         .then((res) => {
-          if (res.status === 204) {
+          if (res.status === 201) {
             setProductsList(updatedProducts);
           } else {
             alert('Like Cancle Fail');
@@ -40,7 +39,6 @@ export const useProduct = (itemsList) => {
       fetchPost(`${API}/users/like/product`, { product_id: targetId })
         .then((res) => {
           if (res.status === 201) {
-            // alert('Like Success');
             setProductsList(updatedProducts);
           } else {
             alert('Like Fail');
@@ -53,13 +51,9 @@ export const useProduct = (itemsList) => {
   const addToCart = (targetId) => {
     const updatedProducts = productsList.map((products) =>
       products.map((product) =>
-        targetId === product.id && product.cart === false
-          ? { ...product, cart: !product.cart }
-          : product
+        targetId === product.id ? { ...product, cart: !product.cart } : product
       )
     );
-
-    setProductsList(updatedProducts);
 
     const targetProductsGroupIndex = productsList.findIndex((products) =>
       products.find((product) => product.id === targetId)
@@ -69,21 +63,30 @@ export const useProduct = (itemsList) => {
       (product) => product.id === targetId
     );
 
-    // api요청 주석 처리
-    // if (!productsList[targetProductsGroupIndex][targetProductIndex].cart) {
-    //   fetchPost(`${API}/orders/order-items`, {
-    //     product_id: targetId,
-    //     count: 1,
-    //   })
-    //     .then((res) => {
-    //       if (res.status === 201) {
-    //         alert('Add Cart Success');
-    //       } else {
-    //         alert('Add Cart Fail', res.message);
-    //       }
-    //     })
-    //     .catch((error) => console.log(error.message));
-    // }
+    if (!productsList[targetProductsGroupIndex][targetProductIndex].cart) {
+      fetchPost(`${API}/orders/order-items`, {
+        product_id: targetId,
+        count: 1,
+      })
+        .then((res) => {
+          if (res.status === 201) {
+            setProductsList(updatedProducts);
+          } else {
+            alert('Add Cart Fail', res.message);
+          }
+        })
+        .catch((error) => console.log(error.message));
+    } else {
+      fetchDelete(`${API}/orders/order-items/${targetId}`)
+        .then((res) => {
+          if (res.status === 200) {
+            setProductsList(updatedProducts);
+          } else {
+            alert('Delete Cart Fail', res.message);
+          }
+        })
+        .catch((error) => console.log(error.message));
+    }
   };
 
   return [productsList, toggleProductLike, addToCart];

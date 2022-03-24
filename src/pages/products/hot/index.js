@@ -4,15 +4,15 @@ import { API } from '../../../config';
 export async function getServerSideProps(context) {
   const res = await fetch(`${API}/products?order=hot&pageSize=18&page=1`);
   const data = await res.json();
-  const productsArrList = data.resultList;
+  const products = data.resultList;
 
   return {
-    props: { productsArrList },
+    props: { products },
   };
 }
 
-const HotProductsPage = ({ productsArrList }) => {
-  return <HotProducts products={productsArrList} />;
+const HotProductsPage = ({ products }) => {
+  return <HotProducts products={products} />;
 };
 
 export default HotProductsPage;

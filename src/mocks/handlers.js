@@ -26,7 +26,7 @@ const mockProducts = (() =>
     starPointCount: 1,
   })))();
 
-let cartList = [];
+const cartList = {};
 let likeList = [];
 
 export const handlers = [
@@ -179,7 +179,47 @@ export const handlers = [
       mockProducts[targetIndex].like = false;
     }
 
-    return res(ctx.status(204));
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: targetId,
+      })
+    );
+  }),
+  // post orders/order-items
+  rest.post(`${API}/orders/order-items`, (req, res, ctx) => {
+    const { product_id, count } = req.body;
+    const targetIndex = mockProducts.findIndex(
+      (product) => product.id === product_id
+    );
+    cartList[product_id] = count;
+    mockProducts[targetIndex].cart = true;
+
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: product_id,
+        count,
+      })
+    );
+  }),
+  // delete orders/order-items
+  rest.delete(`${API}/orders/order-items/:productId`, (req, res, ctx) => {
+    const { productId } = req.params;
+    const targetId = Number(productId);
+    const targetIndex = mockProducts.findIndex(
+      (product) => product.id === targetId
+    );
+
+    delete cartList[targetId];
+    mockProducts[targetIndex].cart = false;
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        id: targetId,
+      })
+    );
   }),
 ];
 
