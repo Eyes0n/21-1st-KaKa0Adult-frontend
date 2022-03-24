@@ -33,11 +33,7 @@ const Cart = () => {
     const isMinusBtn = className.match(/quantity-minus/) !== null;
     const isCountOne = cartData[parseInt(value)].count === 1;
 
-    if (isMinusBtn && isCountOne) {
-      unCheckItemAmountZero(parseInt(value));
-      handleIsChecked(parseInt(value));
-      return;
-    }
+    if (isMinusBtn && isCountOne) return;
 
     const newQuantity = cartData.map((cartItem, index) => {
       return parseInt(value) !== index
@@ -47,25 +43,24 @@ const Cart = () => {
             count: isMinusBtn ? cartItem.count - 1 : cartItem.count + 1,
           };
     });
-    setCart((prev) => ({
-      ...prev,
-      cartData: newQuantity,
-    }));
 
     const res = !isMinusBtn
-      ? fetchPatch(`${CART_API}/orders/order-items`, {
+      ? fetchPatch(`${API}/orders/order-items`, {
           order_item_id: event.target.dataset.id,
           count: +event.target.dataset.count + 1,
         })
-      : fetchPatch(`${CART_API}/orders/order-items`, {
+      : fetchPatch(`${API}/orders/order-items`, {
           order_item_id: event.target.dataset.id,
           count: +event.target.dataset.count - 1,
         });
 
     res
       .then((res) => {
-        if (res.ok) {
-          return alert('성공');
+        if (res.status === 200) {
+          setCart((prev) => ({
+            ...prev,
+            cartData: newQuantity,
+          }));
         } else throw new Error();
       })
       .catch((err) => console.error(err));
@@ -81,30 +76,32 @@ const Cart = () => {
     }
   };
 
-  const removeCartItem = (event, id) => {
+  const removeCartItem = (event, idx) => {
     const { cartData } = cart;
     const newCartData = cartData.filter((cartItem) => {
-      return parseInt(id) !== parseInt(cartItem.id);
+      return parseInt(idx) !== parseInt(cartItem.idx);
     });
     const deletedData = cartData.filter((cartItem) => {
-      return parseInt(id) === parseInt(cartItem.id);
+      return parseInt(idx) === parseInt(cartItem.idx);
     });
-    setCart((prev) => ({
-      ...prev,
-      cartData: newCartData,
-      deletedArr: deletedData,
-    }));
-    fetchDelete(`${CART_API}/orders/order-items/${event.target.dataset.id}`)
+
+    fetchDelete(`${API}/orders/order-items/${event.target.dataset.id}`)
       .then((res) => res.status)
       .then((status) => {
-        status === 204 ? alert('삭제성공') : alert('삭제를 실패하였습니다.');
+        status === 200
+          ? setCart((prev) => ({
+              ...prev,
+              cartData: newCartData,
+              deletedArr: deletedData,
+            }))
+          : alert('삭제를 실패하였습니다.');
       });
   };
 
-  const handleIsChecked = (event, id) => {
+  const handleIsChecked = (event, idx) => {
     const { selectedArr } = cart;
     const newCheck = [...selectedArr];
-    newCheck[id] = !newCheck[id];
+    newCheck[idx] = !newCheck[idx];
     setCart((prev) => ({
       ...prev,
       selectedArr: newCheck,
@@ -113,8 +110,8 @@ const Cart = () => {
       order_item_id: event.target.dataset.id,
       select: event.target.className.match(/fa-check-circle fas fill/) ? 0 : 1,
     };
-    fetchPatch(`${CART_API}/orders/${event.target.dataset.id}`, select).then(
-      (res) => res.json()
+    fetchPatch(`${API}/orders/${event.target.dataset.id}`, select).then((res) =>
+      res.json()
     );
   };
 
@@ -126,7 +123,7 @@ const Cart = () => {
         select: 0,
       };
       !item.selected &&
-        fetchPatch(`${CART_API}/orders/order-items`, itemToSelect)
+        fetchPatch(`${API}/orders/order-items`, itemToSelect)
           .then((res) => res.json())
           .then((result) => console.log(result));
     });
@@ -137,7 +134,7 @@ const Cart = () => {
         select: 1,
       };
       item.selected &&
-        fetchPatch(`${CART_API}/orders/order-items`, itemToUnselect)
+        fetchPatch(`${API}/orders/order-items`, itemToUnselect)
           .then((res) => res.json())
           .then((result) => console.log(result));
     });
@@ -176,7 +173,7 @@ const Cart = () => {
     const itemsToDelete = cartData.filter((item) => item.selected);
     const idsToDelete = itemsToDelete.map((item) => item.order_item_id);
     for (let itemId in idsToDelete) {
-      fetchDelete(`${CART_API}/orders/order-items/${idsToDelete[itemId]}`).then(
+      fetchDelete(`${API}/orders/order-items/${idsToDelete[itemId]}`).then(
         (res) => res.status
       );
       // .then((status) => {

@@ -242,6 +242,20 @@ export const handlers = [
       })
     );
   }),
+  // patch orders/order-items
+  rest.patch(`${API}/orders/order-items`, (req, res, ctx) => {
+    const { order_item_id, count } = req.body;
+
+    cartList[order_item_id] = count;
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        id: order_item_id,
+        count: cartList[order_item_id],
+      })
+    );
+  }),
 ];
 
 /*
