@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { withRouter } from 'next/router';
 import ProductList from '../../components/common/ProductList';
 import FilterModal from '../../components/pageComponents/Character/FilterModal';
@@ -7,30 +7,48 @@ import { categoryData } from '../../Data/categoryData';
 import { characterData } from '../../Data/characterData';
 import { fetchGet } from '../../utils/fetches';
 import styles from './index.module.scss';
+import divideArrByNumber from '../../utils/divideArrByNumber';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
 const PAGE_SIZE = 10;
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`${API}/products?character=전체&page=1&pageSize=10`);
+  const {
+    query: { type },
+  } = context;
+  const res = await fetch(
+    `${API}/products?character=${type}&page=1&pageSize=10`
+  );
   const data = await res.json();
   const characters = { list: data.resultList, totalCount: data.totalCount };
+  const totalPages = data.totalPageCount;
 
   return {
-    props: { characters },
+    props: { characters, totalPages },
   };
 }
 
-const Character = ({ router, characters }) => {
+const Character = ({ router, characters, totalPages }) => {
+  // products.list : [[{},{},...], [], [], ...]
   const [products, setProducts] = useState({
-    list: [characters.list],
-    totalCount: characters.totalCount,
+    list: [[]],
+    totalCount: 0,
   });
+  const [page, setPage] = useState(1);
+  const totalPageCount = useMemo(() => totalPages, [totalPages]);
+
+  useEffect(() => {
+    setProducts({
+      list: [characters.list],
+      totalCount: characters.totalCount,
+    });
+    setPage(1);
+  }, [characters]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filter, setFilter] = useState({
-    categoryFilter: categoryData,
-    characterFilter: characterData,
-  });
+  const categoryFilter = useMemo(() => categoryData, []);
+  const characterFilter = useMemo(() => characterData, []);
+
   const [modalFilter, setModalFilter] = useState({
     conditions: [
       { name: '신상품순', isCheck: true },
@@ -41,29 +59,23 @@ const Character = ({ router, characters }) => {
     filteringName: '신상품순',
   });
 
-  // TODO: 무한 스크롤 기능으로 page 업데이트 해주기
-  const [page, setPage] = useState(1);
-
   const {
     query: { type },
   } = router;
 
-  const getCharacterDataAPI = (name, page) => {
-    fetchGet(
-      `${API}/products?character=${name}&page=${page}&pageSize=${PAGE_SIZE}`
-    )
-      .then((res) => res.json())
-      .then((result) =>
-        setProducts((prev) => ({
-          list: [result.resultList],
-          totalCount: result.totalCount,
-        }))
-      );
-  };
+  const getCharacterDataAPI = useCallback(async () => {
+    const res = await fetchGet(
+      `${API}/products?character=${type}&page=${page}&pageSize=${PAGE_SIZE}`
+    );
+    if (res.status === 204) return;
 
-  useEffect(() => {
-    if (page !== 1) getCharacterDataAPI(type, page);
-  }, [page, type]);
+    const data = await res.json();
+
+    setProducts((prev) => ({
+      list: [...prev.list, data.resultList],
+      totalCount: data.totalCount,
+    }));
+  }, [type, page]);
 
   const onSelectCharacter = (name) => {
     router.push(`/character?type=${name}`);
@@ -107,34 +119,23 @@ const Character = ({ router, characters }) => {
       filteringName: modalFilter.conditions[targetIdx].name,
     });
 
+    // 일단 이렇게 정렬을 가정.
     // '신상품순' -> id  높은 값이 우선
     // '판매량순' -> stock 높은 값이 우선
     // '낮은가격순' -> price 낮은 값이 우선
     // '높은가격순' -> price 높은 값이 우선
-    // products: [ [{}, {}, ...], ... ] 2중 배열 형태
 
-    // 1. flat: 2차원 배열을 1차원 배열로 만듬
-    // 2. sort
+    // products: [ [{}, {}, ...], ... ] 2중 배열 형태
+    // 1. flat -> sort
     const sortedProducts = products.list.flat(2).sort((a, b) => {
       if (name === ('높은가격순' || '신상품순')) {
-        // 내림차순 2 -> 1
         return b[FILTER_NAME_MAPPING[name]] - a[FILTER_NAME_MAPPING[name]];
       }
-      // 오름차순 1 -> 2
       return a[FILTER_NAME_MAPPING[name]] - b[FILTER_NAME_MAPPING[name]];
     });
 
-    // 3. 1차원 배열를 2차원 배열 형태로 만들기
-    const num =
-      sortedProducts.length % 9 === 0
-        ? sortedProducts.length / 9
-        : Math.floor(sortedProducts.length / 9) + 1;
-
-    const updatedProducts = [];
-
-    for (let i = 0; i < num; i++) {
-      updatedProducts[i] = sortedProducts.splice(0, 9);
-    }
+    // 2. 1차원 배열 -> 2차원 배열
+    const updatedProducts = divideArrByNumber(sortedProducts, 9);
 
     setProducts((prev) => ({
       ...prev,
@@ -143,6 +144,15 @@ const Character = ({ router, characters }) => {
     setIsModalOpen(false);
   };
 
+  const updatePageFn = () => setPage((prev) => prev + 1);
+
+  useInfiniteScroll(
+    page,
+    totalPageCount,
+    getCharacterDataAPI,
+    updatePageFn,
+    800
+  );
   return (
     <>
       <section className={styles.characterWrap}>
@@ -157,7 +167,7 @@ const Character = ({ router, characters }) => {
             value={type}
             onChange={(e) => onSelectCharacter(e.target.value)}
           >
-            {filter.characterFilter.map((chac) => (
+            {characterFilter.map((chac) => (
               <option key={chac.id}>{chac.name}</option>
             ))}
           </select>

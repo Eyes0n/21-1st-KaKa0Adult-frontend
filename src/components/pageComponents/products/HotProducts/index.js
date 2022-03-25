@@ -1,47 +1,46 @@
-import { useState, useEffect } from 'react';
-import Nav from '../../../common/Nav';
-import MainTab from '../../../common/MainTab';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { API, PRODUCT_API } from '../../../../config';
 import { fetchDelete, fetchGet, fetchPost } from '../../../../utils/fetches';
-import styles from './index.module.scss';
 import HotGridLayout from './HotGridLayout';
 import GridItemList from './GridItemList';
-import { useProduct } from '../../../../hooks/useProduct';
+import useProduct from '../../../../hooks/useProduct';
+import useInfiniteScroll from '../../../../hooks/useInfiniteScroll';
+import divideArrByNumber from '../../../../utils/divideArrByNumber';
 
-const HotProducts = ({ products }) => {
-  // 그리드당 9개 데이터 사용 -> 데이터 9개씩 짤라줘야함
-  const copyProducts = [...products];
-  const dividedListByNine = [];
-
-  const num =
-    copyProducts.length % 9 === 0
-      ? copyProducts.length / 9
-      : Math.floor(copyProducts.length / 9) + 1;
-
-  for (let i = 0; i < num; i++) {
-    dividedListByNine[i] = copyProducts.splice(0, 9);
-  }
-
-  // productsList : [[{}, {},....], [], [], ...]
-  const [productsArrList, setProductsArrList] = useState([
-    ...dividedListByNine,
-  ]);
+const HotProducts = ({ productArr, totalPages }) => {
+  // productArr : [ [{}, {}, ...] ]
+  const [productsList, setProductsList] = useState(productArr);
   const [page, setPage] = useState(1);
+  const totalPageCount = useMemo(() => totalPages, [totalPages]);
 
-  useEffect(() => {
-    if (page === 1) return;
-    fetchGet(`${PRODUCT_API}/products?order=hot&pageSize=16&page=${page}`).then(
-      (result) => setProductsArrList((prev) => [...prev, result.resultList])
+  const fetcher = useCallback(async () => {
+    const res = await fetchGet(
+      `${API}/products?order=hot&pageSize=18&page=${page}`
     );
+
+    if (res.status === 204) return;
+    const data = await res.json();
+    // products : [{}, {},....]
+    const products = data.resultList;
+    // dividedListByNine : [[{}, {},....], [], [], ...]
+    const dividedListByNine = divideArrByNumber(products, 9);
+
+    setProductsList((prev) => [...prev, ...dividedListByNine]);
   }, [page]);
 
-  const [productsList, toggleProductLike, addToCart] =
-    useProduct(productsArrList);
+  const updatePageFn = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  useInfiniteScroll(page, totalPageCount, fetcher, updatePageFn, 800);
+
+  const [productsArrList, toggleProductLike, addToCart] =
+    useProduct(productsList);
 
   return (
     <>
       <HotGridLayout>
-        {productsList?.map((products, idx) => (
+        {productsArrList?.map((products, idx) => (
           <GridItemList
             key={idx}
             oddOrEven={(idx + 1) % 2 === 0 ? 'even' : 'odd'}

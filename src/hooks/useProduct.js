@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { API } from '../config';
 import { fetchDelete, fetchPost } from '../utils/fetches';
 
-export const useProduct = (itemsList) => {
+const useProduct = (itemsList) => {
   // productsList : [ [{}, {}, ...], ...]
   const [productsList, setProductsList] = useState();
 
@@ -91,3 +91,5 @@ export const useProduct = (itemsList) => {
 
   return [productsList, toggleProductLike, addToCart];
 };
+
+export default useProduct;

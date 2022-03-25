@@ -4,6 +4,7 @@ import ProductList from '../../../common/ProductList';
 import { fetchDelete, fetchGet, fetchPost } from '../../../../utils/fetches';
 import { USER_API, CART_API, PRODUCT_API, API } from '../../../../config';
 import styles from './index.module.scss';
+import useInfiniteScroll from '../../../../hooks/useInfiniteScroll';
 
 const PAGE_SIZE = 10;
 
@@ -13,34 +14,23 @@ const NewProducts = ({ productArr, totalPages }) => {
   const [page, setPage] = useState(1);
   const totalPageCount = useMemo(() => totalPages, [totalPages]);
 
-  useEffect(() => {
-    if (page !== 1 && page <= totalPageCount) {
-      fetchGet(`${API}/products?order=new&pageSize=${PAGE_SIZE}&page=${page}`)
-        .then((res) => {
-          if (res.status === 204) return null;
-          return res.json();
-        })
-        .then((result) => {
-          if (result !== null) {
-            setProductsList((prev) => [...prev, result.resultList]);
-          }
-        });
-    }
-  }, [page, totalPageCount]);
+  const fetcher = useCallback(async () => {
+    const res = await fetchGet(
+      `${API}/products?order=new&pageSize=${PAGE_SIZE}&page=${page}`
+    );
 
-  const infiniteScroll = useCallback(() => {
-    if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 800 &&
-      page <= totalPageCount
-    ) {
-      setPage((prev) => prev + 1);
+    if (res.status === 204) return;
+    const data = await res.json();
+    if (data !== null && data.resultList !== []) {
+      setProductsList((prev) => [...prev, data.resultList]);
     }
-  }, [page, totalPageCount]);
+  }, [page]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', infiniteScroll);
-    return () => window.removeEventListener('scroll', infiniteScroll);
-  }, [infiniteScroll]);
+  const updatePage = useCallback(() => {
+    setPage((prev) => prev + 1);
+  }, []);
+
+  useInfiniteScroll(page, totalPageCount, fetcher, updatePage, 800);
 
   return (
     <>

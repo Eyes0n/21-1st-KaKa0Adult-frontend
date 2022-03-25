@@ -1,30 +1,31 @@
 import { rest } from 'msw';
 import { API } from '../config';
+import { mockData } from './mockpData';
 
-const CHARACTER = ['강아지', '고양이', '햄스터', '토끼', '고슴도치', '앵무새'];
-const CATEGORY = ['먹이', '토이', '스티커', '발바닥', '집'];
-const mockProducts = (() =>
-  Array.from({ length: 80 }).map((_, i) => ({
-    id: i + 1,
-    name: `${i + 1}`,
-    character: CHARACTER[Math.floor(Math.random() * (5 + 1))],
-    category: CATEGORY[Math.floor(Math.random() * (4 + 1))],
-    price: i + 1,
-    stock: Math.floor(Math.random() * 10) + i,
-    like: false,
-    cart: false,
-    imgSrc: `https://picsum.photos/200/300?random=${i + 1}`,
-    content:
-      'https://raw.githubusercontent.com/jotasic/21-kaka0-pet-shop-images/main/product-content/1.jpg',
-    imageUrls: [
-      'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_1.jpeg',
-      'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_2.jpeg',
-      'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_3.jpeg',
-    ],
-    starPoint: (Math.random() * 5).toFixed(1),
-    starPointCount: 1,
-  })))();
-
+// const CHARACTER = ['강아지', '고양이', '햄스터', '토끼', '고슴도치', '앵무새'];
+// const CATEGORY = ['먹이', '토이', '스티커', '발바닥', '집'];
+// const mockProducts = (() =>
+//   Array.from({ length: 80 }).map((_, i) => ({
+//     id: i + 1,
+//     name: `${i + 1}`,
+//     character: CHARACTER[Math.floor(Math.random() * (5 + 1))],
+//     category: CATEGORY[Math.floor(Math.random() * (4 + 1))],
+//     price: i + 1,
+//     stock: Math.floor(Math.random() * 10) + i,
+//     like: false,
+//     cart: false,
+//     imgSrc: `https://picsum.photos/200/300?random=${i + 1}`,
+//     content:
+//       'https://raw.githubusercontent.com/jotasic/21-kaka0-pet-shop-images/main/product-content/1.jpg',
+//     imageUrls: [
+//       'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_1.jpeg',
+//       'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_2.jpeg',
+//       'https://jotasic.github.io/21-kaka0-pet-shop-images/images/carousel_3.jpeg',
+//     ],
+//     starPoint: (Math.random() * 5).toFixed(1),
+//     starPointCount: 1,
+//   })))();
+const mockProducts = [...mockData];
 const cartList = {};
 let likeList = [];
 
@@ -114,14 +115,13 @@ export const handlers = [
     let pagedProductsTotalPageCount = 1;
 
     if (pageSize !== 0) {
-      pagedProductsTotalPageCount =
-        pagedProducts.length % pageSize === 0
-          ? Math.floor(filteredProducts.length / pageSize)
-          : Math.floor(filteredProducts.length / pageSize) + 1;
+      pagedProductsTotalPageCount = Math.ceil(
+        filteredProducts.length / pageSize
+      );
     }
 
     if (page > pagedProductsTotalPageCount) {
-      return res(cts.status(204));
+      return res(ctx.status(204));
     }
     return res(
       ctx.status(200),
@@ -129,7 +129,7 @@ export const handlers = [
         resultList: pagedProducts,
         page: page || 1,
         pageSize: pageSize || pagedProducts.length,
-        totalCount: pagedProducts.length,
+        totalCount: filteredProducts.length,
         totalPageCount: pagedProductsTotalPageCount,
         numberOfElements: pagedProducts.length,
       })

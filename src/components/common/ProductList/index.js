@@ -1,5 +1,5 @@
 import Product from '../Product';
-import { useProduct } from '../../../hooks/useProduct';
+import useProduct from '../../../hooks/useProduct';
 import styles from './index.module.scss';
 
 const ProductList = ({ productsList: itemsList }) => {
@@ -19,7 +19,7 @@ const ProductList = ({ productsList: itemsList }) => {
                 toggleProductLike={toggleProductLike}
               />
             </li>
-          )),
+          ))
         )}
       </ul>
     </div>
