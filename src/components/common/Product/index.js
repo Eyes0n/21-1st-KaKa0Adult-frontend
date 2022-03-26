@@ -21,7 +21,9 @@ const Product = ({ product, addToCart, toggleProductLike }) => {
           <div className={styles.productImgWrap}>
             <img src={product.imgSrc} alt="상품 이미지" />
           </div>
-          <p className={styles.productName}>{product.name}</p>
+          <p
+            className={styles.productName}
+          >{`${product.name} ${product.character}`}</p>
           <p className={styles.productPrice}>
             <span className={styles.price}>
               {(+product.price)?.toLocaleString()}

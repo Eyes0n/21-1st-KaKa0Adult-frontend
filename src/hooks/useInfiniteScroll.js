@@ -1,33 +1,34 @@
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-const useInfiniteScroll = (
-  page,
-  totalPageCount,
-  fetcher,
-  updatePageFn,
-  margin = 800
-) => {
-  useEffect(() => {
-    console.log('page', page);
-    if (page !== 1 && page <= totalPageCount) {
-      fetcher();
-    }
-  }, [fetcher, page, totalPageCount]);
+const useInfiniteScroll = (fetcher, margin = 800) => {
+  const [isFetching, setIsFetching] = useState(false);
 
-  const infiniteScroll = useCallback(() => {
+  const handleScroll = useCallback(() => {
     if (
       window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - margin &&
-      page < totalPageCount
+      document.body.offsetHeight - margin
     ) {
-      updatePageFn();
+      setIsFetching(true);
     }
-  }, [margin, page, updatePageFn, totalPageCount]);
+  }, [margin]);
 
   useEffect(() => {
-    window.addEventListener('scroll', infiniteScroll);
-    return () => window.removeEventListener('scroll', infiniteScroll);
-  }, [infiniteScroll]);
+    try {
+      if (!isFetching) return;
+      fetcher();
+    } catch (error) {
+      throw new Error(error);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [isFetching, fetcher]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  return [isFetching, setIsFetching];
 };
 
 export default useInfiniteScroll;

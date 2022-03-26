@@ -9,6 +9,7 @@ import { fetchGet } from '../../utils/fetches';
 import styles from './index.module.scss';
 import divideArrByNumber from '../../utils/divideArrByNumber';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import useProduct from '../../hooks/useProduct';
 
 const PAGE_SIZE = 10;
 
@@ -20,30 +21,57 @@ export async function getServerSideProps(context) {
     `${API}/products?character=${type}&page=1&pageSize=10`
   );
   const data = await res.json();
-  const characters = { list: data.resultList, totalCount: data.totalCount };
+  const characters = data.resultList;
+  const totalCount = data.totalCount;
   const totalPages = data.totalPageCount;
 
   return {
-    props: { characters, totalPages },
+    props: { characters, totalPages, totalCount },
   };
 }
 
-const Character = ({ router, characters, totalPages }) => {
+const Character = ({
+  router,
+  characters,
+  totalPages,
+  totalCount: totalProductCount,
+}) => {
   // products.list : [[{},{},...], [], [], ...]
-  const [products, setProducts] = useState({
-    list: [[]],
-    totalCount: 0,
-  });
+  const [products, setProducts] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(1);
   const totalPageCount = useMemo(() => totalPages, [totalPages]);
 
   useEffect(() => {
-    setProducts({
-      list: [characters.list],
-      totalCount: characters.totalCount,
-    });
+    setProducts([characters]);
+    setTotalCount(totalProductCount);
     setPage(1);
-  }, [characters]);
+  }, [characters, totalProductCount]);
+
+  const {
+    query: { type },
+  } = router;
+
+  const getCharacterDataAPI = useCallback(async () => {
+    if (page > totalPageCount) return;
+
+    const res = await fetchGet(
+      `${API}/products?character=${type}&page=${page}&pageSize=${PAGE_SIZE}`
+    );
+
+    if (res.status === 204) return;
+
+    const data = await res.json();
+    page !== 1 && setProducts((prev) => [...prev, data.resultList]);
+    setPage((prev) => prev + 1);
+  }, [page, totalPageCount, type]);
+
+  const [isFetching, setIsFetching] = useInfiniteScroll(
+    getCharacterDataAPI,
+    800
+  );
+
+  const [productsArrList, toggleProductLike, addToCart] = useProduct(products);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const categoryFilter = useMemo(() => categoryData, []);
@@ -58,24 +86,6 @@ const Character = ({ router, characters, totalPages }) => {
     ],
     filteringName: '신상품순',
   });
-
-  const {
-    query: { type },
-  } = router;
-
-  const getCharacterDataAPI = useCallback(async () => {
-    const res = await fetchGet(
-      `${API}/products?character=${type}&page=${page}&pageSize=${PAGE_SIZE}`
-    );
-    if (res.status === 204) return;
-
-    const data = await res.json();
-
-    setProducts((prev) => ({
-      list: [...prev.list, data.resultList],
-      totalCount: data.totalCount,
-    }));
-  }, [type, page]);
 
   const onSelectCharacter = (name) => {
     router.push(`/character?type=${name}`);
@@ -127,7 +137,7 @@ const Character = ({ router, characters, totalPages }) => {
 
     // products: [ [{}, {}, ...], ... ] 2중 배열 형태
     // 1. flat -> sort
-    const sortedProducts = products.list.flat(2).sort((a, b) => {
+    const sortedProducts = products.flat(2).sort((a, b) => {
       if (name === ('높은가격순' || '신상품순')) {
         return b[FILTER_NAME_MAPPING[name]] - a[FILTER_NAME_MAPPING[name]];
       }
@@ -137,22 +147,10 @@ const Character = ({ router, characters, totalPages }) => {
     // 2. 1차원 배열 -> 2차원 배열
     const updatedProducts = divideArrByNumber(sortedProducts, 9);
 
-    setProducts((prev) => ({
-      ...prev,
-      list: updatedProducts,
-    }));
+    setProducts(updatedProducts);
     setIsModalOpen(false);
   };
 
-  const updatePageFn = () => setPage((prev) => prev + 1);
-
-  useInfiniteScroll(
-    page,
-    totalPageCount,
-    getCharacterDataAPI,
-    updatePageFn,
-    800
-  );
   return (
     <>
       <section className={styles.characterWrap}>
@@ -182,7 +180,7 @@ const Character = ({ router, characters, totalPages }) => {
           <div className={styles.filteredInfo}>
             <div className={styles.filterTxt}>
               <span>총</span>
-              <span>{products.totalCount}</span>
+              <span>{totalCount}</span>
               <span>개</span>
             </div>
             <div className={styles.filterCheckBox}>
@@ -194,7 +192,12 @@ const Character = ({ router, characters, totalPages }) => {
           </div>
         </div>
         <div className={styles.listWrap}>
-          <ProductList productsList={products.list} />
+          <ProductList
+            productsList={productsArrList}
+            toggleProductLike={toggleProductLike}
+            addToCart={addToCart}
+          />
+          {isFetching && <p>loading more products</p>}
         </div>
       </section>
       {isModalOpen && (

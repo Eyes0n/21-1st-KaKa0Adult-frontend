@@ -1,11 +1,7 @@
 import Product from '../Product';
-import useProduct from '../../../hooks/useProduct';
 import styles from './index.module.scss';
 
-const ProductList = ({ productsList: itemsList }) => {
-  const [productsList, toggleProductLike, addToCart] = useProduct(itemsList);
-  //productsList : [ [{}, {}, ...], ...]
-
+const ProductList = ({ productsList, toggleProductLike, addToCart }) => {
   return (
     <div className={styles.ProductWrap}>
       <ul className={styles.itemUl}>

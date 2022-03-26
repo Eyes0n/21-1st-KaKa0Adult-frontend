@@ -7,6 +7,8 @@ import useProduct from '../../../../hooks/useProduct';
 import useInfiniteScroll from '../../../../hooks/useInfiniteScroll';
 import divideArrByNumber from '../../../../utils/divideArrByNumber';
 
+const PAGE_SIZE = 18;
+
 const HotProducts = ({ productArr, totalPages }) => {
   // productArr : [ [{}, {}, ...] ]
   const [productsList, setProductsList] = useState(productArr);
@@ -14,25 +16,25 @@ const HotProducts = ({ productArr, totalPages }) => {
   const totalPageCount = useMemo(() => totalPages, [totalPages]);
 
   const fetcher = useCallback(async () => {
+    if (page > totalPageCount) return;
+
     const res = await fetchGet(
-      `${API}/products?order=hot&pageSize=18&page=${page}`
+      `${API}/products?order=hot&pageSize=${PAGE_SIZE}&page=${page}`
     );
 
     if (res.status === 204) return;
+
     const data = await res.json();
     // products : [{}, {},....]
     const products = data.resultList;
     // dividedListByNine : [[{}, {},....], [], [], ...]
     const dividedListByNine = divideArrByNumber(products, 9);
 
-    setProductsList((prev) => [...prev, ...dividedListByNine]);
-  }, [page]);
-
-  const updatePageFn = () => {
+    page !== 1 && setProductsList((prev) => [...prev, ...dividedListByNine]);
     setPage((prev) => prev + 1);
-  };
+  }, [page, totalPageCount]);
 
-  useInfiniteScroll(page, totalPageCount, fetcher, updatePageFn, 800);
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetcher, 800);
 
   const [productsArrList, toggleProductLike, addToCart] =
     useProduct(productsList);
@@ -50,6 +52,7 @@ const HotProducts = ({ productArr, totalPages }) => {
           />
         ))}
       </HotGridLayout>
+      {isFetching && <p>loading more products</p>}
     </>
   );
 };
