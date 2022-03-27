@@ -1,16 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
+import useThrottle from './useThrottle';
 
-const useInfiniteScroll = (fetcher, margin = 800) => {
+const useInfiniteScroll = (fetcher, margin = 1000) => {
   const [isFetching, setIsFetching] = useState(false);
-
-  const handleScroll = useCallback(() => {
-    if (
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - margin
-    ) {
-      setIsFetching(true);
-    }
-  }, [margin]);
 
   useEffect(() => {
     try {
@@ -21,12 +13,23 @@ const useInfiniteScroll = (fetcher, margin = 800) => {
     } finally {
       setIsFetching(false);
     }
-  }, [isFetching, fetcher]);
+  }, [isFetching, fetcher, margin]);
+
+  const handleScroll = useCallback(() => {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - margin
+    ) {
+      setIsFetching(true);
+    }
+  }, [margin]);
+
+  const throttledScroll = useThrottle(handleScroll, 500);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    window.addEventListener('scroll', throttledScroll);
+    return () => window.removeEventListener('scroll', throttledScroll);
+  }, [throttledScroll]);
 
   return [isFetching, setIsFetching];
 };

@@ -52,7 +52,11 @@ const Character = ({
     query: { type },
   } = router;
 
-  const getCharacterDataAPI = useCallback(async () => {
+  const fetcher = useCallback(async () => {
+    if (page === 1) {
+      setPage((prev) => prev + 1);
+      return;
+    }
     if (page > totalPageCount) return;
 
     const res = await fetchGet(
@@ -66,10 +70,7 @@ const Character = ({
     setPage((prev) => prev + 1);
   }, [page, totalPageCount, type]);
 
-  const [isFetching, setIsFetching] = useInfiniteScroll(
-    getCharacterDataAPI,
-    800
-  );
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetcher, 800);
 
   const [productsArrList, toggleProductLike, addToCart] = useProduct(products);
 

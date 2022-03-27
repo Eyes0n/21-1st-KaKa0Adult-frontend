@@ -16,6 +16,11 @@ const HotProducts = ({ productArr, totalPages }) => {
   const totalPageCount = useMemo(() => totalPages, [totalPages]);
 
   const fetcher = useCallback(async () => {
+    if (page === 1) {
+      setPage((prev) => prev + 1);
+      return;
+    }
+
     if (page > totalPageCount) return;
 
     const res = await fetchGet(
@@ -30,7 +35,7 @@ const HotProducts = ({ productArr, totalPages }) => {
     // dividedListByNine : [[{}, {},....], [], [], ...]
     const dividedListByNine = divideArrByNumber(products, 9);
 
-    page !== 1 && setProductsList((prev) => [...prev, ...dividedListByNine]);
+    setProductsList((prev) => [...prev, ...dividedListByNine]);
     setPage((prev) => prev + 1);
   }, [page, totalPageCount]);
 

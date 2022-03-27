@@ -16,6 +16,11 @@ const NewProducts = ({ productArr, totalPages }) => {
   const totalPageCount = useMemo(() => totalPages, [totalPages]);
 
   const fetcher = useCallback(async () => {
+    if (page === 1) {
+      setPage((prev) => prev + 1);
+      return;
+    }
+
     if (page > totalPageCount) return;
 
     const res = await fetchGet(
@@ -26,11 +31,11 @@ const NewProducts = ({ productArr, totalPages }) => {
 
     const data = await res.json();
 
-    page !== 1 && setProductsList((prev) => [...prev, data.resultList]);
+    setProductsList((prev) => [...prev, data.resultList]);
     setPage((prev) => prev + 1);
   }, [page, totalPageCount]);
 
-  const [isFetching, setIsFetching] = useInfiniteScroll(fetcher, 800);
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetcher, 2000);
 
   const [productsArrList, toggleProductLike, addToCart] =
     useProduct(productsList);
