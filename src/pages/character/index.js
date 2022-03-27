@@ -66,7 +66,7 @@ const Character = ({
     if (res.status === 204) return;
 
     const data = await res.json();
-    page !== 1 && setProducts((prev) => [...prev, data.resultList]);
+    setProducts((prev) => [...prev, data.resultList]);
     setPage((prev) => prev + 1);
   }, [page, totalPageCount, type]);
 
