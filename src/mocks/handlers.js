@@ -120,7 +120,7 @@ export const handlers = [
       );
     }
 
-    if (page > pagedProductsTotalPageCount) {
+    if (page > pagedProductsTotalPageCount || pagedProducts.length === 0) {
       return res(ctx.status(204));
     }
     return res(

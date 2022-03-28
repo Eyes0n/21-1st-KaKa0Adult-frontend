@@ -6,7 +6,7 @@ import { characterData } from '../../../../Data/characterData';
 import { fetchGet } from '../../../../utils/fetches';
 import { PRODUCT_API, API } from '../../../../config';
 import styles from './index.module.scss';
-import useDebounce from '../../../../hooks/useDebounceValue';
+import useDebounce from '../../../../hooks/useDebounce';
 
 const Searchbar = ({ searchbarOff }) => {
   const [keyword, setKeyword] = useState('');
@@ -16,9 +16,14 @@ const Searchbar = ({ searchbarOff }) => {
 
   const getSearchAPI = (debouncedValue) => {
     fetchGet(`${API}/products?search=${debouncedValue}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 204) {
+          return;
+        }
+        return res.json();
+      })
       .then((result) => {
-        setResult(result.resultList);
+        result && setResult(result.resultList);
       });
   };
 
