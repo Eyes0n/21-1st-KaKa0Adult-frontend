@@ -27,7 +27,7 @@ export default class Nav extends Component {
       isOpenAside === true &&
       classListArr.find((classList) =>
         classList.match(
-          /(sideMenuWrap)|(loginInOutBtn)|(Nav_hamburgerBtnLogo)|(character)|(category)/
+          /(order)|(sideMenuWrap)|(loginInOut)|(Nav_hamburgerBtnLogo)|(character)|(category)/
         )
       );
 

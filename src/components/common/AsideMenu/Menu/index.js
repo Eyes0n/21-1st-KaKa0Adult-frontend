@@ -11,11 +11,11 @@ const Menu = ({ isSlide, user, characters, categories, closeSideMenu }) => {
     router.push('/login');
   };
 
-  const onLogOut = () => {
+  const onLogOut = (e) => {
     if (user) {
       localStorage.removeItem('token');
       localStorage.removeItem('user_name');
-      closeSideMenu();
+      closeSideMenu(e);
     }
   };
 
@@ -27,7 +27,9 @@ const Menu = ({ isSlide, user, characters, categories, closeSideMenu }) => {
             {user ? (
               <>
                 <Link href="/mypage/myinfo">
-                  <a>{user}</a>
+                  <a>
+                    <span onClick={closeSideMenu}>{user}</span>
+                  </a>
                 </Link>
                 <span>님 반가워요!</span>
               </>
@@ -45,14 +47,21 @@ const Menu = ({ isSlide, user, characters, categories, closeSideMenu }) => {
           </Link>
         </article>
         <ul className={styles.menuUl}>
-          <li className={`${styles.menuLi} ${styles.topPadding}`}>
+          <li
+            className={`${styles.menuLi} ${styles.topPadding}`}
+            onClick={closeSideMenu}
+          >
             <Link href={user ? '/mypage/cart' : '/login'}>
-              <a>장바구니 내역</a>
+              <a className="order" onClick={closeSideMenu}>
+                장바구니 내역
+              </a>
             </Link>
           </li>
           <li className={`${styles.menuLi} ${styles.borderPaddingBottom}`}>
-            <Link href={user ? '/mypage/orderList' : '/login'}>
-              <a>주문·배송 내역</a>
+            <Link href={user ? '/mypage/orderlist' : '/login'}>
+              <a className="order" onClick={closeSideMenu}>
+                주문·배송 내역
+              </a>
             </Link>
           </li>
           <li className={`${styles.menuLi} ${styles.topPadding}`}>
