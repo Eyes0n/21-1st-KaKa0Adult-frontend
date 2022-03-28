@@ -200,6 +200,8 @@ export const handlers = [
       cartData.push(product);
     }
 
+    if (cartData.length === 0) return res(ctx.status(204));
+
     return res(
       ctx.status(200),
       ctx.json({

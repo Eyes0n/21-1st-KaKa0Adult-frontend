@@ -15,6 +15,8 @@ const Cart = () => {
 
   const getCartData = async () => {
     const res = await fetchGet(`${API}/orders/order-items`);
+
+    if (res.status === 204) return;
     const data = await res.json();
 
     setCart((prev) => ({
