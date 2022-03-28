@@ -26,8 +26,9 @@ import { mockData } from './mockpData';
 //     starPointCount: 1,
 //   })))();
 const mockProducts = [...mockData];
-const cartList = {};
+let cartList = {};
 let likeList = [];
+let orderList = [];
 
 export const handlers = [
   // login
@@ -123,6 +124,15 @@ export const handlers = [
     if (page > pagedProductsTotalPageCount || pagedProducts.length === 0) {
       return res(ctx.status(204));
     }
+    /*
+      resultList : 결과 상품 배열
+      page : 현재 페이지 번호
+      pageSize : 페이지당 결과 갯수
+      totalCount : 전체 아이템 갯수
+      totalPageCount : 전체 페이지 갯수
+      numberOfElements : 결과 리스트(결과 상품 배열)의 길이
+    */
+
     return res(
       ctx.status(200),
       ctx.json({
@@ -143,7 +153,7 @@ export const handlers = [
     );
     return res(ctx.json({ result: productInfo }));
   }),
-  // post users/like/product
+  // 상품 좋아요 post users/like/product
   rest.post(`${API}/users/like/product`, (req, res, ctx) => {
     const { product_id } = req.body;
     const targetId = Number(product_id);
@@ -165,7 +175,7 @@ export const handlers = [
       })
     );
   }),
-  // delete users/like/product
+  // 상품 좋아요 취소 delete users/like/product
   rest.delete(`${API}/users/like/product/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const targetId = Number(id);
@@ -186,7 +196,7 @@ export const handlers = [
       })
     );
   }),
-  // get orders/order-items
+  // 장바구니 get orders/order-items
   rest.get(`${API}/orders/order-items`, (req, res, ctx) => {
     const cartData = [];
     for (const productId in cartList) {
@@ -209,7 +219,7 @@ export const handlers = [
       })
     );
   }),
-  // post orders/order-items
+  // 장바구니 추가 post orders/order-items
   rest.post(`${API}/orders/order-items`, (req, res, ctx) => {
     const { product_id, count } = req.body;
     const targetIndex = mockProducts.findIndex(
@@ -226,7 +236,7 @@ export const handlers = [
       })
     );
   }),
-  // delete orders/order-items
+  // 장바구니 삭제 delete orders/order-items
   rest.delete(`${API}/orders/order-items/:productId`, (req, res, ctx) => {
     const { productId } = req.params;
     const targetId = Number(productId);
@@ -244,7 +254,7 @@ export const handlers = [
       })
     );
   }),
-  // patch orders/order-items
+  // 장바구니 상품 수량 수정 patch orders/order-items
   rest.patch(`${API}/orders/order-items`, (req, res, ctx) => {
     const { order_item_id, count } = req.body;
 
@@ -258,13 +268,35 @@ export const handlers = [
       })
     );
   }),
-];
+  // 결제 요청 post orders
+  rest.post(`${API}/orders`, (req, res, ctx) => {
+    const { order_item_list, recipient_info } = req.body;
 
-/*
-- 장바구니 get post patch delete
-page : 현재 페이지 번호
-pageSize : 페이지 한개당 결과 갯수
-totalCount : 전체 아이템 갯수
-totalPageCount : 전체 페이지 갯수
-numberOfElements : 결과 리스트의 길이
-*/
+    order_item_list.forEach((item) => delete cartList[item.id]);
+
+    const orderHistoryItem = {};
+    orderList.products = order_item_list;
+    orderList.info = recipient_info;
+
+    console.log('orderList', orderList);
+    console.log('cartList', cartList);
+
+    return res(ctx.status(204));
+  }),
+  // 주문 내역 get orders
+  rest.get(`${API}/orders`, (req, res, ctx) => {
+    if (orderList?.products === (undefined || [])) {
+      return res(ctx.status(204));
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          orderProductList: orderList.products,
+          orderInfo: orderList.info,
+        },
+      ])
+    );
+  }),
+];

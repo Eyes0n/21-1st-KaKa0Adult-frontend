@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { withRouter } from 'next/router';
-import OrderList from './OrderList';
+import OrderCard from './OrderCard';
 import OrderPrice from './OrderPrice';
 import { fetchPost, fetchGet } from '../../../../utils/fetches';
 import { API } from '../../../../config';
@@ -36,7 +36,7 @@ const Order = ({ router }) => {
       // url로 직접 접근한 경우
       getOrderDataAPI();
     }
-  }, []);
+  }, [cartData]);
 
   const handleInput = (e) => {
     setPersonalData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -45,31 +45,29 @@ const Order = ({ router }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, phone_number, address, request } = personalData;
-    const itemsToOrder = orderData?.filter((item) => item.selected);
-    const idsToOrder = itemsToOrder.map((item) => item.order_item_id);
 
     await alert('정말 결제하시겠습니까?');
-
-    // await fetchPost(`${API}/orders`, {
-    //   order_item_list: idsToOrder,
-    //   recipient_info: {
-    //     name,
-    //     phone_number,
-    //     address,
-    //     request,
-    //   },
-    // }).then((res) => res.message);
+    await fetchPost(`${API}/orders`, {
+      order_item_list: orderData,
+      recipient_info: {
+        name,
+        phone_number,
+        address,
+        request,
+      },
+    }).then((res) => {
+      if (res.status === 204) {
+        alert('결제 성공');
+        return;
+      }
+      alert('결제 실패');
+    });
 
     router.push('/mypage/orderlist');
   };
 
-  const dataByCart = orderData;
-  let selectedItems;
-  if (dataByCart?.length > 0) {
-    selectedItems = dataByCart?.filter((item) => item.selected);
-  }
   const totalPrice = Math.floor(
-    selectedItems?.reduce((acc, item) => acc + item.price * item.count, 0),
+    orderData?.reduce((acc, item) => acc + item.price * item.count, 0)
   );
 
   return (
@@ -79,10 +77,8 @@ const Order = ({ router }) => {
           <h3 className={styles.title}>01 주문상품</h3>
           <div className={styles.contents}>
             <ul className={styles.orderDetailList}>
-              {dataByCart?.map((item, idx) => {
-                return (
-                  <OrderList key={item.order_item_id} id={idx} item={item} />
-                );
+              {orderData?.map((item, idx) => {
+                return <OrderCard key={item.id} id={idx} item={item} />;
               })}
             </ul>
             <OrderPrice totalPrice={totalPrice} />

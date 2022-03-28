@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import styles from './index.module.scss';
 
-export default class OrderList extends Component {
+export default class OrderCard extends Component {
   render() {
     const { item } = this.props;
     const price = Number(item.price).toLocaleString();
