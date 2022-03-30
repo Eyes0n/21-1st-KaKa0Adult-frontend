@@ -3,11 +3,10 @@ import { API } from '../../../../config';
 import { fetchGet } from '../../../../utils/fetches';
 import OrderHistoryCard from './OrderHistoryCard';
 import styles from './index.module.scss';
+import Empty from '../../../common/Empty';
 
 const OrderList = () => {
-  const [orderHistoies, setOrderHistoies] = useState([
-    { orderedAt: '', productsArr: [] },
-  ]);
+  const [orderHistoies, setOrderHistoies] = useState(null);
 
   const getOrderHistory = async () => {
     const res = await fetchGet(`${API}/orders`);
@@ -54,19 +53,27 @@ const OrderList = () => {
   }, []);
 
   return (
-    <div className={styles.wrapper}>
-      <div>
-        {orderHistoies?.map(({ orderedAt, productsArr = [] }) => {
-          console.log('productsArr', productsArr);
-          return (
-            <div key={orderedAt} className={styles.orderHistories}>
-              <p className={styles.byDate}>{orderedAt}</p>
-              <OrderHistoryCard productsArr={productsArr} />
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <>
+      {!orderHistoies ? (
+        <Empty
+          message={['주문내역이 없습니다.', '주문하러 가실까요?']}
+          link={{ url: '/products/hot', text: '인기 상품 보기' }}
+        />
+      ) : (
+        <div className={styles.wrapper}>
+          <div>
+            {orderHistoies?.map(({ orderedAt, productsArr = [] }) => {
+              return (
+                <div key={orderedAt} className={styles.orderHistories}>
+                  <p className={styles.byDate}>{orderedAt}</p>
+                  <OrderHistoryCard productsArr={productsArr} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

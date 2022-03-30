@@ -5,6 +5,7 @@ import { CART_API, API } from '../../../../config';
 import CartList from '../CartList';
 import { DELIVERY_CHARGE } from '../../../../Constants';
 import styles from './index.module.scss';
+import Empty from '../../../common/Empty';
 
 const Cart = () => {
   const [cart, setCart] = useState({
@@ -219,24 +220,31 @@ const Cart = () => {
   );
 
   return cartData.length === 0 ? (
-    <div className={styles.myPage}>
-      <div className={styles.contents}>
-        <div className={styles.emptyBasket}>
-          <div className={styles.emptyImg}></div>
-          <div className={styles.emptyMsg}>
-            아직 관심 상품이 없네요!
-            <br />
-            귀여운 프렌즈 상품을 추천드릴게요
-          </div>
-          <Link href="/products/hot">
-            <a className={styles.linkToHot}>
-              <span className={styles.linkTitle}>인기상품 보기</span>
-            </a>
-          </Link>
-        </div>
-      </div>
-    </div>
+    <Empty
+      message={[
+        '아직 관심 상품이 없네요!',
+        '귀여운 프렌즈 상품을 추천드릴게요',
+      ]}
+      link={{ url: '/products/hot', text: '인기상품 보기' }}
+    />
   ) : (
+    // <div className={styles.myPage}>
+    //   <div className={styles.contents}>
+    //     <div className={styles.emptyBasket}>
+    //       <div className={styles.emptyImg}></div>
+    //       <div className={styles.emptyMsg}>
+    //         아직 관심 상품이 없네요!
+    //         <br />
+    //         귀여운 프렌즈 상품을 추천드릴게요
+    //       </div>
+    //       <Link href="/products/hot">
+    //         <a className={styles.linkToHot}>
+    //           <span className={styles.linkTitle}>인기상품 보기</span>
+    //         </a>
+    //       </Link>
+    //     </div>
+    //   </div>
+    // </div>
     <>
       <div className={styles.myPage}>
         <div className={styles.headerWrap}>
