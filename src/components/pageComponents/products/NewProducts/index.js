@@ -42,7 +42,7 @@ const NewProducts = ({ productArr, totalPages }) => {
 
   return (
     <>
-      <article className={styles.NewProducts}>
+      <div className={styles.NewProducts}>
         <Carousel />
         <div className={styles.wrapLists}>
           <div className={styles.listsContainer}>
@@ -56,7 +56,7 @@ const NewProducts = ({ productArr, totalPages }) => {
           />
         </div>
         {isFetching && <p>loading more products</p>}
-      </article>
+      </div>
     </>
   );
 };

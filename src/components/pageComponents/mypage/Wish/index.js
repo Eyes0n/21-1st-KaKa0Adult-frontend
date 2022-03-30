@@ -29,6 +29,17 @@ const Wish = () => {
     setWishes(newWishes);
   };
 
+  const onCancleLikeAll = async () => {
+    const promises = [];
+    wishes.forEach((wish) =>
+      promises.push(fetchDelete(`${API}/users/like/product/${wish.id}`))
+    );
+
+    Promise.all(promises).then((res) => {
+      const isAllSuccess = [...res].every((res) => res.status === 200);
+      if (isAllSuccess) setWishes([]);
+    });
+  };
   return (
     <>
       {!wishes.length ? (
@@ -39,7 +50,11 @@ const Wish = () => {
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.allDeleteButtonBox}>
-            <button type="button" className={styles.allDeleteButton}>
+            <button
+              type="button"
+              className={styles.allDeleteButton}
+              onClick={onCancleLikeAll}
+            >
               전체 삭제
             </button>
           </div>

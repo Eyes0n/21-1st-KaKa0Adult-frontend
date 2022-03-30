@@ -6,6 +6,7 @@ import '../styles/reset.scss';
 import Head from 'next/head';
 import Nav from '../components/common/Nav';
 import MainTab from '../components/common/MainTab';
+import Layout from '../components/common/Layout';
 
 // if (process.env.NODE_ENV === 'development') {
 //   (async () => {
@@ -38,8 +39,9 @@ function MyApp({ Component, pageProps }) {
           <MainTab />
         </>
       )}
-
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
       {asPath.match(mypageOrProductIdRegex) ? <MyPageFooter /> : <Footer />}
     </>
   );
