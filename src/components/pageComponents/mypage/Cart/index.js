@@ -206,7 +206,6 @@ const Cart = () => {
         return res;
       })
       .then(({ flags, jsons }) => {
-        console.log(jsons);
         flags.every((flag) => flag)
           ? alert('전체 삭제 성공')
           : alert('전체 삭제 실패');
