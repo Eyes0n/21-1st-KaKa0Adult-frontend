@@ -153,6 +153,15 @@ export const handlers = [
     );
     return res(ctx.json({ result: productInfo }));
   }),
+  // 좋아요 상품 get
+  rest.get(`${API}/users/like/products`, (req, res, ctx) => {
+    // likeList : [id,id,]
+    const likedProducts = likeList.map((likeId) => {
+      const found = mockProducts.filter((product) => product.id === likeId);
+      return found[0];
+    });
+    return res(ctx.status(200), ctx.json(likedProducts));
+  }),
   // 상품 좋아요 post users/like/product
   rest.post(`${API}/users/like/product`, (req, res, ctx) => {
     const { product_id } = req.body;
@@ -190,7 +199,7 @@ export const handlers = [
     }
 
     return res(
-      ctx.status(201),
+      ctx.status(200),
       ctx.json({
         id: targetId,
       })

@@ -28,7 +28,7 @@ const useProduct = (itemsList) => {
     if (productsList[targetProductsGroupIndex][targetProductIndex].like) {
       fetchDelete(`${API}/users/like/product/${targetId}`)
         .then((res) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             setProductsList(updatedProducts);
           } else {
             alert('Like Cancle Fail');
