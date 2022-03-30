@@ -274,29 +274,23 @@ export const handlers = [
 
     order_item_list.forEach((item) => delete cartList[item.id]);
 
-    const orderHistoryItem = {};
-    orderList.products = order_item_list;
-    orderList.info = recipient_info;
-
-    console.log('orderList', orderList);
-    console.log('cartList', cartList);
+    const orderHistory = {
+      orderId: new Date().toISOString(),
+      products: order_item_list, // [{},{}]
+      recipient_info: recipient_info, // {}
+      createdAt: new Date(), // string
+      deliveryState: '주문 접수',
+    };
+    orderList.push(orderHistory);
 
     return res(ctx.status(204));
   }),
   // 주문 내역 get orders
   rest.get(`${API}/orders`, (req, res, ctx) => {
-    if (orderList?.products === (undefined || [])) {
+    if (!orderList.length) {
       return res(ctx.status(204));
     }
 
-    return res(
-      ctx.status(200),
-      ctx.json([
-        {
-          orderProductList: orderList.products,
-          orderInfo: orderList.info,
-        },
-      ])
-    );
+    return res(ctx.status(200), ctx.json(orderList));
   }),
 ];
