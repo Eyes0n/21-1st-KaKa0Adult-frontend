@@ -25,7 +25,7 @@ export default class CartList extends Component {
           />
         </label>
         <div className={styles.thumbWrap}>
-          <Link href="/">
+          <Link href={`/products/${item.id}`}>
             <a className={styles.linkThumb}>
               <span className={styles.thumbContainer}>
                 <span className={styles.imgBox}>
