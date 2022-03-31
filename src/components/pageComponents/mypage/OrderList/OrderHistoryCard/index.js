@@ -17,7 +17,7 @@ const OrderHistoryCard = ({ productsArr }) => {
 
         return (
           <div className={styles.contentContainer} key={id}>
-            <Link href={`${API}/order/${orderId}`}>
+            <Link href={`/mypage/orders/${orderId}`}>
               <a>
                 <div className={styles.orderInfo}>
                   <div className={styles.image}>
