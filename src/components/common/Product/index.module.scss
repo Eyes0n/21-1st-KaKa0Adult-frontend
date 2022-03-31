@@ -11,12 +11,23 @@
     background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heart.png')
       center center / cover no-repeat;
     cursor: pointer;
+    background-size: 28px 28px;
+
+    &::before {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+    }
 
     &.addToLike {
       width: 32px;
       height: 32px;
       background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heartRed.png')
         center center / cover no-repeat;
+      background-size: 28px 28px;
     }
 
     .likeBtn {
@@ -33,6 +44,7 @@
       position: relative;
       overflow: hidden;
       width: 275px;
+      height: 275px;
       margin-right: 20px;
       margin-bottom: 12px;
       border-radius: 6px;
@@ -49,7 +61,7 @@
 
       img {
         width: 100%;
-        height: 275px;
+        height: 100%;
       }
     }
 
