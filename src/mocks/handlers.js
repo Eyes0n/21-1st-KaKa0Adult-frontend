@@ -302,4 +302,17 @@ export const handlers = [
 
     return res(ctx.status(200), ctx.json(orderList));
   }),
+  // 주문 상세
+  rest.get(`${API}/orders/:orderId`, (req, res, ctx) => {
+    const { orderId: targetId } = req.params;
+    const orderDetailInfo = orderList.filter(
+      (order) => order.orderId === targetId
+    )[0];
+
+    if (!orderDetailInfo) {
+      return res(ctx.status(204));
+    }
+    console.log('orderDetailInfo', orderDetailInfo);
+    return res(ctx.status(200), ctx.json(orderDetailInfo));
+  }),
 ];
