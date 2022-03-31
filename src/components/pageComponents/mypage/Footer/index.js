@@ -6,7 +6,7 @@ export default class Footer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrowIconOn: true,
+      arrowIconOn: false,
     };
   }
 
@@ -43,13 +43,13 @@ export default class Footer extends Component {
             <div className={styles.companySection}>
               <div className={styles.logoToggle}>
                 <span className={styles.logo}>
-                  kakao<span className={styles.bold}>petshop</span>
+                  kokoo<span className={styles.bold}>petshop</span>
                 </span>
                 <span
                   className={
                     arrowIconOn
-                      ? `${styles.logoToggleIcon} ${styles.active}`
-                      : styles.logoToggleIcon
+                      ? styles.logoToggleIcon
+                      : `${styles.logoToggleIcon} ${styles.active}`
                   }
                   onClick={this.toggleArrowIcon}
                 />
@@ -58,7 +58,7 @@ export default class Footer extends Component {
             {arrowIconOn && (
               <div className={styles.companyInfoSection}>
                 <div className={styles.title}>
-                  <span className={styles.companyInfo}>(주)그레이스풀레인</span>
+                  <span className={styles.companyInfo}>(주)XXXXX</span>
                   <span className={styles.companyInfo}>주소</span>
                   <span className={styles.companyInfo}>사업자등록번호</span>
                   <span className={styles.companyInfo}>호스팅서비스사업자</span>
@@ -66,14 +66,14 @@ export default class Footer extends Component {
                   <span className={styles.companyInfo}>고객센터</span>
                 </div>
                 <div className={styles.para}>
-                  <span className={styles.companyInfo}>대표이사 송은우</span>
+                  <span className={styles.companyInfo}>대표이사 xxx</span>
                   <span className={styles.companyInfo}>
-                    서울특별시 강남구 테헤란로 427, 위워크타워
+                    서울특별시 강남구 테헤란로 xxx, xxxxx타워
                   </span>
                   <span className={styles.companyInfo}>530-81-01310</span>
-                  <span className={styles.companyInfo}>(주)그레이스풀레인</span>
+                  <span className={styles.companyInfo}>(주)XXXXX</span>
                   <span className={styles.companyInfo}>
-                    store@kakaopetshop.com
+                    store@kokoopetshop.com
                   </span>
                   <span className={styles.companyInfo}>1577-6263</span>
                   <span className={styles.companyInfo}>
