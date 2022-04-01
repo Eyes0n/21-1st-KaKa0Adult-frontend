@@ -71,9 +71,11 @@ export default class Nav extends Component {
                   <span className={styles.searchBtnLogo}></span>
                 </button>
                 <Link href="/mypage/cart">
-                  <button type="button" className={styles.cartBtn}>
-                    <span className={styles.cartBtnLogo}></span>
-                  </button>
+                  <a>
+                    <button type="button" className={styles.cartBtn}>
+                      <span className={styles.cartBtnLogo}></span>
+                    </button>
+                  </a>
                 </Link>
               </div>
             </div>

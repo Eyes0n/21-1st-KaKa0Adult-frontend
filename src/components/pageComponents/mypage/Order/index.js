@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'next/router';
 import OrderCard from './OrderCard';
 import OrderPrice from './OrderPrice';
@@ -46,7 +46,7 @@ const Order = ({ router }) => {
     e.preventDefault();
     const { name, phone_number, address, request } = personalData;
 
-    await alert('정말 결제하시겠습니까?');
+    await confirm('정말 결제하시겠습니까?');
     await fetchPost(`${API}/orders`, {
       order_item_list: orderData,
       recipient_info: {
@@ -70,9 +70,32 @@ const Order = ({ router }) => {
     orderData?.reduce((acc, item) => acc + item.price * item.count, 0)
   );
 
+  const formRef = useRef();
+
+  const isDisableSubmit = () => {
+    const form = new FormData(formRef.current);
+    const submitButton = formRef.current.querySelector('button[type="submit"]');
+    const requireds = [...form.entries()].filter(
+      ([key, value]) => key !== 'request' && value !== ''
+    );
+    if (
+      requireds.length ===
+      ['name', 'phone_number', 'address', 'pay', 'terms', 'terms'].length
+    ) {
+      submitButton.disabled = false;
+      return;
+    }
+    submitButton.disabled = true;
+  };
+
   return (
     <div className={styles.Order}>
-      <form className={styles.formWrap} onSubmit={handleSubmit}>
+      <form
+        ref={formRef}
+        className={styles.formWrap}
+        onChange={isDisableSubmit}
+        onSubmit={handleSubmit}
+      >
         <section className={styles.itemToOrder}>
           <h3 className={styles.title}>01 주문상품</h3>
           <div className={styles.contents}>
@@ -98,6 +121,7 @@ const Order = ({ router }) => {
                 placeholder="이름"
                 onChange={handleInput}
                 value={personalData.name}
+                required
               />
             </div>
             <div className={styles.phoneContainer}>
@@ -108,6 +132,7 @@ const Order = ({ router }) => {
                 placeholder="전화번호 (-없이 입력)"
                 onChange={handleInput}
                 value={personalData.phone_number}
+                required
               />
             </div>
             <div className={styles.addressContainer}>
@@ -118,6 +143,7 @@ const Order = ({ router }) => {
                 placeholder="주소"
                 onChange={handleInput}
                 value={personalData.address}
+                required
               />
             </div>
             <div className={styles.requestContainer}>
@@ -142,7 +168,8 @@ const Order = ({ router }) => {
             </div>
             <div className={styles.noticeContainer}>
               <div className={styles.intendedDday}>
-                <i className="fas fa-shuttle-van"></i> 6/16(수) 도착 예정
+                <i className="fas fa-shuttle-van"></i> Month/Day(day of the
+                week) 도착 예정
               </div>
               <div className={styles.para}>
                 오후 3시 이전 주문시 당일 출고
@@ -167,26 +194,49 @@ const Order = ({ router }) => {
               <div className={styles.selectBox}>
                 <label htmlFor="kakaopay" className="">
                   카카오페이
-                  <input id="kakaopay" type="radio" value="kakaopay" />
+                  <input
+                    id="kakaopay"
+                    type="radio"
+                    name="pay"
+                    value="kakaopay"
+                    defaultChecked
+                  />
                 </label>
                 <label htmlFor="creditcard" className="">
                   신용카드
-                  <input id="creditcard" type="radio" value="creditcard" />
+                  <input
+                    id="creditcard"
+                    type="radio"
+                    name="pay"
+                    value="creditcard"
+                  />
                 </label>
               </div>
               <div className={styles.agreeBox}>
                 <label className={styles.agreeToNotice}>
-                  <input className={styles.checkbox} type="checkbox" />
+                  <input
+                    className={styles.checkbox}
+                    type="checkbox"
+                    name="terms"
+                    value
+                    required
+                  />
                   상품 주문 및 배송정보 수집에 동의합니다<span>[필수]</span>
                 </label>
                 <label className={styles.agreeToNotice}>
-                  <input className={styles.checkbox} type="checkbox" />
+                  <input
+                    className={styles.checkbox}
+                    type="checkbox"
+                    name="terms"
+                    value
+                    required
+                  />
                   주문 상품의 명시내용과 사용조건을 확인하였으며, 취소환불
                   규정에 동의합니다<span>[필수]</span>
                 </label>
               </div>
               <div>
-                <button type="submit" className={styles.submitBtn}>
+                <button type="submit" className={styles.submitBtn} disabled>
                   결제하기
                 </button>
               </div>
