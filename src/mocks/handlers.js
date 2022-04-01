@@ -160,6 +160,10 @@ export const handlers = [
       const found = mockProducts.filter((product) => product.id === likeId);
       return found[0];
     });
+
+    if (!likedProducts.length) {
+      return res(ctx.status(204));
+    }
     return res(ctx.status(200), ctx.json(likedProducts));
   }),
   // 상품 좋아요 post users/like/product
@@ -312,7 +316,6 @@ export const handlers = [
     if (!orderDetailInfo) {
       return res(ctx.status(204));
     }
-    console.log('orderDetailInfo', orderDetailInfo);
     return res(ctx.status(200), ctx.json(orderDetailInfo));
   }),
 ];
