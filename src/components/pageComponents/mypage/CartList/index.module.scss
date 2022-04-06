@@ -1,0 +1,117 @@
+.basketItemWrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px 0px;
+  margin: 0px 16px 0px 20px;
+  border-top: 1px solid rgb(242, 242, 242);
+
+  .checkboxLabel {
+    margin-right: 10px;
+  }
+  .thumbWrap {
+    width: 100px;
+    height: 100px;
+    margin-right: 14px;
+    padding: 0px;
+    object-fit: contain;
+    .thumbContainer {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      border-radius: 6px;
+      width: 100px;
+      height: 100px;
+      .imgBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        .thumbImage {
+          width: 100%;
+          height: auto;
+          border: 0 none;
+        }
+      }
+    }
+  }
+  .itemInfo {
+    position: relative;
+    width: 100%;
+    padding-top: 6px;
+
+    .titleWrap {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 6.5px;
+      width: 446px;
+
+      .title {
+        width: 344px;
+        height: 18.5px;
+        line-height: 18.5px;
+        font-size: 16px;
+        letter-spacing: -0.2px;
+        color: rgb(0, 0, 0);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .deleteButton {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background-size: 16px;
+        top: -4px;
+        right: -12px;
+        background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/deleteX.png')
+          center center / 16px no-repeat;
+      }
+    }
+
+    .priceWrap {
+      font-size: 16px;
+      line-height: 0.94;
+      letter-spacing: -0.2px;
+      padding-bottom: 10px;
+    }
+
+    .countWrap {
+      margin-top: 10px;
+
+      .itemCounter {
+        display: flex;
+        justify-content: space-between;
+        width: 90px;
+        height: 27px;
+        border: 1px solid #efa543;
+      }
+
+      .qtyDp {
+        border: none;
+        width: 30px;
+        height: 25px;
+        background-color: #fff;
+        text-indent: 4px;
+        padding: 0;
+        margin: 0;
+      }
+
+      .quantity-plus,
+      .quantity-minus {
+        appearance: none;
+        color: #fff;
+        background-color: #efa543;
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+}
