@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'next/router';
 import OrderList from './OrderList';
 import OrderPrice from './OrderPrice';
@@ -71,6 +71,29 @@ const Order = ({ router }) => {
   const totalPrice = Math.floor(
     selectedItems?.reduce((acc, item) => acc + item.price * item.count, 0),
   );
+
+  // TODO: 비제어 컴포넌트로 ref를 사용하여 만들기.
+  // ref로 form을 참조하고 form필드의 값을 formData로 관리해주면
+  // form필드에 있는 요소들을 요소들의 name을 key로 요소들의 value를 가지고
+  // [{[name]: value}, ......] 값을 가지는 formData가 만들어진다.
+  const formRef = useRef(null);
+
+  // TODO: 전체 선택 클릭 시 모든 개별 아이템 선택 또는 선택 해제
+  const setAllCheckedFromAll = () => {};
+
+  // TODO: 개별 상품 선택 마다 전체 선택 요소가 선택 또는 선택 해제
+  const setItemsCheckedFromAll = () => {};
+
+  // TODO: form요소의 onChange에 따른 value변화 처리
+  const handleFormChange = (e) => {
+    const data = new FormData(formRef.current);
+    const { classList, name, value } = e.target;
+    console.dir([...data]);
+    console.log(data.has('payCard'));
+    console.log('c', classList);
+    console.log('n', name);
+    console.log('v', value);
+  };
 
   return (
     <div className={styles.Order}>
